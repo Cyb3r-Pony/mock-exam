@@ -724,6 +724,278 @@ window.QS = [
     "trap": "The macOS step that gets missed: DESELECT 'Reopen windows when logging back in' — otherwise the next boot changes state. Also note /r and init 6 are REBOOTS, not shutdowns."
   },
   {
+    "id": "CH-101",
+    "section": "Digital Evidence",
+    "module": 1,
+    "topic": "Evidence Locations by Device",
+    "difficulty": "hard",
+    "stem": "A scene contains a router, a switch, a hub and a cable modem. Where is the evidence held on each?",
+    "options": [
+      "On the router the evidence is in its configuration files; on hubs, switches and modems it is on the devices themselves",
+      "On all four the evidence is in the configuration files, which must be exported before power is removed",
+      "On the router the evidence is on the device itself; on hubs, switches and modems it is in configuration files",
+      "None of the four retains evidence, so all four should be left in place and photographed only"
+    ],
+    "answer": 0,
+    "explanation": "The courseware's sources-of-evidence table splits these deliberately: for routers, evidence is found in the CONFIGURATION FILES; for hubs, switches and modems, evidence is found on the DEVICES THEMSELVES. Option C is the exact inversion and is the intended trap.",
+    "trap": "Router = configuration files. Hub / switch / modem = the device itself. Learn the split, not a single rule for all network gear."
+  },
+  {
+    "id": "CH-102",
+    "section": "Digital Evidence",
+    "module": 1,
+    "topic": "Evidence Locations by Device",
+    "difficulty": "medium",
+    "stem": "Which device is documented as yielding connection records, IMEI and SIM information, cached data and file artifacts?",
+    "options": [
+      "A dongle",
+      "A smart card",
+      "A biometric scanner",
+      "A memory card"
+    ],
+    "answer": 0,
+    "explanation": "The dongle entry lists connection records, IMEI and SIM information, cached data and file artifacts. A smart card yields access level, configurations and permissions plus the device itself; a biometric scanner yields biometric traits, access logs and authentication records; a memory card yields event and chat logs, text and image files, social media logs and browsing history.",
+    "trap": "IMEI and SIM data on a DONGLE surprises people — it is not only a phone artifact."
+  },
+  {
+    "id": "CH-103",
+    "section": "Procedures and Methodology",
+    "module": 2,
+    "topic": "Securing the Crime Scene",
+    "difficulty": "hard",
+    "stem": "While securing an electronic crime scene, a helpful employee offers to log in and show the investigator where the files are. What does the procedure require?",
+    "options": [
+      "Refuse the offer of help or technical assistance",
+      "Accept it, but have the employee sign the chain of custody form afterwards",
+      "Accept it only if the employee is a system administrator with documented authority",
+      "Accept it and record the session with screen-capture software as contemporaneous notes"
+    ],
+    "answer": 0,
+    "explanation": "Securing and evaluating the scene includes an explicit instruction to REFUSE any offer of help or technical assistance. Alongside it: allow no individual to access the scene or devices, isolate other people present, and document, disconnect and label telephone lines and network cables. A well-meaning insider touching the system destroys volatile state and contaminates the evidence.",
+    "trap": "The rule is absolute and counter-intuitive — refuse, regardless of how senior or willing the person is."
+  },
+  {
+    "id": "CH-104",
+    "section": "Procedures and Methodology",
+    "module": 2,
+    "topic": "Seizing Evidence",
+    "difficulty": "medium",
+    "stem": "How should items found at an electronic crime scene be handled during seizure?",
+    "options": [
+      "Identified, recorded, seized and bagged with no attempt to determine their contents or status",
+      "Opened and previewed on site so that irrelevant items are not needlessly seized",
+      "Powered on briefly to confirm they hold data before being bagged and logged",
+      "Bagged first and identified later at the laboratory, where conditions are controlled"
+    ],
+    "answer": 0,
+    "explanation": "Pieces of evidence are identified, recorded, seized and bagged with no attempt made to determine their contents or status. Every item is tagged with the date and time of collection and the initials of the collecting person. Previewing or powering on at the scene alters the evidence and is exactly what the rule prevents.",
+    "trap": "Curiosity at the scene is the enemy. Determining contents happens in the lab, on a verified copy."
+  },
+  {
+    "id": "CH-105",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "RAID Levels",
+    "difficulty": "hard",
+    "stem": "Which RAID level distributes DUAL parity across the array, survives a simultaneous two-disk failure, and is considered unsuitable for database applications?",
+    "options": [
+      "RAID 6",
+      "RAID 5",
+      "RAID 10",
+      "RAID 3"
+    ],
+    "answer": 0,
+    "explanation": "RAID 6 is an upgraded RAID 5 in which dual parity is distributed across the disks, letting the array withstand a double-disk failure. It requires a minimum of 4 and a maximum of 32 drives. Two sets of parity per write reduce write performance and add server overhead, which is why it is called unsuitable for database applications and better suited to many small simultaneous I/O transactions.",
+    "trap": "RAID 5 = single distributed parity. RAID 6 = DUAL distributed parity, min 4 / max 32 drives."
+  },
+  {
+    "id": "CH-106",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "RAID Levels",
+    "difficulty": "medium",
+    "stem": "Which RAID level combines mirroring with striping, needs at least four drives, and gives only 50% storage efficiency?",
+    "options": [
+      "RAID 10",
+      "RAID 6",
+      "RAID 5",
+      "RAID 0"
+    ],
+    "answer": 0,
+    "explanation": "RAID 10, also written RAID 1+0, combines RAID 0 striping with RAID 1 mirroring and requires a minimum of four drives. It offers the best read and write performance and high fault tolerance, but because every drive is mirrored the storage efficiency is only 50% of total capacity. Data is lost only if both members of the same mirrored pair fail.",
+    "trap": "50% efficiency is the mirroring tell — it points to RAID 1 or RAID 10, never to a parity level."
+  },
+  {
+    "id": "CH-107",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "JBOD",
+    "difficulty": "medium",
+    "stem": "A storage configuration concatenates disks of differing capacities into one large logical drive with no redundancy, parity or striping. What is it, and what is the term for that concatenation?",
+    "options": [
+      "JBOD, and the concatenation is called spanning",
+      "RAID 0, and the concatenation is called striping",
+      "RAID 1, and the concatenation is called mirroring",
+      "LVM, and the concatenation is called thin provisioning"
+    ],
+    "answer": 0,
+    "explanation": "JBOD — Just a Bunch Of Drives — concatenates hard disks of varying capacities and specifications into a single large logical drive, and that integration is called spanning. It supports no redundancy, parity check or striping. Data fills one drive then spills to the next, giving 100% usable capacity, and a single disk failure leaves the data on the other disks intact.",
+    "trap": "JBOD gives 100% capacity because nothing is spent on redundancy — the opposite trade-off to RAID 1."
+  },
+  {
+    "id": "CH-108",
+    "section": "Tools/Systems/Programs",
+    "module": 4,
+    "topic": "Reading Mac Volumes on Windows",
+    "difficulty": "hard",
+    "stem": "To read a Mac HFS+ volume through Windows File Explorer, which driver files are copied into C:\\Windows\\System32\\drivers\\ ?",
+    "options": [
+      "AppleHFS.sys and AppleMNT.sys",
+      "HFSplus.sys and MacMount.sys",
+      "AppleFS.dll and HFSdriver.dll",
+      "ParagonHFS.sys and ParagonMNT.sys"
+    ],
+    "answer": 0,
+    "explanation": "The Apple HFS+ Windows driver package is extracted, AppleHFS.sys and AppleMNT.sys are copied to C:\\Windows\\System32\\drivers\\, then Add AppleHFS.reg is merged into the registry and the system restarted. The alternative route is Paragon HFS+ for Windows, which reads, writes and modifies HFS+ volumes and supports HDD, SSD and flash drives.",
+    "trap": "Two routes to the same goal: Apple's free drivers, or Paragon HFS+ for Windows. Paragon can also WRITE."
+  },
+  {
+    "id": "CH-109",
+    "section": "Tools/Systems/Programs",
+    "module": 4,
+    "topic": "Mac Forensic Workstation",
+    "difficulty": "medium",
+    "stem": "Which set of tools is named for examining acquired image files on a macOS forensic workstation?",
+    "options": [
+      "R-Studio, Digital Collector and OSForensics",
+      "Autopsy, FTK Imager and Volatility",
+      "Paragon HFS+, AppleHFS.sys and AppleMNT.sys",
+      "PhotoRec, TestDisk and GNU ddrescue"
+    ],
+    "answer": 0,
+    "explanation": "R-Studio, Digital Collector and OSForensics are named for examining image files on a macOS workstation. Autopsy, FTK Imager and Volatility are the equivalents for a Windows workstation. The Apple drivers and Paragon let Windows read HFS+ rather than examine images, and PhotoRec, TestDisk and ddrescue are carving and recovery tools.",
+    "trap": "Windows workstation = Autopsy / FTK Imager / Volatility. Mac workstation = R-Studio / Digital Collector / OSForensics."
+  },
+  {
+    "id": "CH-110",
+    "section": "Digital Forensics",
+    "module": 5,
+    "topic": "Linux File Deletion",
+    "difficulty": "medium",
+    "stem": "On Linux, what does the rm command actually remove, and why does that matter for carving?",
+    "options": [
+      "The inode pointing to the file, leaving the contents on disk until overwritten",
+      "The file contents, overwriting the data blocks with zeros as it unlinks them",
+      "The directory entry and the journal record, making recovery impossible",
+      "The file's extended attributes only, leaving both inode and contents intact"
+    ],
+    "answer": 0,
+    "explanation": "rm removes the inode pointing to the file; the file itself remains on the disk until it is overwritten with new data. That is precisely why file carving works on Linux. The same principle underlies FAT and NTFS deletion — the metadata reference goes, the content stays.",
+    "trap": "Deletion is a METADATA operation on every mainstream file system. Nothing is zeroed."
+  },
+  {
+    "id": "CH-111",
+    "section": "Digital Forensics",
+    "module": 5,
+    "topic": "Recovering Self-Erasing Executables",
+    "difficulty": "hard",
+    "stem": "A malicious executable deleted itself after launching but its process is still running. Which command recovers the binary on Linux?",
+    "options": [
+      "cp /proc/$PID/exe /tmp/<file name>",
+      "cp /var/log/$PID/exe /tmp/<file name>",
+      "dd if=/dev/mem of=/tmp/<file name> bs=4k",
+      "lsof -p $PID > /tmp/<file name>"
+    ],
+    "answer": 0,
+    "explanation": "If an executable erases itself, its contents can still be retrieved from the /proc memory image while the process lives. cp /proc/$PID/exe /tmp/<file name> writes a copy out to /tmp. The technique dies the moment the process exits or the machine is powered off, which is a strong argument for live response before shutdown.",
+    "trap": "/proc/<PID>/exe stays valid after the on-disk file is unlinked — it will show as '(deleted)' but still reads."
+  },
+  {
+    "id": "CH-112",
+    "section": "Tools/Systems/Programs",
+    "module": 5,
+    "topic": "Autopsy Carved Output",
+    "difficulty": "medium",
+    "stem": "After carving a forensic image in Autopsy, under which heading does the recovered data appear?",
+    "options": [
+      "$CarvedFiles",
+      "$OrphanFiles",
+      "$Unalloc",
+      "$RecycleBin"
+    ],
+    "answer": 0,
+    "explanation": "Carved data recovered from the evidence file is displayed under the appropriate data source with the heading $CarvedFiles. $OrphanFiles and $Unalloc are separate Autopsy nodes covering files whose parent directory is unknown and unallocated space respectively. Note that carving a TRIM-enabled SSD lists filenames but recovers no content.",
+    "trap": "$CarvedFiles is carving output. $OrphanFiles is a different node and does not mean the same thing."
+  },
+  {
+    "id": "CH-113",
+    "section": "Tools/Systems/Programs",
+    "module": 5,
+    "topic": "File Recovery Tools by Platform",
+    "difficulty": "medium",
+    "stem": "Which set of file recovery tools is named for Linux systems?",
+    "options": [
+      "R-Studio for Linux, Recoverit, UFS Explorer, TestDisk and GNU ddrescue",
+      "EaseUS Data Recovery Wizard, DiskDigger, Handy Recovery and Stellar",
+      "FileSalvage, Disk Drill, Data Rescue and Prosoft",
+      "Winrtgen, PWdump7, Passware and hashcat"
+    ],
+    "answer": 0,
+    "explanation": "The Linux recovery set is R-Studio for Linux, Recoverit, UFS Explorer, TestDisk and GNU ddrescue. EaseUS, DiskDigger, Handy Recovery and Stellar belong to the Windows list; FileSalvage is the named macOS recovery tool; the last option lists password tools, not recovery tools.",
+    "trap": "Windows leads with EaseUS. Linux leads with R-Studio for Linux. macOS carving uses PhotoRec, UFS Explorer and TestDisk."
+  },
+  {
+    "id": "CH-114",
+    "section": "Digital Forensics",
+    "module": 1,
+    "topic": "Cyber Attribution",
+    "difficulty": "medium",
+    "stem": "Which activity is named as a cyber attribution technique?",
+    "options": [
+      "Analysing technical indications such as malicious code, command and control infrastructure, digital signatures and network traffic patterns",
+      "Interviewing the victim organization's staff to establish who had motive and opportunity",
+      "Issuing a preservation notice to every cloud provider holding the organization's data",
+      "Calculating the financial loss so the prosecution can establish the scale of the offence"
+    ],
+    "answer": 0,
+    "explanation": "Cyber attribution is the process of technical methods and organizational measures used to discover, trace and inculpate those responsible. Its three named techniques are: using forensic analysis tools, recovery tools, scripts or applications to obtain information about the attack; analysing technical indications such as malicious code, C2 infrastructure, digital signatures and network traffic patterns; and understanding past attacks and motivations to build threat actor profiles.",
+    "trap": "Attribution here is TECHNICAL profiling, not interviewing or loss calculation."
+  },
+  {
+    "id": "CH-115",
+    "section": "Regulations, Policies and Ethics",
+    "module": 1,
+    "topic": "Civil vs Criminal Investigation",
+    "difficulty": "hard",
+    "stem": "In a civil case, who is responsible for collecting and analysing the evidence, and how is it initially reported?",
+    "options": [
+      "The claimant collects and analyses it, and the initial reporting is generally informal",
+      "Law enforcement collects and analyses it, and a formal report is always required",
+      "The court appoints an independent examiner, who files a sworn formal report",
+      "The defendant collects and analyses it, and reporting follows the rules of criminal procedure"
+    ],
+    "answer": 0,
+    "explanation": "In civil cases the claimant is responsible for collecting and analysing the evidence, searching devices generally rests on mutual understanding rather than a warrant, initial reporting is informal, and punishment is monetary compensation. In criminal cases law enforcement collects and analyses the evidence, devices can be forcibly seized under a court's warrant, a formal report is required, and punishment can be a fine, a jail sentence or both.",
+    "trap": "Civil = claimant collects, informal, money. Criminal = law enforcement collects, warrant, formal report, custody."
+  },
+  {
+    "id": "CH-116",
+    "section": "Regulations, Policies and Ethics",
+    "module": 1,
+    "topic": "Administrative Investigation",
+    "difficulty": "medium",
+    "stem": "An internal team investigates an employee for resource misuse. What kind of investigation is this and what outcomes does it carry?",
+    "options": [
+      "Administrative and non-criminal, carrying disciplinary action such as demotion, suspension, revocation, penalties or dismissal",
+      "Criminal, carrying a fine or jail sentence once the internal team refers it to prosecutors",
+      "Civil, carrying monetary compensation payable by the employee to the organization",
+      "Regulatory, carrying a statutory penalty imposed directly by the supervisory authority"
+    ],
+    "answer": 0,
+    "explanation": "An administrative investigation is an internal investigation by an organization or government agency into whether employees, clients or partners comply with rules and policies. It is non-criminal in nature, covers matters such as policy violations, resource misuse, theft, threatening behaviour and improper promotions, and results in disciplinary action. It is conducted by internal teams — compliance, human resources, internal affairs.",
+    "trap": "Non-criminal does not mean low-stakes: these escalate, so handle the evidence to forensic standards from the start."
+  },
+  {
     "id": "DM-001",
     "source": "demo",
     "section": "Digital Evidence",

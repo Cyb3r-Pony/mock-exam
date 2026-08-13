@@ -639,12 +639,12 @@ window.CARDS = [
   {
     "deck": "Key Enumerations",
     "front": "Types of Digital Evidence (2 categories)",
-    "back": "VOLATILE — lost when powered off: system time, logged-on users, open files, network info, process info, process-to-port mapping, process memory, clipboard, service/driver info, command history.\nNON-VOLATILE — on secondary storage: hidden files, slack space, swap file, index.dat, unallocated clusters, unused/hidden partitions, registry settings, event logs."
+    "back": "VOLATILE — lost at power off: system time, logged-on users, open files, network info and connections, process info, process-to-port mapping, process memory, clipboard, services, command history.\nNON-VOLATILE — on storage: hidden files, slack space, swap file, index.dat, unallocated clusters, hidden partitions, registry, event logs."
   },
   {
     "deck": "Key Enumerations",
     "front": "Sources of Potential Evidence (3 categories)",
-    "back": "USER-CREATED: address books, database files, media, documents, bookmarks/favorites, emails + cloud storage, hidden partitions.\nUSER-PROTECTED: compressed, misnamed, encrypted, password-protected, hidden files, steganography, blockchain ledgers.\nCOMPUTER-CREATED: backup, log, configuration, printer spool, cookies, swap, system, history, temporary, registry files."
+    "back": "USER-CREATED: address books, databases, media, documents, bookmarks, email, hidden partitions.\nUSER-PROTECTED: compressed, misnamed, encrypted, password-protected, hidden files, steganography, blockchain ledgers.\nCOMPUTER-CREATED: backup, log, configuration, printer spool, cookies, swap, system, history, temporary files."
   },
   {
     "deck": "Key Enumerations",
@@ -799,7 +799,7 @@ window.CARDS = [
   {
     "deck": "Scene & Power-State Decisions",
     "front": "OS shutdown — Windows / macOS / Linux",
-    "back": "WINDOWS: photograph screen · document running programs · Windows button → Power → Shut down · wait for full shutdown · unplug from wall socket.\nmacOS: record the time from the menu bar · Apple icon → Shut Down · DESELECT 'Reopen windows when logging back in'.\nLINUX: right-click Desktop → Open Terminal · 'shutdown now' or 'shutdown -h 0' · prefix sudo if admin rights requested."
+    "back": "WINDOWS: photograph, document programs, Start → Power → Shut down, then unplug.\nmacOS: record the menu-bar time, Apple → Shut Down, DESELECT 'Reopen windows when logging back in'.\nLINUX: terminal, 'shutdown now' or 'shutdown -h 0', sudo if prompted."
   },
   {
     "deck": "Acquisition Decisions",
@@ -819,7 +819,7 @@ window.CARDS = [
   {
     "deck": "Acquisition Decisions",
     "front": "Imaging tool MANDATORY requirements (Step 2)",
-    "back": "· Must not alter the original content\n· Must log I/O errors in an accessible, readable form (type and location)\n· Must compare source and destination and ALERT if destination is smaller\n· Must pass scientific and peer review — repeatable and verifiable by a third party\n· Must completely acquire all visible AND hidden data sectors\n· Must create a bitstream copy when there are no errors\n· Must create a QUALIFIED bitstream copy when I/O errors occur"
+    "back": "Must not alter the original · log I/O errors readably · alert if the destination is smaller than the source · pass peer review, repeatable by a third party · acquire all visible AND hidden sectors · bitstream copy when clean · QUALIFIED bitstream copy when I/O errors occur."
   },
   {
     "deck": "Acquisition Decisions",
@@ -864,12 +864,12 @@ window.CARDS = [
   {
     "deck": "Windows Artifacts",
     "front": "Prefetch — the exact offsets",
-    "back": "C:\\Windows\\Prefetch — ADMIN privileges required. Named APPNAME.EXE-<hash>.pf\nDWORD at OFFSET 144 = number of times the application was launched (run count)\nDWORD at OFFSET 120 = last time the application was run, in UTC\nControlled by HKLM\\SYSTEM\\ControlSet00x\\Control\\Session Manager\\Memory Management\\PrefetchParameters\nRecords data for up to the first 10 SECONDS after process start. Read with WinPrefetchView."
+    "back": "C:\\Windows\\Prefetch, admin required, named APPNAME.EXE-<hash>.pf. DWORD at offset 144 = RUN COUNT; DWORD at offset 120 = LAST RUN TIME in UTC. Controlled by the PrefetchParameters registry key — verify prefetching was enabled before treating absence as proof."
   },
   {
     "deck": "Windows Artifacts",
     "front": "ShellBags — Windows 11 registry locations",
-    "back": "HKCU\\SOFTWARE\\Microsoft\\Windows\\Shell\\BagMRU\nHKCU\\SOFTWARE\\Microsoft\\Windows\\Shell\\Bags\nHKCU\\SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\nHKCU\\SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\nBagMRU = folders most recently accessed. Bags = view preferences (position, location, view mode, sort methods) under a 'Shell' subkey.\nProves access even if the folder was deleted OR THE DRIVE WAS FORMATTED."
+    "back": "Four keys under HKCU\\SOFTWARE\\Microsoft\\Windows\\Shell and HKCU\\SOFTWARE\\Classes\\Local Settings\\...\\Shell. BagMRU = which folders were accessed; Bags = their view settings. Survive folder deletion and drive formatting."
   },
   {
     "deck": "Windows Artifacts",
@@ -879,7 +879,7 @@ window.CARDS = [
   {
     "deck": "Windows Artifacts",
     "front": "SRUM — System Resource Usage Monitor",
-    "back": "ESE database at C:\\Windows\\System32\\SRU\\SRUDB.dat. Starts automatically with the system.\nTracks resource usage by Windows and its applications, Windows push notifications, DATA USAGE and NETWORK CONNECTIVITY per application.\nTools: Velociraptor, Magnet AXIOM Examine, SRUM DUMP.\nUses: anomaly detection (high resource use by an unknown process) and IoC detection (a process communicating with an unknown IP).\nTask Manager's App history tab shows only a fraction of it."
+    "back": "ESE database at C:\\Windows\\System32\\SRU\\SRUDB.dat. Records per-application data usage and network connectivity. Read with Velociraptor, Magnet AXIOM Examine or SRUM DUMP. The artifact that answers 'how much data did this process send'."
   },
   {
     "deck": "Windows Artifacts",
@@ -924,7 +924,7 @@ window.CARDS = [
   {
     "deck": "Malware Forensics",
     "front": "Malware Forensic Artifacts (the courseware table)",
-    "back": "FILE SYSTEM — executables in unknown locations, temp directories or unallocated disk space, files with DOUBLE EXTENSIONS or unexpected size changes\nREGISTRY — autostart keys with unauthorized changes, new/modified keys with unusual characteristics\nNETWORK TRAFFIC — traffic to known malicious IPs/domains, C2 patterns, irregular DNS requests to non-standard domains\nLOG FILE ANOMALIES — failed logins, security policy changes, IDS alerts, unusual application errors/crashes, unexpected starting/stopping of services\nPROCESS AND MEMORY — processes that do not usually run, familiar processes running from unusual locations, code injection into legitimate processes' memory, abnormal CPU/memory\nEMAIL — malicious attachments, large volumes of outgoing spam\nCRYPTOGRAPHIC — encrypted files and communications using SELF-SIGNED or UNTRUSTED SSL/TLS certificates\nAUTHENTICATION RECORDS — logins at unusual times or from unexpected locations, multiple account lockouts\nBROWSER — unauthorized extensions/plugins, unknown changes to browser settings"
+    "back": "Nine artifact categories: FILE SYSTEM (executables in odd locations, double extensions) · REGISTRY (autostart changes) · NETWORK TRAFFIC (malicious IPs, C2, odd DNS) · LOG ANOMALIES · PROCESS AND MEMORY (familiar process, unusual location; code injection) · EMAIL · CRYPTOGRAPHIC (self-signed certificates) · AUTHENTICATION RECORDS · BROWSER."
   },
   {
     "deck": "Malware Forensics",
@@ -934,17 +934,17 @@ window.CARDS = [
   {
     "deck": "Cloud Forensics",
     "front": "Cloud Forensics Challenges — the six categories",
-    "back": "Source: NIST Cloud Computing Forensic Science Challenges.\nARCHITECTURE AND IDENTIFICATION — deletion in cloud, recovering overwritten data, interoperability among CSPs\nROLE MANAGEMENT — identifying account owner, fictitious identities, decoupling user credentials and physical location, authentication and access control\nSTANDARDS — testability/validation/scientific principles not addressed, lack of standard processes and models\nTRAINING — limited knowledge of logs and records, cloud training for investigators\nANTI-FORENSICS — anti-forensic techniques mislead the incident handling process\nINCIDENT FIRST RESPONDERS — competence and trustworthiness"
+    "back": "Architecture and Identification · Role Management · Standards · Training · Anti-forensics · Incident First Responders. Source: NIST. Attribution problems sit under ROLE MANAGEMENT."
   },
   {
     "deck": "Cloud Forensics",
     "front": "Logs in AWS — what each one answers",
-    "back": "CLOUDTRAIL — AWS API call history for the account, including calls via Management Console, CLI, SDKs. WHO did WHAT.\nS3 SERVER ACCESS LOGS — access requests to any S3 bucket including PUT, GET, DELETE. Fields: bucket owner, bucket name, name and IP of requester, request time and ID, Request-URI, response status.\nVPC FLOW LOGS — inbound and outbound IP traffic on network interfaces within a VPC. Source and destination IPs and ports, timestamp, action performed.\nELB ACCESS LOGS — requests made to the load balancer; used for TRAFFIC PATTERN ANALYSIS.\nAWS DATABASE LOGS — viewed via the Management Console; the tail log is refreshed by RDS every 5 SECONDS.\nCloudWatch (metrics/app logs) · GuardDuty (threat findings)."
+    "back": "CloudTrail → WHO did WHAT via API, console, CLI, SDK · S3 Server Access Logs → per-request bucket activity (PUT/GET/DELETE), must be enabled first · VPC Flow Logs → IPs, ports, timestamp, action on a network interface · ELB Access Logs → load balancer traffic patterns · RDS database logs → tail refreshed every 5 seconds."
   },
   {
     "deck": "Mobile Forensics",
     "front": "Android File System — the six primary partitions",
-    "back": "/boot — boot image and kernel; device cannot boot without it; read-only unless rooted\n/system — the entire Android OS including GUI components and pre-installed applications\n/recovery — recovery image, backups, maintenance operations\n/data — app and USER data: photos, music, videos, contacts, settings, apps\n/cache — temporary files generated by both OS and applications\n/misc — miscellaneous settings: carrier details, hardware settings, configurations, bootloader state\nOptional extras: /sdcard (internal storage emulates this — user files and app saved files) and /sd-ext (external storage)."
+    "back": "/boot kernel and boot image · /system the OS and pre-installed apps · /recovery recovery image and backups · /data app and USER data · /cache temporary files · /misc carrier details, hardware settings, bootloader state. Optional extras: /sdcard and /sd-ext."
   },
   {
     "deck": "Mobile Forensics",
@@ -969,7 +969,7 @@ window.CARDS = [
   {
     "deck": "Web Attack Forensics",
     "front": "Indicators of a Web Attack",
-    "back": "Unavailability of website, web services or applications · alerts from WAF, SIEM, IDS · redirection of URLs to incorrect sites · web page defacements · unusually slow network performance · frequent rebooting of the server · anomalies in web server, application and database logs · database logs showing multiple errors in a short duration · suspicious activity in user accounts (new processes, users, jobs) · 400–500 error messages · abnormal behaviour such as popups and spam messages · changes in web application files · search engines flagging the site as insecure · complaints from customers · unusual outbound and inbound traffic · inappropriate login attempts from various geographical locations · too many requests for the same file."
+    "back": "Site or service unavailable · WAF/SIEM/IDS alerts · URLs redirected · defacement · slow network · frequent server reboots · log anomalies · 400–500 errors · popups and spam · changed application files · search engines flagging the site · customer complaints · unusual traffic · logins from odd geography."
   },
   {
     "deck": "Anti-forensics",
@@ -1009,7 +1009,7 @@ window.CARDS = [
   {
     "deck": "Web Attack Forensics",
     "front": "Web Attack Investigation Methodology (8 steps)",
-    "back": "1 Conduct individual interviews to obtain information on the attack\n2 Locate the servers/devices involved, take them OFFLINE, and seize in a forensically sound manner\n3 Follow the process of forensic image acquisition and duplication\n4 Collect logs from web server, application server, database server, WAF, local system events, SIEM and IDS, plus application and server configuration files\n5 Use ENCRYPTION AND CHECKSUM to verify and protect the integrity of log files\n6 Analyze the WORKING COPIES of collected logs for suspicious entries and correlate to build a chain of events\n7 Trace the attacking IP to identify the perpetrator — generally very difficult as attackers use proxies and anonymizers\n8 Document every step; essential for legal proceedings"
+    "back": "Interview → locate and seize the servers offline → forensic image acquisition → collect logs (web, app, database, WAF, system, SIEM, IDS) → protect log integrity with encryption and checksums → analyse the WORKING COPIES → trace the attacking IP (hardest step) → document everything."
   },
   {
     "deck": "Web Attack Forensics",
@@ -1024,7 +1024,7 @@ window.CARDS = [
   {
     "deck": "Dark Web Forensics",
     "front": "Working of Tor Browser — onion routing",
-    "back": "Tor Browser is based on Mozilla's FIREFOX. User data is encrypted in MULTIPLE LAYERS like an onion, then sent through different relays.\nOne layer is decrypted at EACH SUCCESSIVE RELAY. At the EXIT RELAY the final layer is removed and the data reaches the destination server.\nThe destination server perceives the EXIT RELAY as the origin of the data — which is why identifying the true origin is extremely difficult.\nChain: User/Origin → Entry Relay → Middle Relays → Exit Relay → Destination Server. Traffic between user and exit relay is ENCRYPTED; exit relay to destination is UNENCRYPTED.\nProvides access to .ONION websites; the hidden service protocol lets users host anonymously with .BIT domains, accessible only from the Tor network."
+    "back": "Built on Firefox. Data is encrypted in layers and relayed; one layer is stripped at each relay. The EXIT relay removes the last layer, so the destination sees the exit relay as the origin. Gives access to .onion sites; hidden services can also use .BIT domains."
   },
   {
     "deck": "Dark Web Forensics",
@@ -1039,7 +1039,7 @@ window.CARDS = [
   {
     "deck": "Malware Forensics",
     "front": "System Baselining vs Host Integrity Monitoring",
-    "back": "SYSTEM BASELINING — snapshot the baseline state BEFORE execution, run the sample, take a SECOND snapshot, COMPARE the two to detect changes to file systems and registry keys. Tool: WhatChanged Portable.\n\nHOST INTEGRITY MONITORING — execute the malware and observe operations IN REAL TIME to understand intent and functionality. Two ways:\n  · System Behavior Analysis — monitoring the CHANGES in OS resources upon execution: registry artifacts, processes, services and startup programs, event logs, API calls, device drivers, installation, system calls and scheduled tasks, files and folders\n  · Network Behavior Analysis — IP addresses, connected ports, DNS entries, browser activity\n\n⚠ EXAM KEY WARNING: 'What do you call the process of studying the changes that have taken place across a system or a machine after a series of actions or incidents?' → the OFFICIAL key answers HOST INTEGRITY MONITORING, not System Baselining. The wording reads like baselining; the key says otherwise. Go with the key."
+    "back": "BASELINING — snapshot before, run the sample, snapshot after, compare. Tool: WhatChanged Portable.\nHOST INTEGRITY MONITORING — execute and observe in REAL TIME; split into System Behavior Analysis and Network Behavior Analysis.\n⚠ The official key answers 'studying changes after a series of actions' as HOST INTEGRITY MONITORING, not baselining."
   },
   {
     "deck": "Legacy Exam Trivia",
@@ -1089,7 +1089,7 @@ window.CARDS = [
   {
     "deck": "Legacy Exam Trivia",
     "front": "US laws and standards — the set that gets tested",
-    "back": "18 USC §1030 = fraud and related activity in connection with COMPUTERS (§1029 = access devices)\nSOX 2002 = protects investors from fraudulent corporate accounting\nHIPAA = patient health records\nCAN-SPAM = commercial email: no misleading headers, must offer opt-out, must give physical postal address\nFourth Amendment = unlawful search and seizure\nFRE 1001 definitions · 1002 REQUIREMENT OF ORIGINAL · 1003 duplicates · 1004 other evidence of contents\nISO/IEC 17025 = forensic LAB accreditation (27037 = evidence handling)\nSWGDE = quality systems; Standards and Criteria 1.5 = appropriate and effective hardware/software"
+    "back": "18 USC §1030 = computer fraud (§1029 = access devices) · SOX 2002 = investor protection from accounting fraud · HIPAA = health records · CAN-SPAM = commercial email · Fourth Amendment = search and seizure · FRE 1001 definitions, 1002 requirement of ORIGINAL, 1003 duplicates · ISO/IEC 17025 = lab accreditation · SWGDE = quality systems."
   },
   {
     "deck": "Legacy Exam Trivia",
@@ -1109,7 +1109,7 @@ window.CARDS = [
   {
     "deck": "Legacy Exam Trivia",
     "front": "Tool-to-task pairs from the official bank",
-    "back": "Devcon → document connected USB devices · pmdump.exe → dump process memory without stopping the process · PWdump7 → extract users/passwords/hashes from SAM and SYSTEM · Winrtgen → GENERATE rainbow tables · Stream Detector → detect and extract NTFS alternate data streams · analyzeMFT → detect timestomping · R-Studio → damaged MBR/partition and deleted-partition recovery · FileSalvage → Mac file recovery · MZCacheView → Mozilla browser cache · Helix → acquire volatile data (Windows) · OllyDbg → disassembly · oleid.py → static triage of MS Office documents · ModSecurity → web application firewall · ApexSQL Audit → MS SQL login sessions and transactions · myisamlog → MyISAM log recovery · ADB → Android acquisition · jv16 → registry analysis/monitoring · CHKDSK → repair logical file system errors."
+    "back": "Devcon → USB devices · pmdump → process memory without stopping it · PWdump7 → SAM/SYSTEM hashes · Winrtgen → generate rainbow tables · Stream Detector → NTFS alternate data streams · analyzeMFT → detect timestomping · R-Studio → partition recovery · FileSalvage → Mac recovery · MZCacheView → Mozilla cache · Helix → volatile data · OllyDbg → disassembly · ModSecurity → WAF · ApexSQL Audit → MS SQL activity · ADB → Android acquisition."
   },
   {
     "deck": "Legacy Exam Trivia",
@@ -1130,5 +1130,245 @@ window.CARDS = [
     "deck": "Legacy Exam Trivia",
     "front": "IoT and mobile architecture terms",
     "back": "IoT layers: EDGE TECHNOLOGY (sensors, RFID tags, devices — data collection) · Access gateway · Middleware · Application.\nSybil attack = many FORGED IDENTITIES creating illusory traffic congestion.\nOWASP IoT 'lack of secure update mechanism' = no firmware validation, no secure delivery, no anti-rollback.\nAndroid: Zygote = pre-warmed parent process giving low memory use and fast start-up · SGL = 2D, OpenGL/ES = 3D graphics.\niOS layers: Cocoa Touch (app frameworks, topmost) · Media services · Core services · Core OS."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Computer forensics",
+    "back": "A set of methodological procedures and techniques to identify, gather, preserve, extract, interpret, document and present evidence from computing equipment, so it is acceptable in legal or administrative proceedings."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Cyber attribution",
+    "back": "The process of technical methods and organizational measures used to discover, trace and inculpate the individual or group responsible for a cyberattack."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Cybercrime",
+    "back": "Any illegal act involving a computing device, network, its systems or its applications."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Internal / insider attack",
+    "back": "An attack performed on a corporate network or single computer by an entrusted person with authorized access — a current or former employee, business partner or contractor."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "External attack",
+    "back": "An attack by someone outside the organization who exploits security loopholes or uses social engineering to gain unauthorized access."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Civil case",
+    "back": "Brought over contract violations and lawsuits. Searches rely on mutual understanding, initial reporting is informal, the claimant collects and analyses the evidence, and punishment is monetary compensation."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Criminal case",
+    "back": "Brought by law enforcement for a suspected violation of law. Devices can be forcibly seized under warrant, a formal report is required, law enforcement collects the evidence, and punishment can be a fine, jail or both."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Administrative investigation",
+    "back": "A non-criminal internal investigation by an organization or government agency into whether employees, clients or partners comply with rules and policies. Outcome is disciplinary — demotion, suspension, penalties, dismissal."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Digital Crime Investigations",
+    "back": "Using forensic techniques to identify the culprit by analysing digital evidence. One of the named scope areas of computer forensics."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "eDiscovery (scope area)",
+    "back": "Identifying, collecting, preserving and analysing digital evidence in support of regulatory compliance and litigation."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Router vs hub / switch / modem",
+    "back": "For ROUTERS the evidence is in the CONFIGURATION FILES. For hubs, switches and modems the evidence is on the DEVICES THEMSELVES."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Dongle",
+    "back": "Connection records, IMEI and SIM information, cached data and file artifacts."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Smart card",
+    "back": "Evidence comes from recognising or authenticating the card and user — access level, configurations, permissions, and the device itself."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Biometric scanner",
+    "back": "Biometric traits, access logs and authentication records."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Answering machine",
+    "back": "Voice recordings including deleted messages, last called number, memos, phone numbers and tapes."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Memory card",
+    "back": "Event logs, chat logs, text files, image and picture files, social media logs and internet browsing history."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Server",
+    "back": "Log files, access records, backup and recovery files, cronjobs, email and database records."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Printer",
+    "back": "Usage logs, time and date information, and network identity information."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "GPS device",
+    "back": "Previous destinations, way points, routes and travel logs."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Credit card skimmer",
+    "back": "Card expiration date, user's address, credit card numbers and user's name."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "ATM and POS systems",
+    "back": "Transaction records, device owner address and phone number, terminal ID, debit or credit card details, authorization number, batch number."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Virtual environments",
+    "back": "Router, firewall and proxy logs, captured network traffic, and wireless artifacts such as profile GUID, profile name, first network, MAC address and DNS suffix."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "Blockchain and cryptocurrencies",
+    "back": "Browser history searches, addresses or crypto transactions, origin, number of tokens, ownership and transaction details."
+  },
+  {
+    "deck": "Evidence Locations by Device",
+    "front": "LAN / Network Interface Card",
+    "back": "MAC address, assigned IP address, network configurations, connection logs and DHCP records."
+  },
+  {
+    "deck": "Terms — Ch2 Investigation",
+    "front": "Securing the scene — the odd rule",
+    "back": "REFUSE any offer of help or technical assistance from people at the scene. Also: isolate other people present, allow nobody to access the devices, and document, disconnect and label telephone lines and network cables."
+  },
+  {
+    "deck": "Terms — Ch2 Investigation",
+    "front": "Seizing evidence — the handling rule",
+    "back": "Evidence is identified, recorded, seized and bagged with NO attempt to determine its contents or status. Tag each item with the date and time of collection and the initials of the collector."
+  },
+  {
+    "deck": "Terms — Ch2 Investigation",
+    "front": "Powered-on computer — screensaver showing",
+    "back": "Move the mouse SLOWLY without pressing any mouse button, then photograph the screen and document the running programs."
+  },
+  {
+    "deck": "Terms — Ch2 Investigation",
+    "front": "Powered-on computer — when to pull the plug",
+    "back": "Only when the screen shows data being overwritten or deleted, or destructive processes are running. Otherwise collect volatile data first, then pull the cord from the BACK of the machine."
+  },
+  {
+    "deck": "Terms — Ch2 Investigation",
+    "front": "Powered-on portable computer — shutdown",
+    "back": "Remove the BATTERY and unplug the power cord from the wall socket. Pulling only the mains lead leaves it running."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 0",
+    "back": "Striping with no redundancy. Best performance and full capacity, but any single disk failure loses the whole array."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 1",
+    "back": "Mirroring — every drive is duplicated. Full fault tolerance for one disk per pair, but only 50% storage efficiency."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 3",
+    "back": "Byte-level striping with a DEDICATED parity drive. Contrast RAID 5, where parity is distributed."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 5",
+    "back": "Striping with parity DISTRIBUTED across all member drives — no dedicated parity disk. Survives one drive failure. Needs all members imaged and correct stripe size, disk order and parity rotation to rebuild."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 6",
+    "back": "RAID 5 with DUAL distributed parity, so it survives a double-disk failure. Minimum 4 drives, maximum 32. Two parity writes hurt write performance, making it unsuitable for database applications."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "RAID 10 (1+0)",
+    "back": "Mirroring combined with striping. Minimum 4 drives, best read and write performance, 50% storage efficiency. Survives one failure per mirrored pair; two failures in the same pair lose the data."
+  },
+  {
+    "deck": "Terms — Ch3 Disks & RAID",
+    "front": "JBOD",
+    "back": "Just a Bunch Of Drives — disks of varying capacity concatenated into one large logical drive, called SPANNING. No redundancy, no parity, no striping. 100% capacity, and one disk failing leaves the others intact."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "Examining images on a Windows forensic workstation",
+    "back": "Autopsy, FTK Imager and Volatility are the named tools for examining acquired image files and identifying the files and folders on them."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "Apple HFS+ Drivers (for Windows)",
+    "back": "Installing AppleHFS.sys and AppleMNT.sys into C:\\Windows\\System32\\drivers\\ and merging Add AppleHFS.reg lets Windows File Explorer read a Mac HFS+ volume."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "Paragon HFS+ for Windows",
+    "back": "Lets an investigator read, write and modify HFS+ formatted volumes on Windows. Supports HDD, SSD and flash drives."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "R-Studio",
+    "back": "Data recovery tool that recovers files from HFS/HFS+ and APFS partitions as well as Windows and Linux. Also used to recover deleted or damaged partitions."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "Examining images on a Mac forensic workstation",
+    "back": "R-Studio, Digital Collector and OSForensics are the named tools for examining image files on macOS."
+  },
+  {
+    "deck": "Terms — Ch4 Acquisition",
+    "front": "Autopsy — $CarvedFiles",
+    "back": "Carved data recovered from an evidence file appears in Autopsy under the data source with the heading $CarvedFiles."
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "What 'rm' does on Linux",
+    "back": "Removes the inode pointing to the file. The file contents stay on disk until overwritten, which is what makes carving possible."
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "Recovering a self-deleted running executable (Linux)",
+    "back": "If an executable erases itself its contents survive in the /proc memory image. Copy it out with: cp /proc/$PID/exe /tmp/<file name>"
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "Open file deleted while in use (Linux)",
+    "back": "If a running process holds the file open, the contents remain on disk and other programs will not reclaim the space until the process exits."
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "File recovery tools — Linux",
+    "back": "R-Studio for Linux, Recoverit, UFS Explorer, TestDisk, GNU ddrescue."
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "File carving tools — macOS",
+    "back": "PhotoRec, UFS Explorer Standard Recovery and TestDisk. Investigators can target specific formats such as JPEG, PDF or DOC, or recover all types."
+  },
+  {
+    "deck": "Terms — Ch5 Anti-forensics",
+    "front": "ext2 and data hiding",
+    "back": "The second extended file system is designed in a way that exposes several places where data can be hidden."
   }
 ];

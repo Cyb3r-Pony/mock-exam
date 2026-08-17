@@ -613,11 +613,6 @@ window.CARDS = [
   },
   {
     "deck": "Legal & Standards",
-    "front": "Evidence characteristics (5)",
-    "back": "Admissible, Authentic, Complete, Reliable, Believable/Understandable."
-  },
-  {
-    "deck": "Legal & Standards",
     "front": "Locard's exchange principle (digital)",
     "back": "Every contact leaves a trace — attacker leaves artifacts on victim systems AND carries traces back on their own."
   },
@@ -625,11 +620,6 @@ window.CARDS = [
     "deck": "Legal & Standards",
     "front": "Reconstruction types",
     "back": "Temporal (when/order), Relational (who/what relates to what), Functional (was it even POSSIBLE?)."
-  },
-  {
-    "deck": "Legal & Standards",
-    "front": "Attribution limit",
-    "back": "Artifacts attribute activity to an ACCOUNT, never directly to a PERSON. Overstating this is a career-damaging testimony error."
   },
   {
     "deck": "Key Enumerations",
@@ -645,11 +635,6 @@ window.CARDS = [
     "deck": "Key Enumerations",
     "front": "Sources of Potential Evidence (3 categories)",
     "back": "USER-CREATED: address books, databases, media, documents, bookmarks, email, hidden partitions.\nUSER-PROTECTED: compressed, misnamed, encrypted, password-protected, hidden files, steganography, blockchain ledgers.\nCOMPUTER-CREATED: backup, log, configuration, printer spool, cookies, swap, system, history, temporary files."
-  },
-  {
-    "deck": "Key Enumerations",
-    "front": "Types vs Sources — don't confuse",
-    "back": "TYPES of digital evidence = volatile / non-volatile.\nSOURCES of potential evidence = user-created / user-protected / computer-created.\nTwo different taxonomies, both examinable."
   },
   {
     "deck": "Key Enumerations",
@@ -685,11 +670,6 @@ window.CARDS = [
     "deck": "Legal & Standards",
     "front": "FRE 1001 — why it matters",
     "back": "Defines 'duplicate' as a counterpart produced by a mechanical, photographic, chemical, electronic, or other equivalent process that ACCURATELY REPRODUCES the original. This is the definition that makes forensic imaging legally workable."
-  },
-  {
-    "deck": "Legal & Standards",
-    "front": "Course structure (how the courseware is organised)",
-    "back": "15 modules → each module split into LO#01, LO#02 … (Learning Objectives) → each LO opens with a title slide listing its sub-topics → each sub-topic = a slide graphic followed by prose elaboration. Exam items are drawn heavily from the SLIDE graphics: numbered lists, comparison tables, and category boxes."
   },
   {
     "deck": "Named Tools",
@@ -750,11 +730,6 @@ window.CARDS = [
     "deck": "Named Tools",
     "front": "Startup Program Monitoring Tool (M09 p1514)",
     "back": "Autoruns for Windows — enumerates auto-starting locations (Run keys, services, scheduled tasks, drivers, codecs, browser helper objects)."
-  },
-  {
-    "deck": "Named Tools",
-    "front": "Why your Tools score was low",
-    "back": "The courseware v11 leads with COMMERCIAL products, not the open-source DFIR stack. Where a practitioner reaches for Volatility, RegRipper, Autopsy or Eric Zimmerman's tools, the courseware names Velociraptor, OSForensics, Passware, EaseUS, Belkasoft, X-Ways, Cellebrite, Oxygen and OpenText EnCase. Learn BOTH — but the exam tests theirs."
   },
   {
     "deck": "Scene & Power-State Decisions",
@@ -1030,11 +1005,6 @@ window.CARDS = [
     "deck": "Dark Web Forensics",
     "front": "Tor places.sqlite — location and tables",
     "back": "\\Tor Browser\\Browser\\TorBrowser\\Data\\Browser\\profile.default\\places.sqlite\nStores bookmarked sites, browsing history, and visited websites.\nKey tables: moz_places (visited websites with an ID and the URL), moz_historyvisits, moz_bookmarks.\nTool named by the courseware: SQLite Database Recovery."
-  },
-  {
-    "deck": "File Systems",
-    "front": "MBR — the terminology trap",
-    "back": "The courseware's MBR TABLE (Module 03):\n0x0000 Code Area — 440 bytes (max. 446)\n0x01B8 DISK SIGNATURE (Optional) — 4 BYTES ← the 32-bit disk signature\n0x01BC usually nulls 0x0000 — 2 bytes\n0x01BE Table of Primary Partitions (four 16-byte entries) — 64 bytes\n0x01FE MBR SIGNATURE 0xAA55 (55H/AAH) — 2 BYTES ← the 'signature word'\nTotal: 446 + 64 + 2 = 512\n\nWARNING: the PROSE on the next page calls the 2-byte end marker the 'disk signature'. Exam keys follow the TABLE — the third MBR component is the SIGNATURE WORD."
   },
   {
     "deck": "Malware Forensics",
@@ -1370,5 +1340,240 @@ window.CARDS = [
     "deck": "Terms — Ch5 Anti-forensics",
     "front": "ext2 and data hiding",
     "back": "The second extended file system is designed in a way that exposes several places where data can be hidden."
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "MemProcFS",
+    "back": "Command-line memory forensic tool that mounts a Windows memory dump as a virtual file system, so artifacts can be read as ordinary text files. Run: MemProcFS.exe -device <dump> -forensic 1"
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "MemProcFS — where the artifacts appear",
+    "back": "\\forensic\\ntfs\\ntfs_files.txt = MFT · \\sys\\proc\\proc.txt = processes · \\sys\\net\\netstat-v.txt = network privilege info · \\forensic\\timeline = process, thread and registry timeline · \\registry\\hive_files = registry hives."
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "LeechAgent",
+    "back": "The service installed on a remote machine so MemProcFS can analyse its memory across the network. Installed with leechagent.exe -remoteinstall <host>."
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "Redline",
+    "back": "Memory forensics tool used for malware analysis against an acquired memory image."
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "Why memory analysis matters",
+    "back": "RAM holds the system's current state, running processes and user activity. It exposes hidden rootkits, hidden objects and suspicious processes, and supports timeline reconstruction — none of which disk analysis alone provides."
+  },
+  {
+    "deck": "Memory Forensics — Ch6",
+    "front": "Hibernate file",
+    "back": "hiberfil.sys — a compressed image of RAM written to disk at hibernation. Effectively a memory dump available in a dead-box examination."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "Map Network Drive MRU",
+    "back": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Map Network Drive MRU — one entry per remote connection made with the wizard; the MRUList value gives the ORDER of connections."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "MountPoints2",
+    "back": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MountPoints2 — volumes the user added, whether by the Map Network Drive Wizard or the 'net use' command."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "TypedURLs",
+    "back": "HKCU\\Software\\Microsoft\\Internet Explorer\\TypedURLs — addresses the user typed directly into the browser address bar, as opposed to followed by link."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "OpenSavePidlMRU",
+    "back": "Records files opened or saved through the common Windows Open/Save dialog box, per file type. Shows file interaction even when the application kept no history."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "FileExts",
+    "back": "Records which application the user chose to open a given file extension with — useful for showing deliberate association of a file type with a tool."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "DisableSR",
+    "back": "Value under HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore. Zero by default; set to 1 means System Restore point creation has been DISABLED."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "Service Start values",
+    "back": "Under HKLM\\SYSTEM\\CurrentControlSet\\Services: Start = 2 automatic · 3 manual and on demand · 4 disabled."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "BootExecute",
+    "back": "Value under HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager listing native applications executed BEFORE Windows Run — the earliest autostart hook."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "Winlogon Shell value",
+    "back": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon — executed when any user logs on. Normally explorer.exe; a different path here is a persistence indicator."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "Active Setup Installed Components",
+    "back": "Each subkey is a GUID for an installed component. A StubPath value in a subkey indicates a way of running code at logon."
+  },
+  {
+    "deck": "Registry Keys — Ch6",
+    "front": "PrefetchParameters",
+    "back": "HKLM\\SYSTEM\\ControlSet00x\\Control\\Session Manager\\Memory Management\\PrefetchParameters — holds EnablePrefetcher. Check it before treating a missing .pf file as proof a program never ran."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Sticky Notes database",
+    "back": "plum.sqlite at C:\\Users\\<user>\\AppData\\Local\\Packages\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\\LocalState\\ — often holds passwords and reminders."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "rp.log",
+    "back": "The restore point log inside each RPxx directory. Holds the restore point type, a descriptive name for the creation event, and a 64-bit FILETIME of when it was created — good for dating application installs and removals."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "change.log.x",
+    "back": "Records changes to files monitored by System Restore: original filename, sequence number and type of change. Preserved copies are renamed Axxxxxxx.ext in the restore point directory."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "WinPrefetchView",
+    "back": "Reads the .pf files on a system and shows file size, MAC times, run counter, process EXE, process path and last run time. Alternative: Windows Prefetch Parser."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "ESEDatabaseView",
+    "back": "Reads Extensible Storage Engine (.edb) databases — the format behind SRUM, Windows Search and the Exchange store."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "MailXaminer",
+    "back": "Examines mail formats and suspected archive files (.zip, .rar, .gz) on a Windows workstation."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Get-FileHash",
+    "back": "PowerShell cmdlet that computes a file hash — used to verify integrity during Windows examination without installing a third-party tool."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "ELF_LOGFILE_HEADER",
+    "back": "The header structure at the start of a legacy Windows .evt event log file, identifying it and describing the record layout."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "EventLogRecord",
+    "back": "The structure of an individual record inside a legacy Windows .evt event log."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Wireless SSIDs on a Windows host",
+    "back": "Networks the machine has joined are retained in the registry and in WLAN profile XML, placing the device at a location and time."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "InPrivate / private browsing recovery",
+    "back": "Private mode suppresses writes to the browser profile, but traces can persist in memory, pagefile.sys, hiberfil.sys, the DNS cache and downloaded files."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Browser synchronization artifacts",
+    "back": "Firefox and Chrome cross-device sync, and Edge Collections, carry browsing data from OTHER devices onto the examined machine — evidence of activity that never happened locally."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Network Action Predictor",
+    "back": "A Chrome database recording what the user began typing in the address bar and what Chrome predicted — reveals intent even where the page was never visited."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Webcam and microphone usage",
+    "back": "Windows records which applications accessed the camera and microphone, exposing illicit surveillance software."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "WhatsApp and Skype on Windows",
+    "back": "Both store local databases on the desktop client — message content, contacts and call history recoverable without touching the phone."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "MACB timestamps",
+    "back": "Modified · Accessed · Changed (metadata) · Birth (creation). NTFS keeps a set in both $STANDARD_INFORMATION and $FILE_NAME; a mismatch indicates timestomping."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "NAS vs SAN",
+    "back": "NAS = storage attached to the ordinary network, served at FILE level. SAN = dedicated high-speed network serving storage at BLOCK level, so a server treats it as a local disk."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "EFS (Encrypting File System)",
+    "back": "NTFS feature encrypting individual files and folders per user, keys tied to the user's certificate. Contrast BitLocker, which encrypts the whole volume."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "ReFS and ReFSUtil",
+    "back": "Resilient File System — Microsoft's file system built for resilience and large volumes. ReFSUtil is the tool for recovering ReFS volumes."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "Superblock, inode, data block",
+    "back": "Linux ext structures: the SUPERBLOCK holds file system metadata, an INODE holds a file's metadata and block pointers, and DATA BLOCKS hold content. Filenames live in directory entries, not inodes."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "SATA / AHCI",
+    "back": "Serial ATA is the common consumer drive interface; AHCI is the controller mode that exposes its native features such as command queueing and hot-plug."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "SAS (Serial Attached SCSI)",
+    "back": "Enterprise drive interface derived from SCSI — faster and more reliable than SATA, common in servers and RAID arrays."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "GUID",
+    "back": "Globally Unique Identifier — a 128-bit value used to identify partitions in GPT, installed components in the registry, and objects across Windows."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "Directory entries and cluster chains",
+    "back": "In FAT, the directory entry holds the filename and the starting cluster; the allocation table then chains clusters together to reconstruct the file."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "ASCII vs Unicode",
+    "back": "ASCII encodes 128 characters in 7 bits. Unicode covers effectively every writing system, commonly as UTF-8 or UTF-16 — which is why filenames and text can carry multi-byte characters in evidence."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "Hexadecimal notation",
+    "back": "Base-16, digits 0-9 then A-F. One hex digit = 4 bits, two = one byte. This is why file signatures are written as hex pairs such as FF D8 FF for JPEG."
+  },
+  {
+    "deck": "Terms — Storage & File Systems",
+    "front": "Intel vs Apple Silicon macOS boot",
+    "back": "Intel Macs boot via EFI with Boot ROM then boot.efi. Apple Silicon boots through a chain rooted in the Secure Enclave with its own recovery mode, which changes how the machine can be imaged."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "ACPO / NPCC",
+    "back": "The Association of Chief Police Officers' principles of digital evidence, since inherited by the NPCC. Four principles governing whether and how original data may be touched."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Role of threat intelligence in forensics",
+    "back": "Supplies known indicators, actor profiles and campaign context so investigators can recognise what they are looking at and prioritise where to look."
+  },
+  {
+    "deck": "Terms — Ch1 Foundations",
+    "front": "Forensics automation and orchestration",
+    "back": "Chaining repetitive collection and analysis tasks into automated workflows to cut manual effort. It changes the effort, not the accountability — methodology must still be documented."
   }
 ];

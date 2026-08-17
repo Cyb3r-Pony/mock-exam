@@ -724,6 +724,397 @@ window.QS = [
     "trap": "The macOS step that gets missed: DESELECT 'Reopen windows when logging back in' — otherwise the next boot changes state. Also note /r and init 6 are REBOOTS, not shutdowns."
   },
   {
+    "id": "C6-101",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "MemProcFS",
+    "difficulty": "hard",
+    "stem": "Which memory forensics tool mounts a Windows memory dump as a virtual file system so artifacts can be read as ordinary text files?",
+    "options": [
+      "MemProcFS",
+      "Redline",
+      "WinPrefetchView",
+      "ESEDatabaseView"
+    ],
+    "answer": 0,
+    "explanation": "MemProcFS is a command-line memory forensic tool that analyses an entire Windows memory dump and presents the evidential data as text files mounted on a virtual file system. It is invoked as MemProcFS.exe -device <path of memory dump file> -forensic 1. Redline is a separate memory and malware analysis tool, WinPrefetchView parses .pf files, and ESEDatabaseView reads .edb databases.",
+    "trap": "The virtual-file-system mount is what identifies MemProcFS — you browse memory as if it were a drive."
+  },
+  {
+    "id": "C6-102",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "MemProcFS Output Files",
+    "difficulty": "hard",
+    "stem": "After mounting a memory dump with MemProcFS, which file shows the network privilege information?",
+    "options": [
+      "M:\\sys\\net\\netstat-v.txt",
+      "M:\\forensic\\ntfs\\ntfs_files.txt",
+      "M:\\sys\\proc\\proc.txt",
+      "M:\\registry\\hive_files"
+    ],
+    "answer": 0,
+    "explanation": "The mounted volume exposes distinct artifact files: \\sys\\net\\netstat-v.txt for network privilege information, \\forensic\\ntfs\\ntfs_files.txt for MFT information, \\sys\\proc\\proc.txt for a process overview, \\forensic\\timeline for a timeline of processes, threads and registry activity, and \\registry\\hive_files for registry key files.",
+    "trap": "Match the path to the artifact: net → netstat, proc → processes, ntfs → MFT, registry → hives."
+  },
+  {
+    "id": "C6-103",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "Remote Memory Analysis",
+    "difficulty": "hard",
+    "stem": "Which service does MemProcFS rely on to perform memory analysis against a REMOTE machine?",
+    "options": [
+      "LeechAgent",
+      "WinRM",
+      "PsExec",
+      "OpenSSH server"
+    ],
+    "answer": 0,
+    "explanation": "Remote memory analysis pairs MemProcFS with the LeechAgent service, installed on the target with leechagent.exe -remoteinstall <host>. The analysis is then run as memprocfs.exe -device <acquisition device> -remote <protocol>://<authentication>:<hostname> -remotefs -mount <drivename>.",
+    "trap": "LeechAgent is the remote half of the MemProcFS pair. It has to be installed on the target first."
+  },
+  {
+    "id": "C6-104",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Map Network Drive MRU",
+    "difficulty": "hard",
+    "stem": "Which registry key records, in order, the remote systems a user connected to with the Map Network Drive Wizard?",
+    "options": [
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Map Network Drive MRU",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MountPoints2",
+      "HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs"
+    ],
+    "answer": 0,
+    "explanation": "Map Network Drive MRU holds an entry per connection, each given a letter as its value name, with the MRUList value giving the order in which the user connected to each drive or share. Separately, MountPoints2 records volumes added by the user regardless of whether the Map Network Drive Wizard or the net use command was used.",
+    "trap": "Map Network Drive MRU = wizard use and ORDER. MountPoints2 = every volume added, wizard or 'net use'."
+  },
+  {
+    "id": "C6-105",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "System Restore Registry Settings",
+    "difficulty": "medium",
+    "stem": "Which registry value disables System Restore point creation, and what does its value mean?",
+    "options": [
+      "DisableSR — zero by default; set to 1 means restore point creation has been disabled",
+      "RPSessionInterval — zero by default; set to 1 means restore points are disabled",
+      "SRInitDone — one by default; set to 0 means restore points are disabled",
+      "DisableRestore — one by default; set to 0 means restore points are disabled"
+    ],
+    "answer": 0,
+    "explanation": "Restore point settings live at HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore. The value named DisableSR is zero by default; if it has been changed to 1, restore point creation has been disabled — which is worth noting as a possible anti-forensic step, since it removes a rich source of historical system state.",
+    "trap": "The key name contains DISABLE, so 1 = disabled. Also note RPSessionInterval and SRInitDone live alongside it."
+  },
+  {
+    "id": "C6-106",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Service Start Values",
+    "difficulty": "hard",
+    "stem": "Under HKLM\\SYSTEM\\CurrentControlSet\\Services, what does a Start value of 2, 3 and 4 mean respectively?",
+    "options": [
+      "2 automatic, 3 manual and on demand, 4 disabled",
+      "2 disabled, 3 automatic, 4 manual and on demand",
+      "2 manual and on demand, 4 automatic, 3 disabled",
+      "2 boot-start, 3 system-start, 4 automatic"
+    ],
+    "answer": 0,
+    "explanation": "The Services key lists the services that run at system startup. A Start value of 2 means startup is automatic, 3 means manual and on demand, and 4 means the service is disabled. Attackers frequently install persistence as an automatic service, so this value is checked directly during startup-location review.",
+    "trap": "2 automatic · 3 manual · 4 disabled. Higher number means less likely to run on its own."
+  },
+  {
+    "id": "C6-107",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Autostart Registry Locations",
+    "difficulty": "hard",
+    "stem": "Which startup registry value contains native applications executed BEFORE Windows Run?",
+    "options": [
+      "BootExecute under HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager",
+      "Shell under HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+      "Load under HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ShellServiceObjectDelayLoad",
+      "StubPath under HKLM\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components"
+    ],
+    "answer": 0,
+    "explanation": "BootExecute under Session Manager contains files that are native applications executed before Windows Run — the earliest of the common autostart hooks. The Winlogon Shell value normally points to explorer.exe but can be redirected to a different path; ShellServiceObjectDelayLoad's Load value runs using explorer.exe after it starts; and Active Setup StubPath values indicate a way of running code per installed component.",
+    "trap": "BootExecute runs earliest of all — before the Run keys. That makes it a favoured hiding place."
+  },
+  {
+    "id": "C6-108",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "System Restore Point Files",
+    "difficulty": "hard",
+    "stem": "Within a restore point directory, what do the rp.log and change.log.x files record?",
+    "options": [
+      "rp.log holds the restore point type, description and 64-bit FILETIME of creation; change.log records monitored file changes with sequence number and change type",
+      "rp.log holds monitored file changes; change.log holds the restore point type and creation time",
+      "Both hold identical data, with change.log kept as a redundant backup of rp.log",
+      "rp.log holds registry hive snapshots; change.log holds the list of installed applications"
+    ],
+    "answer": 0,
+    "explanation": "rp.log is the restore point log inside the RPxx directory, holding values for the restore point type, a descriptive name for the creation event, and a 64-bit FILETIME of when it was created — useful for dating application installs and removals. change.log records changes to monitored files: the original filename, a sequence number and the type of change. Monitored files are copied into the restore point directory and renamed Axxxxxxx.ext.",
+    "trap": "Preserved files are renamed Axxxxxxx.ext — the original extension survives, the name does not."
+  },
+  {
+    "id": "C6-109",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "Sticky Notes Artifact",
+    "difficulty": "medium",
+    "stem": "Where is the Windows Sticky Notes database stored?",
+    "options": [
+      "C:\\Users\\<user>\\AppData\\Local\\Packages\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\\LocalState\\plum.sqlite",
+      "C:\\Users\\<user>\\AppData\\Roaming\\Microsoft\\StickyNotes\\StickyNotes.snt",
+      "C:\\ProgramData\\Microsoft\\StickyNotes\\notes.db",
+      "C:\\Users\\<user>\\Documents\\StickyNotes\\plum.sqlite"
+    ],
+    "answer": 0,
+    "explanation": "Sticky Notes content lives in plum.sqlite inside the app's package folder under AppData\\Local\\Packages. Being SQLite, it can be parsed directly, and a Sticky_notes.py script is provided for extracting the note IDs and text. Note content is frequently overlooked yet often holds passwords, addresses and reminders.",
+    "trap": "plum.sqlite is the filename to remember, under AppData\\Local\\Packages — not Roaming."
+  },
+  {
+    "id": "C6-110",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "Examining Compressed Files",
+    "difficulty": "medium",
+    "stem": "Which tool is named for examining and investigating suspected ZIP files on a Windows workstation?",
+    "options": [
+      "MailXaminer",
+      "ESEDatabaseView",
+      "WinPrefetchView",
+      "Stream Detector"
+    ],
+    "answer": 0,
+    "explanation": "MailXaminer is used to examine suspected ZIP files on a Windows workstation. Attackers attach malicious content to compressed files and deliver them by email, so archives in .zip, .rar and .gz formats extracted from suspect devices should be examined rather than skipped.",
+    "trap": "MailXaminer handles mail formats AND archives — do not assume it is mail-only."
+  },
+  {
+    "id": "C6-111",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Windows Memory Analysis",
+    "difficulty": "medium",
+    "stem": "What does Windows memory analysis specifically enable an investigator to find that disk analysis cannot?",
+    "options": [
+      "Hidden rootkits, hidden objects and suspicious processes in the system's current state",
+      "The complete history of every file ever deleted from the volume",
+      "The BIOS configuration and firmware version of the motherboard",
+      "The full contents of any encrypted volume, regardless of whether it was mounted"
+    ],
+    "answer": 0,
+    "explanation": "Memory analysis works on physical memory or RAM dumps, which hold the system's current state, running processes and user activity. Examining them lets an investigator detect hidden rootkits, find hidden objects and identify suspicious processes, then reconstruct a timeline of events. Encrypted volumes are only readable from memory if they were mounted, so option D overstates the capability.",
+    "trap": "Memory gives you the LIVE state. It does not give you deleted-file history or firmware settings."
+  },
+  {
+    "id": "C6-112",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Prefetch Configuration",
+    "difficulty": "medium",
+    "stem": "Which registry key controls whether Windows prefetching is enabled?",
+    "options": [
+      "HKLM\\SYSTEM\\ControlSet00x\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Prefetcher",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Prefetch",
+      "HKLM\\SYSTEM\\CurrentControlSet\\Services\\SysMain\\Parameters"
+    ],
+    "answer": 0,
+    "explanation": "Prefetching is controlled by PrefetchParameters under Session Manager\\Memory Management, where EnablePrefetcher and EnableSuperfetch are set. Confirming prefetching was enabled matters before treating a missing .pf file as evidence that a program never ran. Within a .pf file, the DWORD at offset 144 is the run count and the DWORD at offset 120 is the last run time in UTC.",
+    "trap": "No .pf file does NOT prove non-execution — check EnablePrefetcher first."
+  },
+  {
+    "id": "C6-113",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "WinPrefetchView Fields",
+    "difficulty": "medium",
+    "stem": "Which fields does WinPrefetchView surface from a prefetch file?",
+    "options": [
+      "File size, MAC times, run counter, process EXE, process path and last run time",
+      "Registry keys created, mutexes opened and network connections attempted",
+      "The full command line and the parent process ID of each execution",
+      "The SHA-1 hash of the executable and its digital signature status"
+    ],
+    "answer": 0,
+    "explanation": "WinPrefetchView reads the prefetch files present on the system and displays file size, MAC times, run counter, process EXE, process path and last run time. Windows Prefetch Parser is the named alternative. Command lines and parent PIDs come from process-creation event logs rather than prefetch, and hashes come from Amcache.",
+    "trap": "Prefetch gives PATH and COUNT, never the command line. That distinction gets tested."
+  },
+  {
+    "id": "C6-114",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Windows Registry Purpose",
+    "difficulty": "easy",
+    "stem": "What is the Windows registry, in forensic terms?",
+    "options": [
+      "A hierarchical database of low-level settings whose keys record user and system actions",
+      "A flat log file that records every process launched since the system was installed",
+      "An index of file locations used by Windows Search to speed up queries",
+      "A journal of file system transactions used to roll back incomplete writes"
+    ],
+    "answer": 0,
+    "explanation": "The registry is a hierarchical database holding low-level settings for Windows and the applications that use it. Forensically it matters because its keys record actions performed by users, letting an investigator establish installed software, hardware and driver configuration, suspicious user activity and connected device history. The transaction journal described in option D is $LogFile, an NTFS structure.",
+    "trap": "Registry = configuration AND behaviour. It is not a log file or a search index."
+  },
+  {
+    "id": "C6-115",
+    "section": "Tools/Systems/Programs",
+    "module": 5,
+    "topic": "BIOS Password Bypass",
+    "difficulty": "medium",
+    "stem": "Which two physical methods are given for bypassing a BIOS password?",
+    "options": [
+      "Resetting the CMOS using jumpers, or removing the CMOS battery",
+      "Reflashing the firmware over SPI, or shorting the TPM header",
+      "Booting from a live USB, or entering safe mode with networking",
+      "Removing the hard drive, or disabling Secure Boot in the boot menu"
+    ],
+    "answer": 0,
+    "explanation": "The two named physical techniques are resetting CMOS using the motherboard jumpers and removing the CMOS battery, both of which clear stored BIOS settings including the password. Booting from a live USB is listed separately as a way to bypass a Windows user password, not a BIOS one, and PassFab 4WinKey is the named tool for resetting admin and local user passwords.",
+    "trap": "BIOS password = CMOS jumpers or battery removal. Windows user password = live USB or PassFab 4WinKey."
+  },
+  {
+    "id": "C6-116",
+    "section": "Tools/Systems/Programs",
+    "module": 5,
+    "topic": "Packer Detection",
+    "difficulty": "medium",
+    "stem": "Which tool is named for both DETECTING and UNPACKING program packers?",
+    "options": [
+      "Exeinfo PE",
+      "PEiD",
+      "Dependency Walker",
+      "FLOSS"
+    ],
+    "answer": 0,
+    "explanation": "Exeinfo PE is named for both detecting and unpacking program packers. Packers compress or encrypt an executable so that attack tools evade reverse-engineering and signature scanning, and they are one of the ten anti-forensics techniques. PEiD identifies packers but is not the named unpacker, Dependency Walker resolves program dependencies, and FLOSS deobfuscates strings.",
+    "trap": "PEiD detects. Exeinfo PE detects AND unpacks. The question usually hinges on which verb it asks for."
+  },
+  {
+    "id": "C6-117",
+    "section": "Tools/Systems/Programs",
+    "module": 5,
+    "topic": "Encrypted Volume Recovery",
+    "difficulty": "medium",
+    "stem": "Which tool is named for recovering encrypted files and volumes during an examination?",
+    "options": [
+      "Elcomsoft Forensic Disk Decryptor",
+      "PassFab 4WinKey",
+      "ReFSUtil",
+      "Exeinfo PE"
+    ],
+    "answer": 0,
+    "explanation": "Elcomsoft Forensic Disk Decryptor is the named tool for recovering encrypted files and disks. PassFab 4WinKey resets admin and local user passwords, ReFSUtil recovers ReFS volumes, and Exeinfo PE handles packers. Remember that decryptors of this kind work from recovered keys, escrowed recovery keys or memory images rather than by attacking the cipher.",
+    "trap": "You attack key management, never the algorithm. These tools all depend on a key being obtainable."
+  },
+  {
+    "id": "C6-118",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "MACB Timestamps",
+    "difficulty": "hard",
+    "stem": "What do the four MACB timestamps represent?",
+    "options": [
+      "Modified, Accessed, Changed (metadata) and Birth (creation)",
+      "Made, Archived, Copied and Backed-up",
+      "Modified, Allocated, Cached and Buffered",
+      "Metadata, Attribute, Content and Boot"
+    ],
+    "answer": 0,
+    "explanation": "MACB stands for Modified, Accessed, Changed and Birth. Modified is when content changed, Accessed when it was last read, Changed when the metadata record itself changed, and Birth when the file was created. On NTFS these appear in both $STANDARD_INFORMATION and $FILE_NAME, and a mismatch between the two sets is the standard timestomping indicator.",
+    "trap": "C is CHANGED (metadata), not Created. B is Birth — that is the creation time."
+  },
+  {
+    "id": "C6-119",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "NAS vs SAN",
+    "difficulty": "medium",
+    "stem": "What is the essential difference between NAS and SAN?",
+    "options": [
+      "NAS attaches storage to the network and serves it at file level; SAN is a dedicated high-speed network serving storage at block level",
+      "NAS serves storage at block level over a dedicated fabric; SAN attaches to the ordinary LAN at file level",
+      "NAS is always a single disk while SAN is always a RAID array of at least four disks",
+      "NAS supports only Windows clients while SAN supports only Linux and UNIX clients"
+    ],
+    "answer": 0,
+    "explanation": "Network-Attached Storage is a storage device attached to the ordinary network and accessed at file level by clients. A Storage Area Network is a dedicated high-speed network that presents storage to servers at block level, so the server treats it as a local disk. The distinction matters forensically because block-level SAN volumes can be imaged like a disk, while NAS is usually acquired at the file level.",
+    "trap": "NAS = FILE level over the LAN. SAN = BLOCK level over a dedicated fabric."
+  },
+  {
+    "id": "C6-120",
+    "section": "Forensic Science",
+    "module": 3,
+    "topic": "Encrypting File System",
+    "difficulty": "medium",
+    "stem": "What is EFS in the context of Windows file systems?",
+    "options": [
+      "The Encrypting File System — an NTFS feature providing per-file, per-user transparent encryption",
+      "The Extended File System — the native Linux file system family also known as ext",
+      "The Enterprise File Share — the SMB protocol used for network file access",
+      "The Emergency File Store — the reserved area NTFS uses when a volume runs out of space"
+    ],
+    "answer": 0,
+    "explanation": "EFS is the Encrypting File System, an NTFS feature that encrypts individual files and folders transparently for a given user account, with the keys tied to the user's certificate. It differs from BitLocker, which encrypts the whole volume. Forensically, EFS-protected files may be recoverable through the user's key, a recovery agent certificate, or keys resident in memory.",
+    "trap": "EFS = per-FILE and per-USER. BitLocker = whole VOLUME. Different keys, different recovery routes."
+  },
+  {
+    "id": "C6-121",
+    "section": "Tools/Systems/Programs",
+    "module": 3,
+    "topic": "The Sleuth Kit Commands",
+    "difficulty": "hard",
+    "stem": "In The Sleuth Kit, what do img_stat and ffind do?",
+    "options": [
+      "img_stat reports details of an image file's format; ffind finds the filename that points to a given inode",
+      "img_stat lists the files in an image; ffind reports the image file format and hash",
+      "img_stat verifies the image hash; ffind carves deleted files from unallocated space",
+      "img_stat mounts the image read-only; ffind searches file contents for a keyword"
+    ],
+    "answer": 0,
+    "explanation": "img_stat displays details about an image file, including its format and any embedded metadata. ffind finds the filename or directory entry that points to a specified inode, which is how an examiner maps a recovered inode back to a path. Related TSK tools include fls for listing files, icat for extracting content by inode, mmls for partition layout and fsstat for file system details.",
+    "trap": "ffind goes INODE → NAME. fls goes directory → entries. They run in opposite directions."
+  },
+  {
+    "id": "C6-122",
+    "section": "Regulations, Policies and Ethics",
+    "module": 1,
+    "topic": "ISO/IEC 27000 Series",
+    "difficulty": "medium",
+    "stem": "Within the ISO/IEC 27000 series, which standard covers the analysis and interpretation of digital evidence?",
+    "options": [
+      "ISO/IEC 27042",
+      "ISO/IEC 27035",
+      "ISO/IEC 27037",
+      "ISO/IEC 27041"
+    ],
+    "answer": 0,
+    "explanation": "The relevant members of the series are 27035 for incident management, 27037 for identification, collection, acquisition and preservation, 27041 for assuring the suitability and adequacy of the investigative method, 27042 for the analysis and interpretation of digital evidence, and 27043 for overall investigation principles and processes. Laboratory accreditation is ISO/IEC 17025, which sits outside the 27000 series.",
+    "trap": "27041 assures the METHOD. 27042 does the ANALYSIS. Adjacent numbers, different jobs."
+  },
+  {
+    "id": "C6-123",
+    "section": "Digital Forensics",
+    "module": 1,
+    "topic": "AI and Automation in Forensics",
+    "difficulty": "medium",
+    "stem": "What role does forensics automation and orchestration play in an investigation?",
+    "options": [
+      "It links repetitive collection and analysis tasks into automated workflows, reducing manual effort and speeding response",
+      "It replaces the investigator's judgement, allowing conclusions to be drawn without human review",
+      "It guarantees admissibility by removing the need to document the methodology used",
+      "It encrypts the evidence at rest so the chain of custody no longer needs maintaining"
+    ],
+    "answer": 0,
+    "explanation": "Automation and orchestration chain repetitive acquisition, triage and analysis steps into workflows so investigators spend their time on interpretation rather than mechanics, which matters as case data volumes grow. It does not remove the examiner's responsibility: methodology must still be documented and results reviewed, since an unexplainable automated result fails the same reliability tests as any other.",
+    "trap": "Automation changes the effort, never the accountability. Documentation and review still apply."
+  },
+  {
     "id": "CH-101",
     "section": "Digital Evidence",
     "module": 1,

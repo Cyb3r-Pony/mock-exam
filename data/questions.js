@@ -1115,6 +1115,244 @@ window.QS = [
     "trap": "Automation changes the effort, never the accountability. Documentation and review still apply."
   },
   {
+    "id": "C6-201",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Windows Logon Types",
+    "difficulty": "hard",
+    "stem": "A Security log shows a 4624 event with Logon Type 8. What does that indicate?",
+    "options": [
+      "NetworkCleartext — a network logon where the password was passed to the authentication package unhashed",
+      "NewCredentials — a caller cloned its token and specified new credentials for outbound connections",
+      "CachedInteractive — a logon using network credentials that were stored locally on the computer",
+      "Unlock — the workstation was unlocked by a user already logged on"
+    ],
+    "answer": 0,
+    "explanation": "Logon Type 8 is NetworkCleartext: the user logged on from the network and the password was passed to the authentication package in its unhashed form — often IIS basic authentication, and notable because the credential travelled in the clear. Type 9 is NewCredentials, type 11 is CachedInteractive, and type 7 is Unlock.",
+    "trap": "The full set: 2 Interactive · 3 Network · 4 Batch · 5 Service · 7 Unlock · 8 NetworkCleartext · 9 NewCredentials · 10 RemoteInteractive · 11 CachedInteractive."
+  },
+  {
+    "id": "C6-202",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Windows Logon Types",
+    "difficulty": "medium",
+    "stem": "Which logon type records that a workstation was unlocked rather than freshly logged on to?",
+    "options": [
+      "Type 7",
+      "Type 2",
+      "Type 11",
+      "Type 9"
+    ],
+    "answer": 0,
+    "explanation": "Logon Type 7 is Unlock — the session already existed and the user unlocked the workstation. Type 2 is a fresh Interactive logon at the console, type 11 is CachedInteractive using locally cached network credentials, and type 9 is NewCredentials where a caller cloned its token for outbound connections.",
+    "trap": "Type 2 and type 7 both mean someone was physically present, but only type 2 is a NEW session."
+  },
+  {
+    "id": "C6-203",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Jump List AppID",
+    "difficulty": "hard",
+    "stem": "What is the 16-digit hexadecimal value in a Jump List filename, and why does it matter?",
+    "options": [
+      "The AppID, set by the OS or application at runtime, which identifies the application that created the list",
+      "A hash of the user's SID, which ties the jump list to a specific account",
+      "The NTFS object ID of the target file the jump list points to",
+      "A sequence number showing the order in which the jump lists were created"
+    ],
+    "answer": 0,
+    "explanation": "Each Jump List file is named with a 16-digit hexadecimal AppID followed by the extension automaticDestinations-ms or customDestinations-ms. AppIDs are assigned by the OS or the application at runtime, so resolving the AppID identifies which application produced the list — which is how an examiner attributes recently opened files to a specific program.",
+    "trap": "The AppID identifies the APPLICATION, not the user or the file. It is the key to attribution."
+  },
+  {
+    "id": "C6-204",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "Jump List Tools",
+    "difficulty": "medium",
+    "stem": "Which tools are named for analysing Windows Jump Lists?",
+    "options": [
+      "JumpListsView, Belkasoft Evidence Center and Link File & Jump List Parser",
+      "ChromeCacheView, ChromeCookiesView and ChromeHistoryView",
+      "MemProcFS, LeechAgent and Redline",
+      "ESEDatabaseView, SRUM DUMP and Magnet AXIOM Examine"
+    ],
+    "answer": 0,
+    "explanation": "JumpListsView views the information stored by the Jump Lists feature and exports records to csv, tab-delimited, xml or html. Belkasoft Evidence Center and Link File & Jump List Parser are the named alternatives. The other options list Chrome browser tools, memory forensics tools and ESE database tools respectively.",
+    "trap": "Jump lists live in AppData\\Roaming\\Microsoft\\Windows\\Recent\\AutomaticDestinations and \\CustomDestinations."
+  },
+  {
+    "id": "C6-205",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Firefox Artifact Locations",
+    "difficulty": "hard",
+    "stem": "Where does Firefox keep its cache as opposed to its cookies and history?",
+    "options": [
+      "Cache under AppData\\Local\\...\\cache2; cookies and history under AppData\\Roaming\\...\\Profiles\\XXXX.default",
+      "All three under AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\XXXX.default",
+      "All three under AppData\\Local\\Mozilla\\Firefox\\Profiles\\XXXX.default",
+      "Cache and cookies under AppData\\Local; history under ProgramData\\Mozilla"
+    ],
+    "answer": 0,
+    "explanation": "Firefox splits its profile across two roots. The cache sits at C:\\Users\\<user>\\AppData\\Local\\Mozilla\\Firefox\\Profiles\\XXXX.default\\cache2, while cookies.sqlite and places.sqlite sit under AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\XXXX.default. Missing the Local path means missing the cache entirely.",
+    "trap": "LOCAL holds the cache. ROAMING holds the databases. Collect both or you lose half the profile."
+  },
+  {
+    "id": "C6-206",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Firefox SQLite Files",
+    "difficulty": "hard",
+    "stem": "In the Firefox profile, which SQLite file stores usernames and passwords saved during site visits?",
+    "options": [
+      "signons.sqlite",
+      "content-prefs.sqlite",
+      "permissions.sqlite",
+      "addons.sqlite"
+    ],
+    "answer": 0,
+    "explanation": "signons.sqlite holds the usernames and passwords saved during site visits. content-prefs.sqlite holds user preferences for the browser and browser history, permissions.sqlite holds per-site permissions such as popup allowances, and addons.sqlite holds add-on data including description, homepage URL and download count.",
+    "trap": "'Signons' means saved logins. It is the credential file in the Firefox profile."
+  },
+  {
+    "id": "C6-207",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "places.sqlite Tables",
+    "difficulty": "hard",
+    "stem": "Within Firefox's places.sqlite, which tables hold downloads, URLs and website visits?",
+    "options": [
+      "moz_annos for downloads, moz_places for URLs, moz_historyvisit for visits",
+      "moz_downloads for downloads, moz_history for URLs, moz_visits for visits",
+      "moz_cookies for downloads, moz_places for URLs, moz_bookmarks for visits",
+      "moz_places for downloads, moz_annos for URLs, moz_hosts for visits"
+    ],
+    "answer": 0,
+    "explanation": "places.sqlite records downloads in the moz_annos table, URLs in moz_places, and website visits in moz_historyvisit. Separately, cookies.sqlite stores its data in a moz_cookies table with columns including baseDomain, host, lastAccessed and creationTime.",
+    "trap": "Downloads are in moz_ANNOS — an annotations table, not an obvious 'downloads' table."
+  },
+  {
+    "id": "C6-208",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "Chrome Analysis Tools",
+    "difficulty": "medium",
+    "stem": "Which NirSoft utility shows visited pages together with the number of times the user TYPED the address rather than followed a link?",
+    "options": [
+      "ChromeHistoryView",
+      "ChromeCacheView",
+      "ChromeCookiesView",
+      "JumpListsView"
+    ],
+    "answer": 0,
+    "explanation": "ChromeHistoryView reads Chrome's history data file and lists URL, title, visit date and time, number of visits, Typed Count, referrer and visit ID — and Typed Count distinguishes deliberate navigation from a followed link. ChromeCacheView lists cached files with URL, content type, file size and last accessed time; ChromeCookiesView lists cookies with hostname, path, name, value, secure and HTTP-only flags.",
+    "trap": "Typed Count evidences INTENT — the user knew the address rather than clicking through to it."
+  },
+  {
+    "id": "C6-209",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Browser Synchronization",
+    "difficulty": "hard",
+    "stem": "Firefox history sync is enabled on a seized laptop. What is the forensic implication, and where is it verified?",
+    "options": [
+      "Browsing history from the user's OTHER devices appears on this machine; verify via the prefs.js file in the profile directory",
+      "Browsing history from this machine is deleted after upload; verify via cookies.sqlite",
+      "History is encrypted and unreadable without the account password; verify via signons.sqlite",
+      "Only bookmarks are shared and history stays local; verify via places.sqlite"
+    ],
+    "answer": 0,
+    "explanation": "Firefox synchronises the entire browsing history among devices and does not separate history by device, so the machine in front of you may show activity that happened elsewhere. Investigators verify whether the history sync attribute is enabled by checking prefs.js in the profile directory, where services.sync entries record the sync state and username.",
+    "trap": "Synced history is a serious attribution risk — activity on the image may never have happened on that machine."
+  },
+  {
+    "id": "C6-210",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Firefox Extensions",
+    "difficulty": "medium",
+    "stem": "In what format and location does Firefox store extension information?",
+    "options": [
+      ".xpi files under AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\<Profile>\\extensions",
+      ".crx files under AppData\\Local\\Mozilla\\Firefox\\Extensions",
+      ".dll files under Program Files\\Mozilla Firefox\\browser\\extensions",
+      ".json manifests under ProgramData\\Mozilla\\Extensions"
+    ],
+    "answer": 0,
+    "explanation": "Firefox stores extension information in .xpi format under the profile's extensions directory. Extracting it lets an investigator establish the date and time an extension was added and the extension link — relevant where a malicious or data-exfiltrating add-on is suspected. The .crx format belongs to Chrome.",
+    "trap": ".xpi = Firefox. .crx = Chrome. Both are just ZIP containers underneath."
+  },
+  {
+    "id": "C6-211",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Event Log Configuration",
+    "difficulty": "medium",
+    "stem": "Which registry key maintains the Windows event log configuration?",
+    "options": [
+      "HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\EventLog",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\EventLog",
+      "HKLM\\SYSTEM\\CurrentControlSet\\Control\\EventLogPolicy"
+    ],
+    "answer": 0,
+    "explanation": "Event log configuration is held under HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog, with subkeys for Application, Security, System and each registered source, and values controlling file size limits, retention and the log file path. Checking it reveals whether logging was reduced or redirected before an incident.",
+    "trap": "Log configuration lives under SERVICES\\EventLog — it is a service, not a Control or SOFTWARE key."
+  },
+  {
+    "id": "C6-212",
+    "section": "Tools/Systems/Programs",
+    "module": 6,
+    "topic": "SQLite Browser Analysis",
+    "difficulty": "medium",
+    "stem": "Which tool is named for viewing and analysing the SQLite databases a browser creates?",
+    "options": [
+      "SQLite Forensic Explorer",
+      "ESEDatabaseView",
+      "WinPrefetchView",
+      "Stream Detector"
+    ],
+    "answer": 0,
+    "explanation": "SQLite Forensic Explorer is named for viewing and analysing the SQLite files related to browsers — Firefox alone uses SQLite for cookies, searches, bookmarks and history. ESEDatabaseView reads Extensible Storage Engine .edb files such as SRUM and Windows Search, WinPrefetchView parses .pf files, and Stream Detector finds NTFS alternate data streams.",
+    "trap": "SQLite = browsers and mobile apps. ESE (.edb) = SRUM, Windows Search, Exchange. Different engines, different tools."
+  },
+  {
+    "id": "C6-213",
+    "section": "Procedures and Methodology",
+    "module": 6,
+    "topic": "Browser Evidence Workflow",
+    "difficulty": "medium",
+    "stem": "What is the correct order of the browser forensics workflow?",
+    "options": [
+      "Identify the browsers used, acquire the artifacts without altering them, then parse and build a timeline from the timestamped data",
+      "Parse the history databases first, then identify which browsers produced them, then acquire the profiles",
+      "Build the timeline from memory first, then acquire the browser profiles to confirm it",
+      "Acquire the whole disk, then decide afterwards whether any browser artifacts are relevant"
+    ],
+    "answer": 0,
+    "explanation": "Evidence collection comes first — identify the web browsers used on the device, acquire the artifacts ensuring the data are not altered, and copy the user profiles, histories, cookies, bookmarks, downloads, form data and cache. Evidence analysis follows: parse those files with forensic tools, analyse the timestamped artifacts to build a timeline of user activity, and look for patterns indicating malicious activity.",
+    "trap": "Identify → acquire → analyse. Parsing before you know which browsers were used risks missing a profile entirely."
+  },
+  {
+    "id": "C6-214",
+    "section": "Digital Forensics",
+    "module": 6,
+    "topic": "Chrome Artifact Locations",
+    "difficulty": "medium",
+    "stem": "Where does Chrome store its cookies on a modern Windows profile?",
+    "options": [
+      "AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies",
+      "AppData\\Roaming\\Google\\Chrome\\User Data\\Default\\Cookies",
+      "AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data",
+      "ProgramData\\Google\\Chrome\\Cookies"
+    ],
+    "answer": 0,
+    "explanation": "Chrome keeps cookies in a SQLite database at AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies, having moved it under a Network subfolder in later versions. The cache sits separately at ...\\Default\\Cache\\Cache_Data. Unlike Firefox, Chrome keeps its whole profile under AppData\\Local rather than splitting across Local and Roaming.",
+    "trap": "Chrome cookies moved into a Network\\ subfolder — an older path from memory will come up empty."
+  },
+  {
     "id": "CH-101",
     "section": "Digital Evidence",
     "module": 1,

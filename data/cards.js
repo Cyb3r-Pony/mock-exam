@@ -258,8 +258,8 @@ window.CARDS = [
   },
   {
     "deck": "Windows Event IDs",
-    "front": "Logon Types 2 / 3 / 4 / 5 / 10",
-    "back": "2 = Interactive, 3 = Network, 4 = Batch, 5 = Service, 10 = RemoteInteractive (RDP)."
+    "front": "Logon Types — the full list",
+    "back": "2 Interactive · 3 Network · 4 Batch · 5 Service · 7 Unlock · 8 NetworkCleartext · 9 NewCredentials · 10 RemoteInteractive (RDP) · 11 CachedInteractive."
   },
   {
     "deck": "File Signatures",
@@ -1575,5 +1575,170 @@ window.CARDS = [
     "deck": "Terms — Ch1 Foundations",
     "front": "Forensics automation and orchestration",
     "back": "Chaining repetitive collection and analysis tasks into automated workflows to cut manual effort. It changes the effort, not the accountability — methodology must still be documented."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 2 — Interactive",
+    "back": "A user logged on at the console of the machine itself. Evidence of physical presence at the keyboard."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 3 — Network",
+    "back": "A user or computer logged on to this computer from the network. The most common type on a server — file shares, remote WMI, most lateral movement."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 4 — Batch",
+    "back": "A batch server executed a process on behalf of a user without their direct intervention. Scheduled tasks show up here."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 5 — Service",
+    "back": "A service was started by the Service Control Manager. Frequent and mostly noise, but a new service account appearing is worth a look."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 7 — Unlock",
+    "back": "The workstation was unlocked. The session already existed; this is not a new logon."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 8 — NetworkCleartext",
+    "back": "A network logon where the password was passed to the authentication package in its unhashed form. Notable because the credential travelled in the clear."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 9 — NewCredentials",
+    "back": "A caller cloned its current token and specified new credentials for outbound connections. What runas /netonly produces."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 10 — RemoteInteractive",
+    "back": "A user logged on remotely using Terminal Services or Remote Desktop."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Logon Type 11 — CachedInteractive",
+    "back": "A user logged on with network credentials that were cached locally. Happens when the domain controller is unreachable — a laptop off the corporate network."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Event log configuration key",
+    "back": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog. Holds subkeys per log and per source, with size limits, retention and file paths. Check it for logging that was reduced or redirected."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "Jump List AppID",
+    "back": "A 16-digit hexadecimal value in the jump list filename, set by the OS or application at runtime. Resolving it identifies which application created the list."
+  },
+  {
+    "deck": "Terms — Ch6 Windows Artifacts",
+    "front": "automaticDestinations-ms vs customDestinations-ms",
+    "back": "The two jump list extensions. Automatic destinations are built by the OS from recent use; custom destinations are added by the application itself. Both live under AppData\\Roaming\\Microsoft\\Windows\\Recent."
+  },
+  {
+    "deck": "Tools — Ch6 Windows",
+    "front": "JumpListsView",
+    "back": "NirSoft tool that displays the records stored by the Windows Jump Lists feature — filename, full path, record time, created, modified and accessed times. Exports to csv, tab-delimited, xml or html."
+  },
+  {
+    "deck": "Tools — Ch6 Windows",
+    "front": "Link File & Jump List Parser",
+    "back": "A tool for parsing .lnk shortcut files and jump lists together, recovering the target paths and timestamps of files a user opened."
+  },
+  {
+    "deck": "Tools — Ch6 Windows",
+    "front": "Belkasoft Evidence Center",
+    "back": "A broad commercial forensic suite; in this context, named as an option for analysing jump lists alongside its browser, chat and memory modules."
+  },
+  {
+    "deck": "Tools — Ch6 Browsers",
+    "front": "ChromeCacheView",
+    "back": "NirSoft utility that reads the Chrome cache folder and lists each cached file with URL, content type, file size, last accessed time, expiration time, server name and server response."
+  },
+  {
+    "deck": "Tools — Ch6 Browsers",
+    "front": "ChromeCookiesView",
+    "back": "NirSoft utility that lists Chrome cookies with host name, path, name, value, secure flag, HTTP-only flag, last accessed, creation and expiration times."
+  },
+  {
+    "deck": "Tools — Ch6 Browsers",
+    "front": "ChromeHistoryView",
+    "back": "NirSoft utility that reads Chrome's history file and lists URL, title, visit date and time, number of visits, Typed Count, referrer and visit ID. Exports to html, xml, csv or text."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Typed Count",
+    "back": "A Chrome history field recording how many times the user typed the address rather than following a link. Evidence of deliberate navigation — the user knew the URL."
+  },
+  {
+    "deck": "Tools — Ch6 Browsers",
+    "front": "SQLite Forensic Explorer",
+    "back": "A tool for viewing and analysing the SQLite databases browsers create — Firefox alone uses SQLite for cookies, searches, bookmarks and history."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Chrome cache location",
+    "back": "C:\\Users\\<user>\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data"
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Chrome cookies location",
+    "back": "C:\\Users\\<user>\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies — a SQLite database. Later Chrome versions moved it under the Network subfolder."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Firefox cache location",
+    "back": "C:\\Users\\<user>\\AppData\\Local\\Mozilla\\Firefox\\Profiles\\XXXXXXXX.default\\cache2 — note LOCAL, not Roaming."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Firefox cookies and history location",
+    "back": "C:\\Users\\<user>\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\XXXXXXXX.default — cookies.sqlite and places.sqlite. The cache sits under Local instead, so collect both roots."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "places.sqlite",
+    "back": "The Firefox history database. Downloads are in the moz_annos table, URLs in moz_places, website visits in moz_historyvisit."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "cookies.sqlite",
+    "back": "The Firefox cookie store. Its moz_cookies table carries baseDomain, host, lastAccessed and creationTime."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "signons.sqlite",
+    "back": "The Firefox file holding usernames and passwords saved during site visits."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "content-prefs.sqlite",
+    "back": "Firefox file storing user preferences for the browser along with browser history data."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "permissions.sqlite",
+    "back": "Firefox file recording the permissions granted to individual websites, such as popup and notification allowances."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "addons.sqlite",
+    "back": "Firefox file holding add-on data — description, homepage URL, download count and related metadata."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Firefox extensions (.xpi)",
+    "back": "Firefox stores extensions as .xpi files under AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\<Profile>\\extensions. Extracting them gives the date and time each was added."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "prefs.js",
+    "back": "The Firefox profile preferences file. Its services.sync entries show whether history sync is enabled and under which account — the way to check for cross-device history."
+  },
+  {
+    "deck": "Terms — Ch6 Browsers",
+    "front": "Browser sync and attribution",
+    "back": "Firefox synchronises the whole browsing history across devices and does not separate it by device. Activity visible on a seized machine may have occurred on another one entirely."
   }
 ];

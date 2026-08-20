@@ -1353,6 +1353,414 @@ window.QS = [
     "trap": "Chrome cookies moved into a Network\\ subfolder — an older path from memory will come up empty."
   },
   {
+    "id": "C7-001",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Epoch Timestamps",
+    "difficulty": "hard",
+    "stem": "An examiner must convert three timestamps taken from the same Mac: a Unix epoch value, an HFS+ value and a Cocoa value. What are the three epoch start dates?",
+    "options": [
+      "Unix 1 Jan 1970, HFS+ 1 Jan 1904, Cocoa 1 Jan 2001",
+      "Unix 1 Jan 1970, HFS+ 1 Jan 2001, Cocoa 1 Jan 1904",
+      "Unix 1 Jan 1904, HFS+ 1 Jan 1970, Cocoa 1 Jan 2001",
+      "All three count from 1 Jan 1970 but at different granularities"
+    ],
+    "answer": 0,
+    "explanation": "The Unix epoch begins 1 January 1970 00:00:00 UTC in seconds. HFS+ counts seconds from 1 January 1904 00:00:00 UTC. Cocoa — Apple's application framework, and the source of many plist timestamps — counts from 1 January 2001 00:00:00 UTC. Applying the wrong epoch shifts a timestamp by decades, which is why the same file can appear to have three different dates depending on which artifact you read it from.",
+    "trap": "1904 / 1970 / 2001 — HFS+ is the OLDEST, Cocoa the NEWEST. A Cocoa value read as Unix lands 31 years early."
+  },
+  {
+    "id": "C7-002",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "netstat Switches (Linux)",
+    "difficulty": "medium",
+    "stem": "An investigator runs 'netstat -tulpn' on a live Linux host. What does each switch contribute?",
+    "options": [
+      "t = TCP, u = UDP, l = listening sockets, p = owning PID and program, n = numeric addresses",
+      "t = timestamps, u = users, l = logs, p = protocol, n = network interfaces",
+      "t = TCP, u = UDP, l = local only, p = promiscuous mode, n = names resolved",
+      "t = tree view, u = UDP, l = loopback, p = ports, n = no DNS"
+    ],
+    "answer": 0,
+    "explanation": "-t shows TCP ports, -u shows UDP ports, -l restricts output to listening ports, -p lists the PID and program name owning each socket, and -n prints addresses numerically rather than resolving names. The -p flag is the forensically important one: it ties a listening port to the process behind it. -n also matters on a compromised host, since name resolution may be poisoned or may leak the investigation to a watching attacker.",
+    "trap": "-n is not cosmetic. Resolving names on a live suspect host generates DNS traffic that can tip off an attacker."
+  },
+  {
+    "id": "C7-003",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "lsof Listening Sockets",
+    "difficulty": "medium",
+    "stem": "Which command lists only the processes holding sockets in the LISTEN state, without resolving names or ports?",
+    "options": [
+      "lsof -i -P -n | grep LISTEN",
+      "lsof -a -u root | grep LISTEN",
+      "lsof +D / | grep LISTEN",
+      "lsof -c LISTEN -i"
+    ],
+    "answer": 0,
+    "explanation": "lsof -i selects network files, -P leaves port numbers unconverted, -n leaves addresses unresolved, and piping through grep LISTEN filters to listening sockets. This is the standard live-response one-liner for finding backdoors and unexpected services. +D recurses a directory tree and has nothing to do with sockets; -c selects by command name, not by socket state.",
+    "trap": "-P suppresses port-NAME conversion; -n suppresses HOST-name conversion. Two different lookups, both worth suppressing."
+  },
+  {
+    "id": "C7-004",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "Linux Kernel Modules",
+    "difficulty": "easy",
+    "stem": "Which command reads /proc/modules to list the modules currently loaded in the Linux kernel?",
+    "options": [
+      "lsmod",
+      "modinfo",
+      "insmod",
+      "readelf"
+    ],
+    "answer": 0,
+    "explanation": "lsmod (list modules) reads the contents of /proc/modules and lists the loaded kernel modules — the place a loadable kernel module rootkit would have to appear. modinfo takes a named module and reports details about that one module. insmod inserts a module rather than listing them, and readelf analyses headers and sections of ELF files.",
+    "trap": "lsmod LISTS them all; modinfo describes ONE. The pair is a favourite distractor set."
+  },
+  {
+    "id": "C7-005",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "ELF File Analysis",
+    "difficulty": "medium",
+    "stem": "A suspect binary has no extension. Which command analyses the headers and sections of an ELF file?",
+    "options": [
+      "readelf",
+      "dmesg",
+      "ausearch",
+      "hostnamectl"
+    ],
+    "answer": 0,
+    "explanation": "Executable and Linkable Format is the main executable file format on Linux — shared libraries, kernel modules and the kernel itself are stored in ELF. readelf analyses ELF headers and sections. dmesg reports kernel messages, ausearch queries the audit log for user events, and hostnamectl reports host and kernel identity.",
+    "trap": "To identify an extensionless file's TYPE use 'file'. To dissect an ELF once identified, use readelf."
+  },
+  {
+    "id": "C7-006",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Linux User Event Tracing",
+    "difficulty": "medium",
+    "stem": "An investigator has a username and needs every audited event attributable to that account. What is the correct sequence?",
+    "options": [
+      "Run 'id' to resolve the username to a UID, then 'ausearch' to list events for that UID",
+      "Run 'ausearch' for the username, then 'id' to confirm the events belong to it",
+      "Run 'last' to get the UID, then 'dmesg' to list that user's events",
+      "Run 'who' to resolve the UID, then 'readelf' to list the audit records"
+    ],
+    "answer": 0,
+    "explanation": "The id command determines the real user ID for a specified username; ausearch then lists all user events corresponding to that user ID from the audit log. The order matters because the audit subsystem records numeric UIDs, not names — and a renamed or deleted account still leaves its UID behind in the audit trail.",
+    "trap": "Audit records key on the numeric UID. Searching by name alone misses events from a since-renamed account."
+  },
+  {
+    "id": "C7-007",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "systemctl Service States",
+    "difficulty": "hard",
+    "stem": "On a Linux host, which systemctl service state means the service is configured to start at boot?",
+    "options": [
+      "enabled",
+      "restart",
+      "dead",
+      "failed"
+    ],
+    "answer": 0,
+    "explanation": "enabled means the service is configured to start during boot time; disabled means it is configured not to. dead means the service has been terminated, failed means it encountered errors preventing it from starting, and restart means its execution is being restarted intentionally or automatically. A malicious service set to enabled is a persistence finding; one that is repeatedly failed or restarting may be a broken implant.",
+    "trap": "enabled/disabled describe BOOT configuration. dead/failed/restart describe CURRENT runtime state. Different axes."
+  },
+  {
+    "id": "C7-008",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Linux Cron Persistence",
+    "difficulty": "medium",
+    "stem": "Which command lists the cron jobs belonging to one specific user during a persistence check?",
+    "options": [
+      "sudo crontab -u [username] -l",
+      "crontab -l",
+      "grep CRON /var/log/syslog",
+      "sudo systemctl status cron"
+    ],
+    "answer": 0,
+    "explanation": "crontab -u [username] -l lists the crontab of a named user, which is how an examiner checks every account rather than only the one they are logged in as. Plain 'crontab -l' shows only the current user's jobs, grep CRON /var/log/syslog reads cron execution logs rather than job definitions, and systemctl status cron only confirms the service is running. Attackers use cron as a persistence technique, so per-user enumeration matters.",
+    "trap": "'crontab -l' silently shows only YOUR jobs. On a live response as root that is the attacker's jobs missed."
+  },
+  {
+    "id": "C7-009",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "Freta",
+    "difficulty": "medium",
+    "stem": "Which cloud-based tool developed by Microsoft provides automated full-system volatile memory analysis for Linux systems?",
+    "options": [
+      "Freta",
+      "Volatility Framework",
+      "rkhunter",
+      "mac_apt"
+    ],
+    "answer": 0,
+    "explanation": "Freta is Microsoft's cloud service for automated full-system volatile memory analysis of Linux images: the examiner authenticates with a Microsoft or Azure AD account, uploads the image with a name, kernel profile and Azure region, submits it, and receives a generated report. Volatility is a local framework rather than a cloud service, rkhunter hunts rootkits on a live filesystem, and mac_apt processes macOS images.",
+    "trap": "Freta = cloud, automated, Linux memory, Microsoft. The kernel profile is required at upload time."
+  },
+  {
+    "id": "C7-010",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Linux Log Files",
+    "difficulty": "hard",
+    "stem": "Which Linux log records which users performed read and write operations on files?",
+    "options": [
+      "/var/log/audit/audit.log",
+      "/var/log/daemon.log",
+      "/var/log/apport.log",
+      "/var/log/dpkg.log"
+    ],
+    "answer": 0,
+    "explanation": "/var/log/audit/audit.log holds information about the users who performed read and write operations on files — the output of the kernel audit subsystem queried by ausearch. daemon.log records running services such as squid and ntpd, apport.log holds application crash reports, and dpkg.log records package installation and removal, which is separately useful for spotting attacker-installed software.",
+    "trap": "File-access attribution is audit.log. Package changes are dpkg.log. Crashes are apport.log."
+  },
+  {
+    "id": "C7-011",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Linux Log Files",
+    "difficulty": "medium",
+    "stem": "Match the artifact: which log stores all FTP file transfer sessions?",
+    "options": [
+      "/var/log/xferlog",
+      "/var/log/lpr.log",
+      "/var/log/maillog",
+      "/var/log/cron"
+    ],
+    "answer": 0,
+    "explanation": "/var/log/xferlog logs all FTP file transfer sessions, making it a primary source when data exfiltration over FTP is suspected. lpr.log holds printer logs, maillog holds mail server messages, and cron stores crond-related messages.",
+    "trap": "xferlog = FTP TRANSFERS. Useful for proving what left the host, not just that a session occurred."
+  },
+  {
+    "id": "C7-012",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "Linux Rootkit Detection",
+    "difficulty": "easy",
+    "stem": "Which two tools are named for detecting rootkits on a Linux system?",
+    "options": [
+      "rkhunter and chkrootkit",
+      "readelf and strings",
+      "dmesg and lsmod",
+      "rkhunter and Volatility"
+    ],
+    "answer": 0,
+    "explanation": "rkhunter and chkrootkit are the two named rootkit detection utilities, scanning for known rootkit signatures, suspicious file properties and hidden processes. readelf and strings analyse individual files, dmesg and lsmod report kernel state without judging it, and Volatility analyses memory images rather than scanning a live filesystem for rootkits.",
+    "trap": "Both scan a LIVE system. A kernel-mode rootkit can lie to them — memory analysis is the cross-check."
+  },
+  {
+    "id": "C7-013",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "Volatility Linux Plugins",
+    "difficulty": "medium",
+    "stem": "Which Volatility 3 plugin lists all running processes from an acquired Linux memory image?",
+    "options": [
+      "linux.pslist",
+      "linux.lsmod",
+      "linux.psscan",
+      "linux.bash"
+    ],
+    "answer": 0,
+    "explanation": "linux.pslist walks the kernel's process list and reports all running processes with their offsets, PIDs, TIDs, PPIDs and command names. linux.psscan instead scans memory for process structures and can therefore recover processes hidden or already exited, which is why the two are run together. linux.lsmod lists loaded kernel modules and linux.bash recovers command history from memory.",
+    "trap": "pslist WALKS the list — a rootkit can unlink from it. psscan SCANS raw memory and catches what pslist missed."
+  },
+  {
+    "id": "C7-014",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "macOS Artifact Locations",
+    "difficulty": "hard",
+    "stem": "Where does Apple Mail store messages on macOS, and in what format?",
+    "options": [
+      "~/Library/Mail, in emlx format",
+      "~/Library/Preferences/Mail, in mbox format",
+      "~/Library/Containers/Mail, in eml format",
+      "/System/Library/Mail, in emlx format"
+    ],
+    "answer": 0,
+    "explanation": "Apple Mail is the default standalone email client on macOS and stores all messages under ~/Library/Mail in emlx format — a plain-text message with an Apple-specific plist trailer carrying flags and metadata. Safari's data sits alongside it at ~/Library/Safari as History.plist, Downloads.plist and Bookmarks.plist.",
+    "trap": "emlx, not eml or mbox. The trailing plist is what distinguishes it and carries read/flagged state."
+  },
+  {
+    "id": "C7-015",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "macOS Kernel Extensions",
+    "difficulty": "medium",
+    "stem": "Which command isolates third-party kernel extensions on macOS during a live response?",
+    "options": [
+      "kextstat | grep -v com.apple",
+      "kextstat | grep com.apple",
+      "ioreg | grep -v com.apple",
+      "lsmod | grep -v apple"
+    ],
+    "answer": 0,
+    "explanation": "kextstat lists all loaded kernel extensions; piping through 'grep -v com.apple' inverts the match to exclude Apple's own bundle identifiers, leaving only third-party kexts — the short list worth scrutinising for malicious drivers. Dropping the -v would show only Apple's. ioreg reports the I/O Kit registry of hardware and drivers, and lsmod is the Linux equivalent, not a macOS command.",
+    "trap": "grep -v INVERTS. Without it you get Apple's own extensions — the opposite of what you want."
+  },
+  {
+    "id": "C7-016",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "macOS Startup Persistence",
+    "difficulty": "hard",
+    "stem": "Which path holds USER-level launch agents on macOS, as distinct from system-level ones?",
+    "options": [
+      "~/Library/LaunchAgents",
+      "/Library/LaunchDaemons",
+      "/System/Library/LaunchDaemons",
+      "/Library/LaunchAgents"
+    ],
+    "answer": 0,
+    "explanation": "~/Library/LaunchAgents holds agents for that user only. System-level locations are /Library/LaunchAgents and /Library/LaunchDaemons for third-party software, plus /System/Library/LaunchAgents and /System/Library/LaunchDaemons for Apple's own. A persistence check must cover all of them, plus the login items under System Settings, Users & Groups.",
+    "trap": "The tilde is the whole distinction. ~/Library is per-user; /Library is all users; /System/Library is Apple's."
+  },
+  {
+    "id": "C7-017",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "macOS Desktop Artifacts",
+    "difficulty": "medium",
+    "stem": "Which plist records recently used applications on macOS?",
+    "options": [
+      "com.apple.recentitems.plist",
+      "com.apple.dock.plist",
+      "com.apple.desktop.plist",
+      "SystemVersion.plist"
+    ],
+    "answer": 0,
+    "explanation": "com.apple.recentitems.plist records recently used applications and documents. com.apple.dock.plist records Dock items, com.apple.desktop.plist records wallpaper settings, and SystemVersion.plist — at /System/Library/CoreServices/ — carries the system version details. The first three live under ~/Library/Preferences/ with the rest of the user's configuration plists.",
+    "trap": "recentitems = what was USED. dock = what was PINNED. Pinning is a weaker claim than use."
+  },
+  {
+    "id": "C7-018",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "macOS Spotlight Metadata",
+    "difficulty": "hard",
+    "stem": "Spotlight's central metadata repository is which file, and where is it found?",
+    "options": [
+      "store.db, in the /.Spotlight-V100/Store-V2/<UUID> folder on each partition",
+      "spotlight.plist, in ~/Library/Preferences on the boot volume only",
+      "store.db, in ~/Library/Caches/com.apple.Spotlight",
+      "index.sqlite, in /System/Library/CoreServices/Spotlight"
+    ],
+    "answer": 0,
+    "explanation": "store.db is Spotlight's central database and each macOS partition contains its own copy, under /.Spotlight-V100/Store-V2/<UUID>. It is parsed with spotlight_parser. Because Spotlight indexes file names, types, sizes, and creation and modification dates, store.db can evidence files that have since been deleted from the volume.",
+    "trap": "Per-PARTITION, not per-user. An external volume carries its own store.db — and its own history."
+  },
+  {
+    "id": "C7-019",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "macOS Thumbnail Cache",
+    "difficulty": "medium",
+    "stem": "Which macOS artifact can show what images were stored on a system even after the originals are gone?",
+    "options": [
+      "com.apple.QuickLook.thumbnailcache under ~/Library/Caches/",
+      "com.apple.desktop.plist under ~/Library/Preferences/",
+      "The Time Machine hourly backup set",
+      "The Keychain database"
+    ],
+    "answer": 0,
+    "explanation": "The QuickLook thumbnail cache retains rendered previews of files that have been viewed, so it can establish that an image existed on the system even where the original file has been deleted. Wallpaper settings, backups and stored credentials are all useful but none of them independently evidences a deleted image's prior presence.",
+    "trap": "A thumbnail is a derived copy. It survives deletion of the original and is admissible evidence of it."
+  },
+  {
+    "id": "C7-020",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "macOS Live Response Commands",
+    "difficulty": "medium",
+    "stem": "Which command returns the macOS version, build number and product name?",
+    "options": [
+      "sw_vers",
+      "system_profiler",
+      "networksetup -listallhardwareports",
+      "diskutil"
+    ],
+    "answer": 0,
+    "explanation": "sw_vers fetches the macOS version, build number and product name. system_profiler returns a far broader profile covering hardware, software and network. networksetup -listallhardwareports lists network interfaces with their MAC addresses, and diskutil lists disks and partitions with file system, size and identifier.",
+    "trap": "sw_vers is NARROW and fast; system_profiler is the comprehensive one. Know which the question wants."
+  },
+  {
+    "id": "C7-021",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "macOS Memory and Swap",
+    "difficulty": "medium",
+    "stem": "Which command reports macOS swap space usage, including how much is used, how much is free, and where it lives?",
+    "options": [
+      "sysctl vm.swapusage",
+      "vm_stat",
+      "diskutil",
+      "kextstat"
+    ],
+    "answer": 0,
+    "explanation": "sysctl vm.swapusage reports swap space used and free along with its location. vm_stat returns virtual memory statistics rather than swap file detail, diskutil enumerates disks and partitions, and kextstat lists loaded kernel extensions. Swap matters forensically because it can retain fragments of data that were never written to a file.",
+    "trap": "vm_stat = virtual memory STATISTICS. sysctl vm.swapusage = the swap FILE itself."
+  },
+  {
+    "id": "C7-022",
+    "section": "Digital Forensics",
+    "module": 7,
+    "topic": "macOS Command History",
+    "difficulty": "easy",
+    "stem": "A macOS suspect used the default modern shell. Which file holds their command history?",
+    "options": [
+      "~/.zsh_history",
+      "~/.bash_history",
+      "~/Library/Logs/shell_history",
+      "~/.sh_history"
+    ],
+    "answer": 0,
+    "explanation": "Modern macOS defaults to zsh, whose history is at ~/.zsh_history and is read with 'cat ~/.zsh_history'. Older systems and users who switched shells will have ~/.bash_history instead. A thorough examination checks both, since the presence of an old bash history alongside a current zsh history can itself indicate when the account was created or the shell changed.",
+    "trap": "Check BOTH files. macOS switched default shells, so a single-file check can miss the earlier half of a user's activity."
+  },
+  {
+    "id": "C7-023",
+    "section": "Tools/Systems/Programs",
+    "module": 7,
+    "topic": "macOS Forensic Tools",
+    "difficulty": "medium",
+    "stem": "Which DFIR tool processes full disk images or live macOS machines to extract forensically useful data and metadata?",
+    "options": [
+      "mac_apt",
+      "Freta",
+      "chkrootkit",
+      "spotlight_parser"
+    ],
+    "answer": 0,
+    "explanation": "mac_apt is a DFIR tool built to process Mac full disk images or live machines and extract data and metadata useful to an investigation. Freta analyses Linux memory in the cloud, chkrootkit hunts Linux rootkits, and spotlight_parser is narrower — it parses the Spotlight store.db specifically rather than processing a whole image.",
+    "trap": "mac_apt = whole image or live machine. spotlight_parser = one database. Scope is the discriminator."
+  },
+  {
+    "id": "C7-024",
+    "section": "Procedures and Methodology",
+    "module": 7,
+    "topic": "macOS Time Verification",
+    "difficulty": "hard",
+    "stem": "Before relying on macOS timestamps, an investigator must establish whether the system clock was synchronised. Which commands answer that?",
+    "options": [
+      "systemsetup -getusingnetworktime and systemsetup -getnetworktimeserver",
+      "date to read the clock and stat to read a file's timestamps",
+      "systemsetup -gettimezone to read the zone offset and sw_vers for the build",
+      "vm_stat for memory statistics and diskutil for the partition table"
+    ],
+    "answer": 0,
+    "explanation": "systemsetup -getusingnetworktime reports whether the system is set to synchronise with a network time server, and -getnetworktimeserver names that server. Together they establish whether recorded timestamps can be trusted against an external reference. date returns the current time, -gettimezone returns the zone offset, and stat displays a file's timestamps — all necessary context, but none of them tells you whether the clock was ever correct.",
+    "trap": "Time ZONE and current time are not the same as time SYNCHRONISATION. Only the latter validates the timeline."
+  },
+  {
     "id": "CH-101",
     "section": "Digital Evidence",
     "module": 1,

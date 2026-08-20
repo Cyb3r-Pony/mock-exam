@@ -1740,5 +1740,270 @@ window.CARDS = [
     "deck": "Terms — Ch6 Browsers",
     "front": "Browser sync and attribution",
     "back": "Firefox synchronises the whole browsing history across devices and does not separate it by device. Activity visible on a seized machine may have occurred on another one entirely."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "Epoch start dates — Unix, HFS+, Cocoa",
+    "back": "Unix: 1 Jan 1970. HFS+: 1 Jan 1904. Cocoa (Apple app framework, many plists): 1 Jan 2001. All in seconds UTC. Using the wrong one shifts a timestamp by decades."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "Linux volatile information",
+    "back": "Hostname, date/time and time zone; uptime; loaded kernel modules; user events; network information; running processes; open ports; swap and partitions; open files; kernel messages; mounted filesystems."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "netstat -tulpn",
+    "back": "t = TCP, u = UDP, l = listening only, p = owning PID and program name, n = numeric (no DNS). The -p flag ties a port to its process; -n avoids tipping off an attacker via DNS."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "lsof -i -P -n | grep LISTEN",
+    "back": "Lists processes holding listening sockets. -i selects network files, -P skips port-name conversion, -n skips host-name resolution. The standard backdoor-hunting one-liner."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "lsmod",
+    "back": "Reads /proc/modules and lists modules loaded in the kernel — where a loadable kernel module rootkit must appear."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "modinfo",
+    "back": "Returns detailed information about one named kernel module. lsmod lists them all; modinfo describes a single one."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "ELF (Executable and Linkable Format)",
+    "back": "The main executable file format on Linux. Shared libraries, kernel modules and the kernel itself are stored in ELF."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "readelf",
+    "back": "Analyses the headers and sections of an ELF file. Use 'file' to identify an extensionless binary first, then readelf to dissect it."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "id then ausearch",
+    "back": "id resolves a username to its real UID; ausearch then lists all audited events for that UID. Audit records key on the numeric UID, not the name."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "systemctl list-units --type=service --all",
+    "back": "Lists every system service and its status, so an investigator can judge which are relevant. Filter by state with --state=<state>, or several states comma-separated."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "systemctl service states",
+    "back": "dead = terminated. failed = errored and could not start. restart = being restarted, deliberately or automatically. enabled = starts at boot. disabled = does not start at boot."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "dmesg",
+    "back": "Prints kernel messages — diagnostics and troubleshooting information covering device failures and other system issues."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "uptime and top",
+    "back": "uptime shows how long the system has run since last restart. top shows the same metrics plus a real-time view of running processes and kernel-managed tasks."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "Freta",
+    "back": "Microsoft cloud service for automated full-system volatile memory analysis of Linux images. Upload the image with a name, kernel profile and Azure region; it returns a generated report."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "Linux kernel version commands",
+    "back": "uname -r, cat /proc/version, or hostnamectl | grep Kernel."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/etc/passwd",
+    "back": "Stores local user account information on a Linux system. Analysing it reveals the accounts present on the machine."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/audit/audit.log",
+    "back": "Records which users performed read and write operations on files — the kernel audit trail queried with ausearch."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/faillog",
+    "back": "Failed user login attempts."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/lastlog",
+    "back": "Last login attempts per account."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/xferlog",
+    "back": "Logs all FTP file transfer sessions — a primary source when exfiltration over FTP is suspected."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/dpkg.log",
+    "back": "Package installation and removal logs. Useful for spotting attacker-installed software."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/kern.log",
+    "back": "Kernel initialisation, kernel errors and informational messages sent from the kernel."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/syslog",
+    "back": "All system messages, including those from applications, services and the kernel. The syslog configuration file governs what is collected."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/boot.log and /var/log/cron",
+    "back": "boot.log records the system boot processes; cron stores crond-related messages."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/apport.log and /var/log/daemon.log",
+    "back": "apport.log holds application crash reports; daemon.log records running services such as squid and ntpd."
+  },
+  {
+    "deck": "Terms — Ch7 Linux",
+    "front": "/var/log/setroubleshoot/",
+    "back": "Access and denial attempts to applications and files through the SELinux framework."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "rkhunter and chkrootkit",
+    "back": "The two named Linux rootkit detection tools. Both scan a live system, so a kernel-mode rootkit can lie to them — cross-check with memory analysis."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "file and strings commands",
+    "back": "file identifies a file's type when it has no extension. strings extracts readable text from binaries and images, useful for finding embedded data."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "Cron examination commands",
+    "back": "sudo systemctl status cron (is it running), grep CRON /var/log/syslog (execution logs), crontab -l (your jobs), sudo crontab -u [user] -l (a named user's jobs)."
+  },
+  {
+    "deck": "Tools — Ch7 Linux",
+    "front": "linux.pslist vs linux.psscan",
+    "back": "Volatility 3 plugins. pslist walks the kernel process list, which a rootkit can unlink from. psscan scans raw memory for process structures and finds hidden or exited processes. Run both."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "SystemVersion.plist",
+    "back": "At /System/Library/CoreServices/. Contains the macOS system version details."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "Apple Mail storage",
+    "back": "~/Library/Mail, in emlx format — plain-text message with an Apple plist trailer carrying flags and metadata. Not eml, not mbox."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "Safari artifacts",
+    "back": "~/Library/Safari — History.plist, Downloads.plist, Bookmarks.plist."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "macOS Keychain",
+    "back": "Securely stores account names and passwords for the Mac, apps, servers and websites."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "Time Machine",
+    "back": "macOS backup tool that automatically backs up apps, music, photos and documents on an hourly, daily and weekly cycle. Prior versions of files are recoverable from it."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "plist files",
+    "back": "Property list files at ~/Library/Preferences/ holding properties and configuration settings for programs and applications."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "com.apple.recentitems.plist",
+    "back": "Records recently used applications and documents."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "com.apple.dock.plist and com.apple.desktop.plist",
+    "back": "dock.plist records Dock items; desktop.plist records wallpaper settings."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "macOS LaunchAgents and LaunchDaemons",
+    "back": "User-level: ~/Library/LaunchAgents. System-level third-party: /Library/LaunchAgents and /Library/LaunchDaemons. Apple's own: /System/Library/LaunchAgents and /System/Library/LaunchDaemons. Check all for persistence."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "com.apple.QuickLook.thumbnailcache",
+    "back": "Under ~/Library/Caches/. Retains rendered previews of viewed files, so it can prove an image existed even after the original was deleted."
+  },
+  {
+    "deck": "Terms — Ch7 Mac",
+    "front": "Spotlight store.db",
+    "back": "Spotlight's central metadata database, one per partition, at /.Spotlight-V100/Store-V2/<UUID>. Parsed with spotlight_parser. Indexes names, types, sizes and dates — including for deleted files."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "kextstat",
+    "back": "Lists loaded kernel extensions. 'kextstat | grep -v com.apple' inverts the match to show only third-party kexts — the short list worth scrutinising."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "ioreg",
+    "back": "Returns the macOS I/O Kit registry, covering hardware and system drivers."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "sw_vers vs system_profiler",
+    "back": "sw_vers returns macOS version, build number and product name. system_profiler returns the full profile — hardware, software and network."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "macOS logged-on user commands",
+    "back": "who (who is logged in, when, from where), users (list of current users), last (last logged-in users), w (who is logged on and what they are doing)."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "macOS time verification",
+    "back": "date (current time), systemsetup -gettimezone (zone), systemsetup -getusingnetworktime (is it syncing), systemsetup -getnetworktimeserver (with which server). Only the last two validate a timeline."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "sysctl vm.swapusage vs vm_stat",
+    "back": "sysctl vm.swapusage reports swap used, free and its location. vm_stat reports virtual memory statistics. Swap can retain data never written to any file."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "ls -lu",
+    "back": "Shows the last ACCESS time of files in a directory on macOS, rather than the modification time."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "networksetup commands",
+    "back": "-listallnetworkservices returns all network services; -listallhardwareports lists interfaces with their MAC addresses."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "macOS shell history files",
+    "back": "~/.zsh_history for zsh (the modern default) and ~/.bash_history for bash. Check both — the older file can show when the shell or account changed."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "mac_apt",
+    "back": "DFIR tool that processes Mac full disk images or live machines and extracts data and metadata useful for investigation."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "Named macOS forensic tools",
+    "back": "mac_apt, LLIMAGER, Passware Kit Forensic, macosac, Recon ITR, Cellebrite Digital Collector."
+  },
+  {
+    "deck": "Tools — Ch7 Mac",
+    "front": "macOS Console",
+    "back": "The built-in app for viewing log messages accumulated by the system and connected devices — system events, errors and dialogue text."
   }
 ];

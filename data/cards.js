@@ -894,7 +894,7 @@ window.CARDS = [
   {
     "deck": "Network Forensics",
     "front": "Event Correlation Approaches (the courseware list)",
-    "back": "Graph-based (components as nodes, dependencies as edges; finds root cause) · Neural network-based · Codebook-based (groups all events, uses a codebook — FASTER than rule-based, fewer comparisons) · Rule-based (condition → action) · Field-based (compares events with single/multiple fields in normalized data) · Packet parameter/payload correlation · Route correlation (attack route) · Topology-based · Cross-domain (multiple distinct domains or sources) · Multivariate (multiple variables simultaneously) · Contextual (user identity, location, device type)."
+    "back": "The 15 named approaches: graph-based · neural network-based · codebook-based · rule-based · field-based · packet parameter/payload · profile/fingerprint-based · open-port-based · Bayesian · time (clock) or role-based · route · topology-based · cross-domain · multivariate · contextual."
   },
   {
     "deck": "Malware Forensics",
@@ -2005,5 +2005,130 @@ window.CARDS = [
     "deck": "Tools — Ch7 Mac",
     "front": "macOS Console",
     "back": "The built-in app for viewing log messages accumulated by the system and connected devices — system events, errors and dialogue text."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "TCP/IP model — the four layers",
+    "back": "Application (high-level protocols, representation, encoding, dialog control) · Transport (logical connection between endpoints) · Internet (selects the best path for data flow) · Network Access (how to transmit an IP datagram to other devices)."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "TCP/IP layer protocols",
+    "back": "Application: TFTP, FTP, NFS, SMTP, SNMP, DNS. Transport: TCP, UDP. Internet: IP, ICMP, ARP. Network Access: Ethernet, Fast Ethernet, SLIP, PPP, FDDI, ATM, Frame Relay, SMDS, ARP, Proxy ARP, RARP."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Indicators of compromise (IoCs)",
+    "back": "Evidence items pointing to a security violation on a host system or network. They are what a sensor matches against — alert data is the output, not the indicator."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "IoCs — the named list",
+    "back": "Unusual outbound traffic · malicious URLs · user-agent strings · login anomalies · repeated requests for the same file · traffic on unusual ports · unknown connections · alerts · protocol violations · file modification · increased bandwidth · unexpected reboot · service unavailability · logins from unknown locations · unknown configuration changes."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Steps in event correlation",
+    "back": "Event aggregation → event masking → event filtering → root cause analysis."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Prerequisites of event correlation",
+    "back": "1. Data collection and aggregation — centralise the logs; encrypt AND authenticate them in transit. 2. Normalization — reformat differing log formats into one. 3. Data reduction — remove repeated data by compressing, deleting, filtering or combining."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Normalization vs data reduction",
+    "back": "Normalization reformats differing log formats into a single or polymorphic log. Data reduction then strips duplicates. Normalize first — you cannot deduplicate records you cannot yet compare."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Same-platform vs cross-platform correlation",
+    "back": "Same-platform: one common OS throughout the network, e.g. an all-Windows estate doing trend analysis on event logs. Cross-platform: mixed OS and hardware, e.g. Windows clients with a Linux firewall and email gateway."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Statistical data",
+    "back": "Overall profile or summary of network traffic: timestamps of conversations, protocols and services in use, average packet size, average packet rate."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Postmortem vs real-time analysis",
+    "back": "Postmortem: after the event, blame-free, exhaustive; logs can be examined SEVERAL times; produces an artifact with cause and preventive actions. Real-time: during an ongoing attack, results generated simultaneously; logs examined ONCE because time is critical."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "What network forensics reveals",
+    "back": "The source of security incidents, the path of intrusion, the intrusion techniques the attacker used, and the traces and evidence left behind."
+  },
+  {
+    "deck": "Terms — Ch8 Wireless",
+    "front": "Rogue AP vs honeypot AP",
+    "back": "Rogue: an unauthorised AP attached to YOUR network, creating an unmanaged entry point. Honeypot: the attacker's AP advertising trusted SSIDs to lure YOUR clients away. Opposite directions of trust violation."
+  },
+  {
+    "deck": "Terms — Ch8 Wireless",
+    "front": "Client misassociation vs unauthorized association",
+    "back": "Misassociation: your client connects to an AP outside your control, taking data off the monitored perimeter. Unauthorized association: an outside device joins your network without permission."
+  },
+  {
+    "deck": "Terms — Ch8 Wireless",
+    "front": "Key Reinstallation Attack (KRACK)",
+    "back": "Abuses the WPA2 four-way handshake to force reinstallation of a key already in use, resetting nonce and replay counters so traffic can be decrypted or replayed. Targets the handshake, not the passphrase — patching mitigates it, a strong password does not."
+  },
+  {
+    "deck": "Terms — Ch8 Wireless",
+    "front": "Wireless attacks — the named list",
+    "back": "Rogue Access Point · Client Misassociation · Misconfigured Access Point · Unauthorized Association · Ad Hoc Connection · Honeypot Access Point · Key Reinstallation (KRACK) · AP MAC Spoofing · Jamming."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Open-port-based correlation",
+    "back": "Compares the host's open ports against the ports being attacked to judge the likelihood the attack succeeded. Triage, not detection — an attack on a closed port cannot succeed."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Profile/fingerprint-based correlation",
+    "back": "Gathers OS fingerprints, port scans, finger information and banner grabs to link attack data to attacker profiles. Identifies relays, previously compromised hosts, and the same attacker operating from different locations."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Bayesian correlation",
+    "back": "Advanced method using statistics and probability — applies prior probabilities of conditions to predict what an attacker might do next after an attack."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Topology-based vs route correlation",
+    "back": "Topology-based analyses events against the structure of the whole system or network. Route correlation is narrower — it extracts information about one attack route and uses it to find more about the attack."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Time (clock) or role-based correlation",
+    "back": "Leverages data on the behaviour of computers and their users to trigger alerts when anomalies are found."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Where network evidence lives",
+    "back": "Servers and desktops, anti-virus, business applications and databases; firewalls, IDS/IPS and VPNs; routers and switches. Logs from network devices and applications are the evidence base."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Common network attacks",
+    "back": "Eavesdropping · data modification · IP address spoofing · denial-of-service · man-in-the-middle · packet sniffing · enumeration · session hijacking · buffer overflow · email infection · malware · password-based · router attacks."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Codebook vs rule-based correlation",
+    "back": "Both group events. Codebook stores a set of events and correlates against it; rule-based follows condition → action rules. Codebook runs FASTER — fewer comparisons per event."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Graph-based correlation",
+    "back": "Identifies dependencies between network devices, hosts and services, builds a graph with components as nodes and dependencies as edges, then traces a fault back to its root cause."
+  },
+  {
+    "deck": "Terms — Ch8 Network",
+    "front": "Field-based and packet parameter correlation",
+    "back": "Field-based compares specific events against single or multiple fields in the normalized data — the most basic approach. Packet parameter/payload correlation compares packets with each other and with attack signatures to surface potential new attacks."
   }
 ];

@@ -2033,6 +2033,363 @@ window.QS = [
     "trap": "Network forensics evidences the ATTACK, not the ATTACKER. Beware options overclaiming identification."
   },
   {
+    "id": "C9-001",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Malware Components",
+    "difficulty": "hard",
+    "stem": "Which malware component is a covert CARRIER that installs the malware on the target without being detected by antivirus scanners?",
+    "options": [
+      "Dropper",
+      "Downloader",
+      "Injector",
+      "Crypter"
+    ],
+    "answer": 0,
+    "explanation": "A dropper is the covert carrier of malware: the malicious files are embedded inside it and it performs the installation covertly, transporting and executing the malware code without antivirus detection. A downloader is a Trojan that retrieves further malware from the Internet rather than carrying it, an injector pushes code into other running processes, and a crypter conceals the malware's existence to elude detection.",
+    "trap": "DROPPER carries the payload inside it. DOWNLOADER fetches it from the network. Offline vs online delivery."
+  },
+  {
+    "id": "C9-002",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Malware Components",
+    "difficulty": "hard",
+    "stem": "What distinguishes a packer from a crypter and an obfuscator?",
+    "options": [
+      "A packer COMPRESSES the file into an unreadable format; a crypter conceals the malware's existence; an obfuscator conceals the code itself",
+      "A packer encrypts the file; a crypter compresses it; an obfuscator injects it into other processes",
+      "All three are names for the same anti-analysis technique in different toolchains",
+      "A packer injects code into running processes; a crypter and obfuscator both compress it"
+    ],
+    "answer": 0,
+    "explanation": "A packer uses compression techniques to convert the code and data of the malware into an unreadable format. A crypter is software that conceals the existence of malware to elude antivirus detection and protect it from reverse engineering. An obfuscator conceals the malicious code via various techniques so security mechanisms cannot detect or remove it. Injection into other running processes is the injector's job.",
+    "trap": "Packer = COMPRESS. Crypter = HIDE EXISTENCE. Obfuscator = HIDE LOGIC. Three distinct named components."
+  },
+  {
+    "id": "C9-003",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Malware Components",
+    "difficulty": "medium",
+    "stem": "Which component of malware performs the desired activity — deleting files, opening ports, changing settings — once activated?",
+    "options": [
+      "Payload",
+      "Exploit",
+      "Malicious code",
+      "Downloader"
+    ],
+    "answer": 0,
+    "explanation": "The payload is the part of the malware that performs the desired activity when activated: deleting or modifying files, degrading performance, opening ports, changing settings. The exploit is the code that takes advantage of a bug or vulnerability to gain the access in the first place, and malicious code is the piece defining basic functionality such as stealing data and creating backdoors.",
+    "trap": "EXPLOIT gets you in. PAYLOAD does the damage once inside. Exploits are further split into local and remote."
+  },
+  {
+    "id": "C9-004",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Malware Distribution",
+    "difficulty": "hard",
+    "stem": "Attackers inject malicious macros into template files hosted on their own servers, which Microsoft Office retrieves automatically when a user opens the document. Which named distribution technique is this?",
+    "options": [
+      "Rich Text Format (RTF) injection",
+      "Social engineered click-jacking",
+      "Black hat search engine optimization",
+      "Compromised legitimate websites"
+    ],
+    "answer": 0,
+    "explanation": "RTF injection exploits Microsoft Office features such as RTF template files stored locally or on a remote machine. Attackers inject malicious macros into RTF files and host them on their servers; when the user opens the document the malicious template is automatically retrieved from the remote server, evading security systems. The remote retrieval at open time is what makes it distinctive.",
+    "trap": "The malicious content is NOT in the delivered file — it is pulled from a remote template when opened, defeating attachment scanning."
+  },
+  {
+    "id": "C9-005",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Malware Distribution",
+    "difficulty": "medium",
+    "stem": "Which distribution technique uses keyword stuffing, doorway pages and page swapping to rank malware pages highly in search results?",
+    "options": [
+      "Black hat search engine optimization",
+      "Malvertising",
+      "Spear-phishing sites",
+      "Drive-by downloads"
+    ],
+    "answer": 0,
+    "explanation": "Black hat SEO, also called unethical SEO, uses aggressive tactics such as keyword stuffing, inserting doorway pages, page swapping and adding unrelated keywords to push malware pages up the search rankings. Malvertising embeds malware in legitimate advertising channels, spear-phishing sites mimic institutions such as banks, and drive-by downloads exploit browser flaws so that merely visiting a site installs malware.",
+    "trap": "Black hat SEO manipulates the SEARCH ENGINE. Malvertising abuses the AD NETWORK. Both end with a poisoned link."
+  },
+  {
+    "id": "C9-006",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "PE File Sections",
+    "difficulty": "hard",
+    "stem": "In the Portable Executable format, which section contains the instructions and program code that the CPU executes?",
+    "options": [
+      ".text",
+      ".rdata",
+      ".data",
+      ".rsrc"
+    ],
+    "answer": 0,
+    "explanation": "The .text section contains the instructions and program code executed by the CPU. The .rdata section holds import and export information and other read-only data, .data holds the program's global data accessible from anywhere, and .rsrc holds resources such as icons, images, menus and strings, providing multi-lingual support.",
+    "trap": "A packed binary often shows a tiny .text and an oversized, high-entropy section — the real code is unpacked at runtime."
+  },
+  {
+    "id": "C9-007",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "PE File Sections",
+    "difficulty": "hard",
+    "stem": "An investigator needs the imported and exported functions of a Windows binary. Which PE section holds them?",
+    "options": [
+      ".rdata",
+      ".data",
+      ".text",
+      ".rsrc"
+    ],
+    "answer": 0,
+    "explanation": "The .rdata section contains import and export information along with other read-only data used by the program. Imports reveal which library functions the binary calls, which is how an examiner estimates what the malware is capable of before executing it. .text holds executable code, .data holds global variables, and .rsrc holds icons, images, menus and strings.",
+    "trap": "Imports are read-only data, so they live in .rdata — not in .data, which is writable global state."
+  },
+  {
+    "id": "C9-008",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "PE Analysis Tools",
+    "difficulty": "medium",
+    "stem": "Which free tool identifies signatures for over 600 different packers and compilers used on Windows executables?",
+    "options": [
+      "PEiD",
+      "Dependency Walker",
+      "Regshot",
+      "oledump"
+    ],
+    "answer": 0,
+    "explanation": "PEiD provides details about Windows executable files and identifies signatures associated with over 600 different packers and compilers, displaying the packer used along with entry point, file offset, EP section and subsystem. Dependency Walker identifies file dependencies, Regshot takes host snapshots for comparison, and oledump parses OLE streams in Office documents.",
+    "trap": "For ELF rather than PE, the named equivalent is Detect It Easy (DIE), which determines compiler, linker and packer by signature."
+  },
+  {
+    "id": "C9-009",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "File Dependencies",
+    "difficulty": "medium",
+    "stem": "Which file stores the import and export functions that programs rely on, and which tool enumerates a binary's dependencies?",
+    "options": [
+      "kernel32.dll; Dependency Walker",
+      "ntdll.dll; Process Explorer",
+      "user32.dll; Regshot",
+      "kernel32.dll; PDFStreamDumper"
+    ],
+    "answer": 0,
+    "explanation": "Programs store import and export functions in the kernel32.dll file, and Dependency Walker — along with Dependency-Check and Snyk — identifies the dependencies within an executable. Examining the dynamically linked libraries a malware executable relies on lets an investigator estimate what the program can do without running it.",
+    "trap": "Dependency enumeration is STATIC analysis. It tells you capability, not whether the capability was used."
+  },
+  {
+    "id": "C9-010",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "Mach-O Analysis",
+    "difficulty": "hard",
+    "stem": "Which tools are named for analysing Mach-O executables?",
+    "options": [
+      "pagestuff, LIEF, otool and Hopper Disassembler",
+      "PEView, PeStudio, PEiD and FileAlyzer",
+      "oleid, oledump, olevba and PDFiD",
+      "Regshot, Autoruns, TCPView and Process Monitor"
+    ],
+    "answer": 0,
+    "explanation": "Mach-O is the executable format for macOS and iOS, equivalent to PE on Windows and ELF on Linux. pagestuff, LIEF and otool analyse Mach-O malware, and Hopper Disassembler views Mach-O executables and reveals the logical pages associated with the file. The other options list PE tools, Office and PDF document tools, and host monitoring tools respectively.",
+    "trap": "PE = Windows. ELF = Linux. Mach-O = macOS and iOS. Each format has its own named toolset."
+  },
+  {
+    "id": "C9-011",
+    "section": "Procedures and Methodology",
+    "module": 9,
+    "topic": "Office Document Analysis Workflow",
+    "difficulty": "hard",
+    "stem": "What is the correct order of tools when analysing a suspicious MS Office document?",
+    "options": [
+      "oleid to find suspicious components, oledump to identify macro streams, oledump -s to dump a stream, olevba to read the VBA and detect keywords",
+      "olevba to read the VBA, oleid to find components, oledump to dump streams, PDFiD to confirm",
+      "oledump to find components, olevba to identify streams, oleid to dump them, strings to read them",
+      "PDFiD to scan, PDFStreamDumper to find objects, oledump to dump macros, oleid to confirm"
+    ],
+    "answer": 0,
+    "explanation": "The workflow runs oleid on the document to detect components that can be labelled malicious or suspicious, then oledump to identify which streams contain macros, then oledump with -s and a stream number to extract that stream's contents, and finally olevba to view the source of all VBA macros and detect suspicious keywords and potential IoCs. PDFiD and PDFStreamDumper are for PDFs, not Office documents.",
+    "trap": "oleid triages, oledump locates and extracts, olevba interprets. Running olevba first skips the triage that tells you where to look."
+  },
+  {
+    "id": "C9-012",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "PDF Analysis Tools",
+    "difficulty": "medium",
+    "stem": "Which tool scans a suspect PDF to reveal its structure — header, objects and any embedded scripts?",
+    "options": [
+      "PDFiD",
+      "PDFStreamDumper",
+      "Pdfalyzer",
+      "oledump"
+    ],
+    "answer": 0,
+    "explanation": "PDFiD scans a suspect PDF and reports its file structure and contents, including the header, objects and embedded scripts such as JavaScript. PDFStreamDumper is then used to load the file and inspect objects one by one to find their contents. Pdfalyzer visualises the PDF's tree-like data structure and scans embedded binary streams using PDF-specific YARA rules, forcibly decoding suspect bytes.",
+    "trap": "PDFiD FLAGS what is present. PDFStreamDumper READS the objects. Detection then extraction, same as the Office chain."
+  },
+  {
+    "id": "C9-013",
+    "section": "Procedures and Methodology",
+    "module": 9,
+    "topic": "Malware Lab Isolation",
+    "difficulty": "hard",
+    "stem": "When preparing a malware analysis testbed, how must the network interface be configured and which settings must be disabled?",
+    "options": [
+      "NIC in 'host only' mode, with shared folders and guest isolation disabled",
+      "NIC in 'bridged' mode, with shared folders enabled for evidence transfer",
+      "NIC in 'NAT' mode, with guest isolation enabled and shared folders disabled",
+      "NIC disconnected entirely, with shared folders enabled for tool installation"
+    ],
+    "answer": 0,
+    "explanation": "The testbed isolates the system from the network by ensuring the NIC is in host-only mode, and disables shared folders and guest isolation. Host-only prevents the malware reaching the production network while still allowing simulated services. Disabling shared folders removes the path by which malware could escape the virtual machine onto the host. Internet services are then simulated with a tool such as iNetSim.",
+    "trap": "Host-only, NOT fully disconnected — much malware will not exhibit its behaviour without a network to talk to."
+  },
+  {
+    "id": "C9-014",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "Internet Simulation",
+    "difficulty": "medium",
+    "stem": "Which tool simulates Internet services so that malware in an isolated lab will exhibit its network behaviour?",
+    "options": [
+      "iNetSim",
+      "Regshot",
+      "API Monitor",
+      "Sigverif"
+    ],
+    "answer": 0,
+    "explanation": "iNetSim simulates Internet services in the isolated testbed, so malware attempting to reach a command and control server or download further stages receives plausible responses and reveals its behaviour. Regshot takes registry and file system snapshots for comparison, API Monitor traces API calls, and Sigverif is the Windows file signature verification utility.",
+    "trap": "Without simulated services, isolated malware often fails silently and you conclude wrongly that it is inert."
+  },
+  {
+    "id": "C9-015",
+    "section": "Procedures and Methodology",
+    "module": 9,
+    "topic": "Testbed Integrity",
+    "difficulty": "medium",
+    "stem": "Late in the testbed preparation, before the malware is copied across, what must be generated?",
+    "options": [
+      "Hash values of each operating system and tool",
+      "A full disk image of the production network",
+      "A ransom note sample for comparison",
+      "A packet capture of the isolated network"
+    ],
+    "answer": 0,
+    "explanation": "Step 8 of testbed preparation generates hash values of each OS and tool, immediately before the malware is copied from the suspect machines onto the forensic workstations. Those hashes establish the known-good state of the analysis environment, so that any later change can be attributed to the malware rather than to the tooling — and so the environment itself can be shown not to have contaminated the findings.",
+    "trap": "Hash the ENVIRONMENT before introducing the sample. Hashing afterwards proves nothing about what the malware changed."
+  },
+  {
+    "id": "C9-016",
+    "section": "Procedures and Methodology",
+    "module": 9,
+    "topic": "Pre-analysis Documentation",
+    "difficulty": "medium",
+    "stem": "Before analysing a suspect executable, which details must the investigator document?",
+    "options": [
+      "Full path and location, MAC timestamp, host system information, references to the file in the file system or registry, who found it and when, and the tools used",
+      "Only the MD5 hash and the file size, since everything else is derivable",
+      "Only the antivirus detection name and the vendor that produced it",
+      "Only the malware family and its known command and control infrastructure"
+    ],
+    "answer": 0,
+    "explanation": "The required documentation is the full path and location of the file, its MAC timestamp, the system information where the file was stored including OS version, file system, user accounts and IP address, references to the file within the file system or registry, who found the file and when, and details of the forensic investigation tools used. This record establishes provenance before any analysis alters the sample.",
+    "trap": "'Who found it and when' is part of the required documentation — it is a chain-of-custody element, not an optional note."
+  },
+  {
+    "id": "C9-017",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "API vs System Calls",
+    "difficulty": "hard",
+    "stem": "Which pairing correctly matches the monitoring target to its named tool?",
+    "options": [
+      "API calls on Windows with API Monitor; system calls on Linux with strace",
+      "API calls on Linux with strace; system calls on Windows with API Monitor",
+      "Both API and system calls with Process Monitor on either platform",
+      "API calls with Autoruns; system calls with schtasks"
+    ],
+    "answer": 0,
+    "explanation": "APIs are parts of the Windows OS that let external applications access file systems, threads, errors, the registry and the kernel; API Monitor traces the API calls an application makes. System calls act as the interface between an application and the kernel, and strace views or traces them in a Linux environment. Autoruns detects startup programs and schtasks manages scheduled tasks.",
+    "trap": "API Monitor = Windows API layer. strace = Linux syscall layer. Different platforms and different layers of abstraction."
+  },
+  {
+    "id": "C9-018",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Scheduled Task Malware",
+    "difficulty": "medium",
+    "stem": "Why must an investigator examine scheduled tasks during malware analysis?",
+    "options": [
+      "Malware can use time- or action-based triggers, including logic bombs that execute on different conditions",
+      "Scheduled tasks are the only location where persistence can be established on Windows",
+      "The task scheduler stores the decryption keys used by ransomware",
+      "Scheduled tasks record every API call made by a running process"
+    ],
+    "answer": 0,
+    "explanation": "Malware can enable time-based or action-based triggers as scheduled tasks, so investigators check them to find malware such as logic bombs capable of executing on different triggers. The named tools are the command-line schtasks, Windows Task Scheduler, and ADAudit Plus. Scheduled tasks are one persistence mechanism among many — Run/RunOnce keys, startup folders and services are others.",
+    "trap": "A logic bomb may show no activity at all during a dynamic analysis window. Only the task definition reveals it."
+  },
+  {
+    "id": "C9-019",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "Ransomware Shadow Copy Deletion",
+    "difficulty": "hard",
+    "stem": "Which command does BlackCat (ALPHV) execute to destroy the victim's ability to restore encrypted files?",
+    "options": [
+      "vssadmin.exe Delete Shadows /all /quiet",
+      "cipher.exe /w:C /quiet",
+      "bcdedit.exe /set recoveryenabled No",
+      "wevtutil.exe cl System /quiet"
+    ],
+    "answer": 0,
+    "explanation": "BlackCat obtains a list of shadow copies using WMI COM object functions and then deletes them by executing vssadmin.exe Delete Shadows /all /quiet, removing the Volume Shadow Copy restore points a victim would otherwise use to recover. This command appearing in process or command-line logging is a strong ransomware indicator, and its execution time approximates the moment encryption began.",
+    "trap": "Shadow copy deletion usually IMMEDIATELY PRECEDES encryption. It is the best timestamp anchor in a ransomware timeline."
+  },
+  {
+    "id": "C9-020",
+    "section": "Digital Forensics",
+    "module": 9,
+    "topic": "BlackCat Encryption and Exfiltration",
+    "difficulty": "hard",
+    "stem": "In the BlackCat (ALPHV) analysis, which tool exfiltrates data and which ciphers encrypt the files?",
+    "options": [
+      "ExMatter for exfiltration; AES or ChaCha20 for encryption",
+      "Raccoon for exfiltration; RSA-2048 for encryption",
+      "Vidar for exfiltration; AES-128 for encryption",
+      "ExMatter for exfiltration; Blowfish for encryption"
+    ],
+    "answer": 0,
+    "explanation": "ExMatter is the custom .NET data exfiltration tool with self-deletion capability used to automate exfiltration before the ransomware runs. The Sphynx version then encrypts files with AES or ChaCha20 ciphers and appends a seven-character extension of characters between a and z, creating a ransom note with an alphanumeric name in each directory containing encrypted files. Raccoon and Vidar are the stealer malware used earlier to obtain domain administrator credentials.",
+    "trap": "Raccoon and Vidar steal CREDENTIALS during escalation. ExMatter steals the DATA before encryption. Different stages."
+  },
+  {
+    "id": "C9-021",
+    "section": "Tools/Systems/Programs",
+    "module": 9,
+    "topic": "DNS Monitoring in Malware Analysis",
+    "difficulty": "medium",
+    "stem": "Which utility shows the DNS queries a system sends, helping identify the servers malware attempts to reach?",
+    "options": [
+      "DNSQuerySniffer",
+      "DNSChanger",
+      "TCPView",
+      "Capsa Network Analyzer"
+    ],
+    "answer": 0,
+    "explanation": "DNSQuerySniffer is a network sniffer utility that shows the DNS queries sent on the system, helping identify the DNS servers malware tries to connect to and the type of connection. DNSChanger is malware, not a tool — it alters the system's DNS server settings to give attackers control of resolution. TCPView monitors port activity and Capsa analyses network traffic more broadly.",
+    "trap": "DNSChanger is the THREAT, DNSQuerySniffer is the TOOL. A distractor pair that punishes skim-reading."
+  },
+  {
     "id": "CH-101",
     "section": "Digital Evidence",
     "module": 1,

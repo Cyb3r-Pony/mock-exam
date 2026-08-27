@@ -2130,5 +2130,150 @@ window.CARDS = [
     "deck": "Terms — Ch8 Network",
     "front": "Field-based and packet parameter correlation",
     "back": "Field-based compares specific events against single or multiple fields in the normalized data — the most basic approach. Packet parameter/payload correlation compares packets with each other and with attack signatures to surface potential new attacks."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Malware components — the named list",
+    "back": "Crypter · Downloader · Dropper · Exploit · Injector · Obfuscator · Packer · Payload · Malicious code."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Crypter",
+    "back": "Software that conceals the EXISTENCE of malware to elude antivirus, and protects it from reverse engineering or analysis."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Dropper vs downloader",
+    "back": "Dropper: covert carrier with the malware embedded inside it; installs covertly without antivirus detection. Downloader: a Trojan that fetches further malware from the Internet. Offline vs online delivery."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Packer vs obfuscator",
+    "back": "Packer COMPRESSES the malware into an unreadable format. Obfuscator conceals the malicious CODE via various techniques so it cannot be detected or removed."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Injector",
+    "back": "Injects exploits or malicious code into other vulnerable running processes and changes the method of execution to hide itself or prevent removal."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Exploit vs payload",
+    "back": "Exploit: code taking advantage of a bug or vulnerability to breach security — categorised as local or remote. Payload: the part that performs the activity once activated (delete files, open ports, change settings)."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "RTF injection",
+    "back": "Attackers inject malicious macros into RTF template files hosted on their own servers. Opening the document retrieves the template remotely, evading security systems — the delivered file itself is clean."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Black hat SEO",
+    "back": "Unethical SEO using keyword stuffing, doorway pages, page swapping and unrelated keywords to rank malware pages highly in search results."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Malware distribution techniques",
+    "back": "Black hat SEO · social engineered click-jacking · spear-phishing sites · malvertising · compromised legitimate websites · drive-by downloads · spam emails (most common) · RTF injection."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "PE section: .text",
+    "back": "Contains the instructions and program code that the CPU executes."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "PE section: .rdata",
+    "back": "Contains import and export information and other read-only data used by the program. Imports reveal capability before execution."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "PE section: .data",
+    "back": "Contains the program's global data, which the system can access from anywhere."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "PE section: .rsrc",
+    "back": "Contains resources used by the executable — icons, images, menus and strings. Provides multi-lingual support."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "PEiD",
+    "back": "Free tool giving details of Windows executables. Identifies signatures for over 600 packers and compilers, and shows entry point, file offset, EP section and subsystem."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "Detect It Easy (DIE)",
+    "back": "Determines a file's compiler, linker and packer using signature-based detection. The named tool for identifying packing of ELF malware."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "Dependency Walker",
+    "back": "Identifies the dependencies within an executable. Programs store import and export functions in kernel32.dll; enumerating linked libraries estimates what the malware can do."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "Mach-O analysis tools",
+    "back": "pagestuff, LIEF and otool analyse Mach-O malware. Hopper Disassembler views Mach-O executables and shows the logical pages associated with the file."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "Office document analysis chain",
+    "back": "oleid (detect suspicious components) → oledump (identify macro streams) → oledump -s <n> (dump a stream) → olevba (read all VBA, detect suspicious keywords and IoCs)."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "PDF analysis chain",
+    "back": "PDFiD (scan structure — header, objects, embedded scripts) → PDFStreamDumper (inspect objects one by one). Pdfalyzer visualises the PDF tree and scans streams with PDF-specific YARA rules."
+  },
+  {
+    "deck": "Procedures — Ch9 Malware",
+    "front": "Malware testbed preparation",
+    "back": "Allocate a physical system → install a VM → install a guest OS → set the NIC to HOST ONLY → simulate Internet services with iNetSim → disable shared folders and guest isolation → install analysis tools → hash each OS and tool → copy the malware across."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "iNetSim",
+    "back": "Simulates Internet services in an isolated lab so malware attempting to reach its C&C or download further stages still exhibits its network behaviour."
+  },
+  {
+    "deck": "Procedures — Ch9 Malware",
+    "front": "Documentation before analysing an executable",
+    "back": "Full path and location · MAC timestamp · system information where stored (OS version, file system, user accounts, IP) · references to the file in the file system or registry · who found it and when · details of the forensic tools used."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "System behavior analysis — what to monitor",
+    "back": "Registry artifacts · processes · services and startup programs · event logs · API calls · device drivers · installation · system calls and scheduled tasks · files and folders."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Network behavior analysis — what to monitor",
+    "back": "IP addresses · connected ports · DNS entries · browser activity."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "API Monitor vs strace",
+    "back": "API Monitor traces Windows API calls — the layer letting applications reach file systems, threads, errors, registry and kernel. strace traces Linux system calls, the application-to-kernel interface."
+  },
+  {
+    "deck": "Tools — Ch9 Malware",
+    "front": "DNSQuerySniffer vs DNSChanger",
+    "back": "DNSQuerySniffer is a TOOL showing DNS queries sent by the system. DNSChanger is MALWARE that alters the system's DNS settings to hand attackers control of resolution."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "vssadmin.exe Delete Shadows /all /quiet",
+    "back": "The command ransomware runs to destroy Volume Shadow Copy restore points. Used by BlackCat (ALPHV). It usually immediately precedes encryption — a strong timeline anchor."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "BlackCat (ALPHV)",
+    "back": "Ransomware targeting government, healthcare, education, hospitality and manufacturing. Uses ExMatter (.NET, self-deleting) to exfiltrate before encrypting. Sphynx variant encrypts with AES or ChaCha20 and appends a seven-character a-z extension."
+  },
+  {
+    "deck": "Terms — Ch9 Malware",
+    "front": "Raccoon and Vidar",
+    "back": "Stealer malware used in the BlackCat chain to obtain domain administrator credentials during discovery and privilege escalation — before ExMatter exfiltrates the data."
   }
 ];

@@ -2390,6 +2390,1383 @@ window.QS = [
     "trap": "DNSChanger is the THREAT, DNSQuerySniffer is the TOOL. A distractor pair that punishes skim-reading."
   },
   {
+    "id": "C10-001",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "OWASP Top 10 2021",
+    "difficulty": "medium",
+    "stem": "Which risk sits at number one in the OWASP Top 10 Application Security Risks 2021?",
+    "options": [
+      "Broken Access Control",
+      "Injection",
+      "Cryptographic Failures",
+      "Insecure Design"
+    ],
+    "answer": 0,
+    "explanation": "The 2021 list opens with Broken Access Control, followed by Cryptographic Failures and then Injection. The full ten are Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable and Outdated Components, Identification and Authentication Failures, Software and Data Integrity Failures, Security Logging and Monitoring Failures, and Server-Side Request Forgery.",
+    "trap": "Injection led earlier editions but dropped to third in 2021. Answer for the 2021 list, not the older one."
+  },
+  {
+    "id": "C10-002",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "OWASP Top 10 2021",
+    "difficulty": "hard",
+    "stem": "Which two entries were newly introduced in the OWASP Top 10 2021 and relate to design and to server-initiated requests?",
+    "options": [
+      "Insecure Design and Server-Side Request Forgery",
+      "Injection and Broken Access Control",
+      "Security Misconfiguration and Cryptographic Failures",
+      "Vulnerable and Outdated Components and Injection"
+    ],
+    "answer": 0,
+    "explanation": "Insecure Design addresses flaws arising from missing or ineffective security design rather than faulty implementation, and Server-Side Request Forgery covers an application fetching a remote resource at an attacker-supplied URL. Injection, Broken Access Control, Security Misconfiguration and Cryptographic Failures all appeared in earlier editions in some form.",
+    "trap": "Insecure Design cannot be fixed by better coding of the same design — that is the point of listing it separately."
+  },
+  {
+    "id": "C10-003",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Watering Hole Attack",
+    "difficulty": "hard",
+    "stem": "An attacker identifies the website a target organisation's staff visit most often, finds a vulnerability in it, injects malicious code, and waits. Which attack is this, and what broader category does it belong to?",
+    "options": [
+      "A watering hole attack, a type of unvalidated redirect attack",
+      "A cross-site request forgery, a type of session attack",
+      "A clickjacking attack, a type of UI redress attack",
+      "A same-site attack, a type of subdomain takeover"
+    ],
+    "answer": 0,
+    "explanation": "A watering hole attack identifies the most visited website of the target, determines its vulnerabilities, injects malicious code into the vulnerable web application, and waits for victims to browse there — at which point the code executes and infects them. It is classed as a type of unvalidated redirect attack. The attacker never contacts the victim directly, which is what makes it hard to detect at the perimeter.",
+    "trap": "The compromised site is NOT the target. It is chosen because the real target's people trust and visit it."
+  },
+  {
+    "id": "C10-004",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Pass-the-cookie Attack",
+    "difficulty": "hard",
+    "stem": "An investigator finds that an attacker accessed a web application without ever submitting the victim's username or password, and logs show a valid authenticated session. Which attack best explains this?",
+    "options": [
+      "Pass-the-cookie attack",
+      "Cross-site request forgery",
+      "Directory traversal",
+      "Hidden field manipulation"
+    ],
+    "answer": 0,
+    "explanation": "A pass-the-cookie attack lets an attacker reach a web application without providing credentials: they steal cookies from the target user's browser and inject them into their own session, bypassing authentication at the server. CSRF makes an already-authenticated user perform actions chosen by the attacker rather than granting the attacker a session, directory traversal reaches files outside the web root, and hidden field manipulation alters form values such as prices.",
+    "trap": "No failed logins and no credential use, yet a valid session — that pattern points to a stolen session token, not password guessing."
+  },
+  {
+    "id": "C10-005",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Clickjacking",
+    "difficulty": "medium",
+    "stem": "An attacker loads a legitimate site inside a low-opacity iframe and positions invisible buttons over the victim's view. What is this attack?",
+    "options": [
+      "Clickjacking",
+      "JavaScript hijacking",
+      "DNS rebinding",
+      "Cookie snooping"
+    ],
+    "answer": 0,
+    "explanation": "In clickjacking the attacker loads the target website inside a low-opacity iframe and designs the overlaying page so that clickable items sit exactly where the victim expects them; clicking the invisible elements performs the attacker's chosen actions. JavaScript or JSON hijacking captures sensitive data carried as JSON by abusing same-origin policy flaws, DNS rebinding bypasses same-origin constraints to reach local domains, and cookie snooping analyses a victim's surfing habits.",
+    "trap": "The victim's clicks are genuine and authenticated. The application cannot distinguish them from legitimate use — defence is frame-busting headers, not input validation."
+  },
+  {
+    "id": "C10-006",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Cookie and Session Attacks",
+    "difficulty": "hard",
+    "stem": "How does cookie/session poisoning differ from cookie snooping?",
+    "options": [
+      "Poisoning MODIFIES cookie contents to bypass authentication; snooping READS cookies to analyse surfing habits",
+      "Poisoning reads cookies to profile the user; snooping rewrites them to escalate privilege",
+      "Poisoning applies only to session cookies; snooping applies only to persistent cookies",
+      "They are the same attack described from the server and client perspectives"
+    ],
+    "answer": 0,
+    "explanation": "In cookie or session poisoning the attacker changes the information inside a cookie to bypass the authentication process, after which they can modify content, use the system for further attack, or steal information. Cookie snooping is passive by comparison: attackers analyse the victim's cookies to learn surfing habits and either sell that intelligence or use it to plan attacks on the victim's web applications.",
+    "trap": "Poisoning is an INTEGRITY attack, snooping a CONFIDENTIALITY one. The log evidence differs accordingly."
+  },
+  {
+    "id": "C10-007",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Hidden Field Manipulation",
+    "difficulty": "medium",
+    "stem": "An e-commerce investigation shows completed transactions at prices the merchant never offered, with no database compromise. Which attack fits?",
+    "options": [
+      "Hidden field manipulation",
+      "SQL injection against the pricing table",
+      "Cross-site scripting in the checkout page",
+      "Buffer overflow in the payment module"
+    ],
+    "answer": 0,
+    "explanation": "Hidden field manipulation targets e-commerce sites: attackers alter the data stored in hidden form fields, changing prices and completing transactions at values of their own choosing. Because the price is submitted by the client and trusted by the server, no database intrusion is needed — which is why the database shows no sign of compromise.",
+    "trap": "The root cause is trusting client-supplied state. Look for orders whose submitted price disagrees with the catalogue."
+  },
+  {
+    "id": "C10-008",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Attack Obfuscation",
+    "difficulty": "hard",
+    "stem": "An IDS misses an attack because portions of it were encoded. Which encodings are named as the common obfuscation methods?",
+    "options": [
+      "Unicode, UTF-8, Base64 and URL encoding",
+      "ROT13, XOR, gzip and ASCII armour",
+      "AES, RSA, SHA-256 and HMAC",
+      "Punycode, Quoted-Printable, UUencode and yEnc"
+    ],
+    "answer": 0,
+    "explanation": "The most common method of attack obfuscation involves encoding portions of the attack with Unicode, UTF-8, Base64 or URL encoding. Network and host-based intrusion detection systems look for signatures of well-known attacks, so attackers encode the recognisable parts to slip past them. The remaining options list ciphers, hashes and mail transfer encodings rather than the named obfuscation set.",
+    "trap": "Signature-based detection matches literal bytes. Normalise and decode log data BEFORE searching it, or the search misses the attack."
+  },
+  {
+    "id": "C10-009",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Directory Traversal Encoding",
+    "difficulty": "hard",
+    "stem": "Which encoded sequences all decode to '../' when processed by a web application?",
+    "options": [
+      "%2E%2E%2f, %252E%252E%252F and ..%c0%af",
+      "%3cscript%3e, %253cscript%253e and <sCRipT>",
+      "&&, || and ; chained with a pipe",
+      "<!ENTITY xxe SYSTEM> and file:///etc/hosts"
+    ],
+    "answer": 0,
+    "explanation": "%2E%2E%2f is URI encoding of ../, %252E%252E%252F is double URI encoding, and ..%c0%af is the Unicode/UTF-8 encoded form. All three resolve to the dot-dot-slash sequence used in path traversal to reach files outside the web root. The second option lists XSS obfuscation, the third command injection operators, and the fourth an XXE payload.",
+    "trap": "Searching logs for a literal '../' misses every encoded variant. Decode first, then search."
+  },
+  {
+    "id": "C10-010",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Command Injection Operators",
+    "difficulty": "hard",
+    "stem": "In a command injection payload, what is the difference between the && and || operators?",
+    "options": [
+      "&& runs the next command only if the previous one SUCCEEDS; || runs it only if the previous one FAILS",
+      "&& runs commands in parallel; || runs them sequentially",
+      "&& chains output between commands; || redirects output to a file",
+      "&& terminates a command list; || provides input to a command"
+    ],
+    "answer": 0,
+    "explanation": "The AND operator && executes the subsequent command only if the previous command succeeded, meaning its exit code was 0. The OR operator || executes the subsequent command only if the previous one failed. Attackers use both to probe behaviour blindly. The pipe | chains commands by passing output onward, the semicolon ; runs commands sequentially regardless of outcome, and <, > and >> handle redirection.",
+    "trap": "Attackers choose && or || deliberately to learn whether the injected command ran — a blind injection oracle."
+  },
+  {
+    "id": "C10-011",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "XXE Attack Investigation",
+    "difficulty": "hard",
+    "stem": "An Apache access log shows a GET request whose query string decodes to a DOCTYPE declaration defining an ENTITY with SYSTEM \"file:///etc/hosts\". What has the attacker attempted?",
+    "options": [
+      "An XML External Entity attack reading a local file from the server",
+      "A SQL injection enumerating database table names",
+      "A directory traversal using encoded dot-dot-slash sequences",
+      "A cross-site scripting attack using an encoded script tag"
+    ],
+    "answer": 0,
+    "explanation": "An external entity declared with SYSTEM and a file:// URI instructs the XML parser to fetch and inline that local file, which is the XML External Entity attack. When examining logs for XXE, investigators look for XML input in plain text or its hex equivalents in the query string and decode it to judge whether it is malicious. SQL injection would show UNION or quote characters, traversal would show ../ variants, and XSS would show script tags.",
+    "trap": "XXE reads files but the vector is the XML PARSER, not the file system path. Both can end at /etc/passwd — the payload tells you which."
+  },
+  {
+    "id": "C10-012",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "SQL Injection Log Progression",
+    "difficulty": "hard",
+    "stem": "Access logs show, in order: name=root' or '1'='1, then UNION SELECT 1,2,3,4,5, then UNION SELECT 1,database(),3,4,5. What is the attacker doing?",
+    "options": [
+      "Confirming the injection, counting the vulnerable columns, then extracting the database name",
+      "Brute-forcing the root password, then escalating privileges, then creating a backdoor account",
+      "Testing for XSS, then for traversal, then for command injection",
+      "Enumerating table names, then column names, then dumping all rows"
+    ],
+    "answer": 0,
+    "explanation": "The first query uses an always-true condition to confirm the injection works and return other users' records. The second uses UNION SELECT with five placeholders to determine how many columns are vulnerable. The third replaces placeholder 2 with database() to retrieve the database name. Table enumeration via information_schema.tables comes afterwards — it is the next step, not these three.",
+    "trap": "Recognise the SEQUENCE. Column counting before data extraction is the signature of manual SQLi, not a scanner."
+  },
+  {
+    "id": "C10-013",
+    "section": "Tools/Systems/Programs",
+    "module": 10,
+    "topic": "Apache Core Elements",
+    "difficulty": "hard",
+    "stem": "Which element of the Apache core reads and handles configuration files and arranges the modules the server calls during request handling?",
+    "options": [
+      "http_config",
+      "http_main",
+      "http_protocol",
+      "http_request"
+    ],
+    "answer": 0,
+    "explanation": "http_config reads and handles configuration files, and one of its main tasks is arranging all the modules the server calls during the various phases of request handling. http_main handles server startups and timeouts and contains the main server loop, http_protocol manages routines and all data exchange and socket connections with the client, and http_request controls the stepwise procedure among modules and handles errors.",
+    "trap": "http_config = configuration and module ordering. http_main = startup, timeouts and the accept loop. Easy to swap."
+  },
+  {
+    "id": "C10-014",
+    "section": "Procedures and Methodology",
+    "module": 10,
+    "topic": "Log Integrity in Web Investigations",
+    "difficulty": "medium",
+    "stem": "Having collected logs from the web server, WAF, SIEM and IDS, what must the investigator do before analysing them?",
+    "options": [
+      "Use encryption and checksums to verify and protect the log files' integrity, then analyse working copies",
+      "Analyse the original log files directly so no transcription error is introduced",
+      "Delete duplicate entries to reduce the volume before analysis begins",
+      "Convert all logs to a single vendor format before any hashing is applied"
+    ],
+    "answer": 0,
+    "explanation": "The methodology calls for using encryption and checksums to verify and protect the integrity of log files, and for analysing working copies rather than originals. Working on originals risks altering evidence, and deduplicating before hashing destroys the very records whose integrity must be provable. Normalisation happens during analysis, after the originals are secured.",
+    "trap": "Hash FIRST, then copy, then analyse the copy. Any transformation before hashing cannot be defended later."
+  },
+  {
+    "id": "C10-015",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "Web Forensics Challenges",
+    "difficulty": "medium",
+    "stem": "Which factor most directly defeats an investigator's attempt to trace a web attack back to its originator?",
+    "options": [
+      "Use of reverse proxies and anonymizers",
+      "The large size of modern web server log files",
+      "The dynamic nature of modern web applications",
+      "The diversity of multimedia data types in evidence"
+    ],
+    "answer": 0,
+    "explanation": "Reverse proxies and anonymizers challenge the gathering of digital fingerprints, which is why tracing the attacking IP is described as generally very difficult. Large log volumes make analysis time-consuming, dynamic applications complicate interpretation, and multimedia diversity demands more sophisticated tooling — all real challenges, but none of them specifically breaks attribution.",
+    "trap": "The question asks about ATTRIBUTION. Volume and complexity slow the work; anonymizers defeat the objective."
+  },
+  {
+    "id": "C10-016",
+    "section": "Digital Forensics",
+    "module": 10,
+    "topic": "DMZ Protocol Attacks",
+    "difficulty": "medium",
+    "stem": "What is the demilitarized zone, and why does compromising a DMZ host matter?",
+    "options": [
+      "A semi-trusted zone separating the untrusted Internet from the trusted internal network; a compromise there can reach other DMZs and internal systems",
+      "A fully trusted internal segment holding only databases and backups, isolated from all external traffic",
+      "An untrusted external segment identical in trust level to the public Internet",
+      "A logical zone that exists only in cloud deployments and has no on-premises equivalent"
+    ],
+    "answer": 0,
+    "explanation": "The DMZ is a semi-trusted network zone separating the untrusted Internet from the company's trusted internal network. An attacker who compromises a system permitting other DMZ protocols gains access to other DMZs and internal systems, which can lead to compromise of the web application and its data, website defacement, and access to internal systems including databases, backups and source code.",
+    "trap": "Semi-trusted, not untrusted. That intermediate status is precisely what makes lateral movement from it valuable."
+  },
+  {
+    "id": "C11-001",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Layers of the Internet",
+    "difficulty": "medium",
+    "stem": "What distinguishes the deep web from the dark web?",
+    "options": [
+      "The deep web is simply not indexed by search engines; the dark web is additionally anonymised by encryption and needs a special browser",
+      "The deep web requires Tor to reach; the dark web is reachable with any ordinary browser",
+      "The deep web contains only illegal content; the dark web contains only corporate data",
+      "They are two names for the same layer beneath the surface web"
+    ],
+    "answer": 0,
+    "explanation": "The deep web holds content not indexed by search engines — military data, confidential organisational data, legal dossiers — but is otherwise ordinary content behind authentication or query interfaces. The dark web is also unindexed but additionally grants complete anonymity through encryption and requires a special browser such as Tor. The surface web above both is indexed and publicly accessible.",
+    "trap": "Most of the deep web is mundane: your webmail and banking pages. Not indexed does not mean criminal."
+  },
+  {
+    "id": "C11-002",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Tor Relay Types",
+    "difficulty": "hard",
+    "stem": "At which Tor relay can the client's real IP address be read?",
+    "options": [
+      "The entry relay",
+      "The middle relay",
+      "The exit relay",
+      "None — it is encrypted at every hop"
+    ],
+    "answer": 0,
+    "explanation": "The entry relay provides the entry point to the Tor network, and while the client connects via it the client's IP address can be read. The middle relay transmits data in encrypted form between entry and exit, acting as a second hop. The exit relay passes data to the destination server and is seen as the origin of the traffic, which is what conceals the user's identity from the destination.",
+    "trap": "The ENTRY node knows who you are but not where you are going. The EXIT node knows the destination but not who you are."
+  },
+  {
+    "id": "C11-003",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Tor Exit Relay Attribution",
+    "difficulty": "hard",
+    "stem": "A destination web server's logs record an IP that turns out to be a Tor exit relay. What does this establish?",
+    "options": [
+      "Only that the traffic left the Tor network at that relay — the exit node is seen as the origin, so the real user remains hidden",
+      "That the operator of the exit relay authored the traffic and should be treated as the suspect",
+      "That the client's IP address can be recovered from the destination server's logs",
+      "That the connection did not use onion routing, since the IP was visible"
+    ],
+    "answer": 0,
+    "explanation": "The exit relay receives the client's data from the middle relay and sends it to the destination website's server, so the exit node appears as the origin of the traffic and hides the original identity of the user. The relay operator is not the author of the traffic. Recovering the client's address requires evidence from elsewhere — the suspect machine's memory, prefetch files or registry — not the destination logs.",
+    "trap": "Treating an exit node operator as the suspect is a classic error. The exit IP identifies the network edge, not a person."
+  },
+  {
+    "id": "C11-004",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Tor Bridge Nodes",
+    "difficulty": "hard",
+    "stem": "How do Tor bridge nodes differ from ordinary relay nodes?",
+    "options": [
+      "Relay nodes are publicly listed in the Tor directory; many bridge nodes are concealed, which lets users circumvent blocking",
+      "Bridge nodes are publicly listed while relays are hidden, which makes bridges easier to enumerate",
+      "Bridge nodes carry only exit traffic, while relay nodes carry only entry traffic",
+      "Bridge nodes operate outside the Tor network and do not encrypt traffic"
+    ],
+    "answer": 0,
+    "explanation": "Tor relay nodes are publicly available in the directory list, but bridge nodes are different: they exist as proxies in the Tor network and not all of them are publicly listed, with several concealed. That concealment is what lets bridges help users circumvent restrictions and reach the Tor network where it is blocked. For an investigator, it also means a blocklist of known relays will not reveal bridge use.",
+    "trap": "Blocking Tor by filtering the public relay list does not stop bridge users — and their traffic looks ordinary."
+  },
+  {
+    "id": "C11-005",
+    "section": "Procedures and Methodology",
+    "module": 11,
+    "topic": "Tor Investigation Approach",
+    "difficulty": "hard",
+    "stem": "Given Tor's anonymity, where should an investigator concentrate to reconstruct a suspect's dark web activity?",
+    "options": [
+      "On the suspect's own machine — memory dumps, prefetch files, registry and the browser profile",
+      "On the Tor directory servers, which log every circuit built through the network",
+      "On the destination websites' server logs, which record the originating client address",
+      "On the exit relay operator's records, which map sessions back to clients"
+    ],
+    "answer": 0,
+    "explanation": "Because the network itself is designed to defeat tracing, the investigation moves to the endpoint: obtain memory dumps from the suspect machine and examine them for websites browsed and emails accessed, alongside prefetch files, the Launcher registry key, the Tor state file and places.sqlite in the browser profile. Directory servers do not keep circuit logs, destination logs show only the exit relay, and relay operators hold no client mapping.",
+    "trap": "Dark web investigation is ENDPOINT forensics. The network will not give you attribution, so stop looking there."
+  },
+  {
+    "id": "C11-006",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Tor Prefetch Artifacts",
+    "difficulty": "hard",
+    "stem": "A suspect uninstalled Tor Browser before seizure and the memory dump yields no Tor artifacts. What should the investigator examine?",
+    "options": [
+      "Prefetch files, which retain evidence of execution after uninstallation",
+      "The places.sqlite file, which survives uninstallation in the user profile",
+      "The Tor state file, which is preserved in the installation directory",
+      "The Launcher registry key, which records the full browsing history"
+    ],
+    "answer": 0,
+    "explanation": "When Tor Browser was installed and later uninstalled, the memory dump contains no record of the activity and tools such as Bulk Extractor retrieve nothing. In that case the investigator analyses prefetch files in C:\\WINDOWS\\Prefetch, which can show whether the browser was installed, its execution directory, created and last-run timestamps, how many times it ran, and the filename and size. places.sqlite and the state file live inside the installation and go with it.",
+    "trap": "Prefetch outlives the application. It proves EXECUTION, not what was browsed — the history is gone."
+  },
+  {
+    "id": "C11-007",
+    "section": "Tools/Systems/Programs",
+    "module": 11,
+    "topic": "Tor Memory Dump Conditions",
+    "difficulty": "medium",
+    "stem": "What determines how much Tor Browser evidence a memory dump will yield?",
+    "options": [
+      "Whether the browser was open, closed, or uninstalled when the dump was taken",
+      "Whether the suspect used bridge nodes or publicly listed relays",
+      "Whether the machine was physical or virtual at the time of acquisition",
+      "Whether the dump was captured with FTK Imager or Belkasoft RAM Capturer"
+    ],
+    "answer": 0,
+    "explanation": "Results from examining Tor Browser artifacts differ according to three conditions: browser open, browser closed, and browser uninstalled. An open browser yields the richest set, including email artifacts recoverable from the dump; uninstalled yields nothing from memory at all. The acquisition tool, the relay type and the machine's virtualisation do not change what persists in RAM.",
+    "trap": "This is the argument for capturing RAM FIRST and not closing anything — the state at seizure decides the evidence."
+  },
+  {
+    "id": "C11-008",
+    "section": "Procedures and Methodology",
+    "module": 11,
+    "topic": "Recovering Email Attachments",
+    "difficulty": "hard",
+    "stem": "Memory analysis shows a file was uploaded as an email attachment through Tor Browser. Where does the investigator go to recover the file itself?",
+    "options": [
+      "The machine's storage — a bit-by-bit copy for a physical machine, or the virtual disk file (VMDK, VHDX, OVF) for a virtual one",
+      "The memory dump, which retains every attachment in full",
+      "The destination mail provider's servers, via the exit relay operator",
+      "The Tor browser profile's places.sqlite database"
+    ],
+    "answer": 0,
+    "explanation": "Memory analysis identifies that an attachment existed and names it, but recovering the file content means examining the storage medium. For a physical machine that is a bit-by-bit copy of local storage; for a virtual machine it is the virtual disk file — VMDK, VHDX or OVF depending on the virtualisation software — examined with a tool such as Autopsy. places.sqlite holds history and bookmarks, not file content.",
+    "trap": "Memory tells you WHAT to look for; disk gives you the artifact. Two acquisitions, two different questions answered."
+  },
+  {
+    "id": "C11-009",
+    "section": "Digital Forensics",
+    "module": 11,
+    "topic": "Dark Web Forensics Challenges",
+    "difficulty": "medium",
+    "stem": "Which challenge specifically complicates obtaining legal authority in a dark web investigation?",
+    "options": [
+      "Limited evidence availability makes search warrants difficult to obtain, and jurisdiction is unclear",
+      "Chatroom logs are voluminous and slow to analyse",
+      "Investigators often lack training in specialised darknet tools",
+      "Cryptocurrency transactions do not record the criminal's personal data"
+    ],
+    "answer": 0,
+    "explanation": "Two of the named challenges bear directly on legal authority: investigation of criminal activities on the dark web raises legal jurisdiction issues, and search warrants are difficult to obtain because of the limited evidence available on the dark web. Log volume, tooling expertise and the absence of personal data in cryptocurrency transactions are real obstacles, but they impede the analysis rather than the authorisation to conduct it.",
+    "trap": "The chicken-and-egg problem: you need evidence for a warrant, and the warrant to get the evidence."
+  },
+  {
+    "id": "C11-010",
+    "section": "Tools/Systems/Programs",
+    "module": 11,
+    "topic": "Detecting Tor Use on a Live Host",
+    "difficulty": "medium",
+    "stem": "Which command and port combination indicates Tor Browser activity on a live Windows host?",
+    "options": [
+      "netstat -ano, looking for ports 9150 and 9151",
+      "netstat -r, looking for ports 80 and 443",
+      "ipconfig /displaydns, looking for .onion entries",
+      "tasklist /svc, looking for port 9050 bindings"
+    ],
+    "answer": 0,
+    "explanation": "Investigators identify whether Tor Browser was used by running netstat -ano, since Tor uses ports 9150 and 9151 to establish connections via Tor nodes. The -a, -n and -o switches show all connections numerically with the owning process ID, tying the port to a process. Tor's .onion names are resolved inside the Tor network rather than by the system resolver, so the DNS cache will not list them.",
+    "trap": "9150/9151 are the Tor Browser ports. Port 9050 belongs to the standalone Tor daemon — related but not the browser bundle."
+  },
+  {
+    "id": "C12-001",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Crime Classification",
+    "difficulty": "hard",
+    "stem": "An attacker uses rented cloud compute to launch an attack against a different organisation's cloud. How is this crime classified?",
+    "options": [
+      "Cloud as a tool",
+      "Cloud as a subject",
+      "Cloud as an object",
+      "Cloud as a venue"
+    ],
+    "answer": 0,
+    "explanation": "Cloud crime is classified by the cloud's role. Cloud as a TOOL means the cloud is used to plan and commit a crime — attacking other clouds from it, or storing and sharing crime-related evidence there. Cloud as a SUBJECT means the crime is committed within the cloud environment, such as stealing the identity of cloud user accounts. Cloud as an OBJECT means the CSP itself is the target, as in a DDoS against the cloud.",
+    "trap": "Subject = crime happens IN it. Object = crime is aimed AT it. Tool = crime is committed WITH it."
+  },
+  {
+    "id": "C12-002",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Service Models",
+    "difficulty": "medium",
+    "stem": "Which cloud service model provides identity and access management services such as SSO, MFA and identity governance?",
+    "options": [
+      "IDaaS",
+      "SECaaS",
+      "PaaS",
+      "CaaS"
+    ],
+    "answer": 0,
+    "explanation": "Identity-as-a-Service offers IAM services including single sign-on, multi-factor authentication, identity governance and administration, and intelligence collection — examples being OneLogin, Centrify Identity Service, Azure Active Directory and Okta. SECaaS provides penetration testing, authentication, intrusion detection, anti-malware and SIEM services. PaaS offers development and deployment platforms, and CaaS offers container engine virtualisation and cluster management.",
+    "trap": "IDaaS and SECaaS both touch authentication. IDaaS IS the identity platform; SECaaS is a broader set of security services."
+  },
+  {
+    "id": "C12-003",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Service Models",
+    "difficulty": "medium",
+    "stem": "AWS Lambda, Google Cloud Functions and Azure Functions are examples of which service model?",
+    "options": [
+      "FaaS",
+      "CaaS",
+      "IaaS",
+      "XaaS"
+    ],
+    "answer": 0,
+    "explanation": "Function-as-a-Service provides a platform for developing, running and managing application functionalities for microservices, with AWS Lambda, Google Cloud Functions, Azure Functions and Oracle Functions as the named examples. CaaS covers container engines and cluster management such as Google Kubernetes Engine, IaaS covers virtual machines and abstracted hardware, and XaaS covers anything delivered as a service on demand.",
+    "trap": "FaaS leaves almost no persistent host to image — a major forensic problem, since the execution environment is torn down."
+  },
+  {
+    "id": "C12-004",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Wrapping Attack",
+    "difficulty": "hard",
+    "stem": "An attacker duplicates the body of a SOAP message during its translation in the TLS layer and sends it to the server as a legitimate user. Which attack is this?",
+    "options": [
+      "Wrapping attack",
+      "Metadata spoofing attack",
+      "Man-in-the-cloud attack",
+      "Cloud snooper attack"
+    ],
+    "answer": 0,
+    "explanation": "A wrapping attack is performed during translation of the SOAP message in the TLS layer, where the attacker duplicates the body of the message and sends it to the server as a legitimate user. Metadata spoofing manipulates service description data, man-in-the-cloud abuses file synchronisation tokens, and cloud snooper targets AWS security groups through a weakly configured firewall.",
+    "trap": "The signature covers the original body; the duplicated body rides alongside it. The server validates one and executes the other."
+  },
+  {
+    "id": "C12-005",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Man-in-the-Cloud Attack",
+    "difficulty": "hard",
+    "stem": "What makes a Man-in-the-Cloud attack possible, and how does it differ from Man-in-the-Middle?",
+    "options": [
+      "It abuses file synchronisation services, whose sync tokens cannot distinguish malicious from normal traffic — no interception of a live conversation is needed",
+      "It intercepts and manipulates traffic between two parties in real time, which MITM cannot do",
+      "It requires physical access to the cloud provider's data centre, unlike MITM",
+      "It targets the TLS handshake specifically, whereas MITM targets application data"
+    ],
+    "answer": 0,
+    "explanation": "MITC attacks are an advanced form of MITM carried out by abusing cloud file synchronisation services such as Google Drive or Dropbox for data compromise, command and control, data exfiltration and remote access. Synchronisation tokens authenticate the application but cannot distinguish malicious traffic from normal traffic, and attackers abuse that weakness. Unlike MITM, no live interception is required — the stolen token does the work.",
+    "trap": "Stealing a sync token needs no password and survives password resets. Revoking the token is what stops it."
+  },
+  {
+    "id": "C12-006",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloudborne Attack",
+    "difficulty": "hard",
+    "stem": "Which cloud attack implants a backdoor that survives the server being reallocated to an entirely different customer?",
+    "options": [
+      "Cloudborne — a firmware backdoor in a bare-metal cloud server",
+      "Cloud hopper — lateral movement from a managed service provider",
+      "Cloud cryptojacking — unauthorised mining using cloud resources",
+      "CPDoS — poisoned content cached at CDN servers"
+    ],
+    "answer": 0,
+    "explanation": "Cloudborne is a vulnerability in bare-metal cloud servers allowing a malicious backdoor to be implanted in the firmware. Because physical servers are reassigned between clients, an improperly performed firmware re-flash during reclamation leaves the backdoor active, and it travels with the server to the next customer. Cloud hopper targets MSPs and their customers, cryptojacking mines currency, and CPDoS poisons CDN caches.",
+    "trap": "Persistence below the OS. Reimaging the operating system does nothing — only a correct firmware re-flash removes it."
+  },
+  {
+    "id": "C12-007",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Hopper Attack",
+    "difficulty": "medium",
+    "stem": "Which attack targets managed service providers in order to reach their customers' intellectual property?",
+    "options": [
+      "Cloud hopper attack",
+      "Golden SAML attack",
+      "Side-channel attack",
+      "Wrapping attack"
+    ],
+    "answer": 0,
+    "explanation": "Cloud hopper attacks are triggered at managed service providers and their customers. Once successful, attackers gain remote access to the intellectual property and critical information of the target MSP and its global customers, moving laterally through the cloud environment to reach further sensitive data. The MSP is attacked as a route to the many organisations that trust it.",
+    "trap": "A supply-chain attack: one MSP compromise yields access to every customer that provider manages."
+  },
+  {
+    "id": "C12-008",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Golden SAML Attack",
+    "difficulty": "hard",
+    "stem": "An attacker with administrative access to an identity provider forges authentication tokens by abusing token signing certificates. Which attack is this?",
+    "options": [
+      "Golden SAML attack",
+      "Session hijacking using session riding",
+      "Man-in-the-browser attack",
+      "Instance Metadata Service attack"
+    ],
+    "answer": 0,
+    "explanation": "Golden SAML attacks target cloud identity providers such as Active Directory Federation Services that use SAML for authentication and authorisation. Attackers gain administrative access to the identity provider's user profile and exploit token signing certificates to generate forged SAML tokens by manipulating assertions — access typically achieved through session hijacking, privilege escalation or lateral movement from earlier compromise.",
+    "trap": "Forged tokens are cryptographically valid, so service providers accept them. Password resets and MFA do not revoke them."
+  },
+  {
+    "id": "C12-009",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Side-Channel Attacks",
+    "difficulty": "hard",
+    "stem": "An attacker places a malicious VM on the same physical host as the target and exploits the shared processor cache. What is this, and what does it exploit?",
+    "options": [
+      "A side-channel or cross-guest VM breach, exploiting vulnerabilities in shared technology resources",
+      "A cloud malware injection attack, exploiting weak image validation",
+      "A metadata spoofing attack, exploiting service description files",
+      "A wrapping attack, exploiting SOAP message translation"
+    ],
+    "answer": 0,
+    "explanation": "In a side-channel or cross-guest VM breach the attacker runs a VM on the same physical host as the target and exploits shared physical resources such as the processor cache, launching timing attacks, data remanence, acoustic cryptanalysis, power monitoring or differential fault analysis to extract cryptographic keys or plaintext secrets. Such attacks can be mounted by any co-resident user and stem from vulnerabilities in shared technology resources.",
+    "trap": "Co-residency is the prerequisite. The attack crosses the hypervisor boundary via hardware, not via software vulnerabilities in the guest."
+  },
+  {
+    "id": "C12-010",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "CPDoS Attack",
+    "difficulty": "hard",
+    "stem": "Attackers send malformed or oversized HTTP requests so the origin server returns error content that is then cached and served to legitimate users. Which attack is this?",
+    "options": [
+      "CPDoS / CDN cache poisoning",
+      "Cloud snooper attack",
+      "DNS poisoning",
+      "Cloud cryptojacking"
+    ],
+    "answer": 0,
+    "explanation": "In a Cache Poisoned Denial of Service or CDN cache poisoning attack, malformed or oversized HTTP requests trick the origin web server into responding with malicious or error content, which is then cached at the CDN. The CDN subsequently delivers that content to legitimate users, producing a denial of service. The attack arises from misconfiguration of CDN-protected servers.",
+    "trap": "A denial of service achieved with very little traffic — the CDN does the distribution for the attacker."
+  },
+  {
+    "id": "C12-011",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud DNS Attacks",
+    "difficulty": "medium",
+    "stem": "Registering a domain name deceptively similar to a cloud service provider's in order to run phishing scams is known as what?",
+    "options": [
+      "Cybersquatting",
+      "Domain hijacking",
+      "Domain snipping",
+      "DNS poisoning"
+    ],
+    "answer": 0,
+    "explanation": "Cybersquatting means conducting phishing scams by registering a domain name similar to that of a CSP. Domain hijacking is stealing a CSP's domain name outright, domain snipping is registering a domain name that has expired, and DNS poisoning diverts users to a spoofed site by poisoning the DNS server or the client's DNS cache.",
+    "trap": "Four distinct named DNS attacks. Snipping needs an EXPIRED domain; squatting registers a LOOKALIKE."
+  },
+  {
+    "id": "C12-012",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Session Riding",
+    "difficulty": "medium",
+    "stem": "How does session riding differ from session hijacking using XSS?",
+    "options": [
+      "Session riding uses CSRF so the site executes commands as the already-authenticated user; XSS hijacking steals the cookie and reuses it",
+      "Session riding steals cookies; XSS hijacking forges request tokens",
+      "Session riding requires the attacker to be on the same network; XSS hijacking does not",
+      "They are the same technique described in different cloud models"
+    ],
+    "answer": 0,
+    "explanation": "In session riding, attackers use cross-site request forgery to transmit unauthorised commands: the victim clicks a malicious link while logged in to the target site, and the site executes the request as though the user authorised it — modifying or deleting data, performing transactions, resetting passwords. XSS-based session hijacking instead injects code to steal the authentication cookie, which the attacker then replays to access the session directly.",
+    "trap": "Riding never possesses the cookie; it borrows the browser. Hijacking takes the cookie and leaves the browser behind."
+  },
+  {
+    "id": "C12-013",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Log Evaporation",
+    "difficulty": "hard",
+    "stem": "Why can logs disappear entirely in a cloud environment, and what does this imply for acquisition?",
+    "options": [
+      "Some logs are held in volatile memory on VM instances and vanish when the instance is switched off, so they must be captured while it runs",
+      "Cloud logs are always written to a central server and only vanish if that server fails",
+      "CSPs delete all logs after 24 hours as a matter of contractual policy",
+      "Logs evaporate only in SaaS deployments, never in IaaS or PaaS"
+    ],
+    "answer": 0,
+    "explanation": "Evaporation of logs is a named cloud forensics challenge: some logs are stored in volatile memory such as on VMs, and when a VM instance is switched off those logs vanish. This compounds decentralisation — log information is not held on a central log server but distributed across many servers and generated at every tier of the architecture, in heterogeneous formats.",
+    "trap": "Shutting down a suspect instance to 'preserve' it destroys the volatile logs. Snapshot and capture while it runs."
+  },
+  {
+    "id": "C12-014",
+    "section": "Procedures and Methodology",
+    "module": 12,
+    "topic": "Multi-tenancy and Evidence Segregation",
+    "difficulty": "hard",
+    "stem": "What makes isolating one tenant's evidence particularly difficult in a multi-tenant cloud?",
+    "options": [
+      "Segregating one tenant's data cannot be achieved without breaching the confidentiality of other tenants",
+      "Each tenant's data is encrypted with the same key, so separation is impossible",
+      "CSPs refuse all evidence requests in multi-tenant environments as a matter of law",
+      "Multi-tenant systems keep no logs that identify individual tenants"
+    ],
+    "answer": 0,
+    "explanation": "Segregation of potential evidence pertaining to one tenant in a multi-tenant cloud system is challenging because it cannot be achieved without breaching the confidentiality of other tenants. A related named challenge is that cloud confiscation and resource seizure may affect the business continuity of other tenants — so the investigative act itself can harm uninvolved parties.",
+    "trap": "The constraint is legal and ethical as much as technical. Seizing the host punishes tenants who did nothing."
+  },
+  {
+    "id": "C12-015",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Distributed Criminal Infrastructure",
+    "difficulty": "medium",
+    "stem": "A suspect stores data with one CSP, buys compute from a second, and routes communications through a third. Which named challenge does this create?",
+    "options": [
+      "No single point of failure for criminals, making collection from distributed and disparate sources difficult",
+      "Chain of dependencies, where each CSP relies on another CSP",
+      "Resource abstraction, where hardware details are unavailable",
+      "Reputation fate sharing, where co-tenants are blacklisted together"
+    ],
+    "answer": 0,
+    "explanation": "The named challenge is that there is no single point of failure for criminals: it is difficult to collect and analyse evidentiary data from distributed and disparate sources because criminals may choose one CSP to store data, another for computing services, and a third to route communications. Chain of dependencies refers to CSPs relying on other CSPs, which is a different problem.",
+    "trap": "Ironically the cloud has single points of failure that hurt INVESTIGATORS, but none that hurt the criminal's architecture."
+  },
+  {
+    "id": "C12-016",
+    "section": "Regulations, Policies and Ethics",
+    "module": 12,
+    "topic": "Cloud Metadata Reliability",
+    "difficulty": "hard",
+    "stem": "Why should an investigator be cautious about relying on file metadata in cloud evidence?",
+    "options": [
+      "Creation, last accessed and last modified dates may change when data moves into and within the cloud and during gathering",
+      "Cloud metadata is always encrypted and cannot be read without the CSP's key",
+      "Metadata in the cloud is generated by the client and never by the provider",
+      "Cloud providers are legally prohibited from retaining file metadata"
+    ],
+    "answer": 0,
+    "explanation": "Using metadata for authentication is risky because common fields such as creation date, last accessed date and last modified date may change when data is moved into and within the cloud and during data gathering. Investigators should therefore check whether the CSP preserves metadata and provides access to it for e-discovery purposes, rather than assuming the timestamps mean what they would on a local disk.",
+    "trap": "A timestamp may record the last REPLICATION rather than any user action. Confirm with the CSP what each field means."
+  },
+  {
+    "id": "C12-017",
+    "section": "Regulations, Policies and Ethics",
+    "module": 12,
+    "topic": "Reputation Fate Sharing",
+    "difficulty": "medium",
+    "stem": "What is 'reputation fate sharing' in cloud forensics?",
+    "options": [
+      "Spammers' use of CSP IP addresses gets those addresses blacklisted, disrupting legitimate customers later assigned them",
+      "A CSP must publicly disclose every tenant involved in an investigation",
+      "Co-tenants share liability for each other's contractual breaches",
+      "Investigators must share their findings with all affected tenants"
+    ],
+    "answer": 0,
+    "explanation": "Reputation fate sharing means it is difficult for CSPs and co-tenants to recover from a tarnished reputation caused by illegal activity: when spammers use CSP IP addresses those addresses get blacklisted, and compromised cloud environments can disrupt services for legitimate customers who are later assigned those blacklisted addresses. The harm outlives the incident and lands on innocent parties.",
+    "trap": "A forensic finding with operational consequences — the blacklisting persists long after the abusive tenant has gone."
+  },
+  {
+    "id": "C12-018",
+    "section": "Digital Forensics",
+    "module": 12,
+    "topic": "Cloud Characteristics",
+    "difficulty": "medium",
+    "stem": "Which cloud characteristic means the provider pools physical and virtual resources to serve multiple customers, assigning and reassigning them on demand?",
+    "options": [
+      "Resource pooling",
+      "Rapid elasticity",
+      "Measured service",
+      "Broad network access"
+    ],
+    "answer": 0,
+    "explanation": "Resource pooling means the provider pools all resources to serve multiple customers in a multi-tenant environment, with physical and virtual resources dynamically assigned and reassigned on demand. Rapid elasticity is the instant scaling up or down, measured service is the pay-per-use metering model, and broad network access is availability over the network from diverse platforms.",
+    "trap": "Resource pooling is what creates multi-tenancy — and therefore most of the forensic difficulties in this module."
+  },
+  {
+    "id": "C13-001",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Email Components",
+    "difficulty": "medium",
+    "stem": "Which component receives an email message from the MTA and stores it in the recipient's mailbox?",
+    "options": [
+      "The Mail Delivery Agent (MDA), such as Dovecot",
+      "The Mail Transfer Agent (MTA), such as Postfix",
+      "The Mail User Agent (MUA), such as Thunderbird",
+      "The POP3 server listening on port 110"
+    ],
+    "answer": 0,
+    "explanation": "The Mail Delivery Agent receives the message from the MTA and places it in the recipient's mailbox; Dovecot is the named example. The MTA, also called the mail server, accepts messages from the sender and routes them towards their destination — Sendmail, Exim and Postfix. The MUA is the email client the user reads and composes with. POP3 and IMAP are the protocols the MUA then uses to retrieve the stored message.",
+    "trap": "MTA ROUTES between servers. MDA DELIVERS into the mailbox. MUA READS it. Three distinct roles, often confused."
+  },
+  {
+    "id": "C13-002",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Email Transit Path",
+    "difficulty": "hard",
+    "stem": "What happens to an email's header each time it passes through an MTA?",
+    "options": [
+      "The MTA modifies the header, adding a Received entry — which is why Received headers reconstruct the route",
+      "The header is replaced entirely, so only the final server's details survive",
+      "The header is left untouched to preserve the integrity of the original message",
+      "The header is encrypted by each MTA and can only be read by the recipient's client"
+    ],
+    "answer": 0,
+    "explanation": "Each time an MTA server receives a message during delivery it modifies the header information, and a Received header is generated every time the message transits a mail server. Those accumulated Received headers contain the details of all mail servers the message passed through, which is what lets an investigator reconstruct the path and identify the originating domain and IP address.",
+    "trap": "Received headers stack with the MOST RECENT AT THE TOP. Read upward from the bottom to follow the true order of travel."
+  },
+  {
+    "id": "C13-003",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Message ID Structure",
+    "difficulty": "hard",
+    "stem": "In an email header, what do the two parts of the Message ID represent?",
+    "options": [
+      "Before the @ is the timestamp associated with the message; after the @ is the fully qualified domain name",
+      "Before the @ is the sender's username; after the @ is the recipient's mail server",
+      "Before the @ is a random nonce; after the @ is the SPF record of the sending domain",
+      "Before the @ is the MIME version; after the @ is the Return-Path address"
+    ],
+    "answer": 0,
+    "explanation": "The part of the Message ID before the @ denotes the timestamp associated with that particular email message, and the part after the @ denotes the fully qualified domain name. This makes the Message ID useful for corroborating the claimed send time and the originating system independently of the displayed Date field.",
+    "trap": "A Message ID whose FQDN disagrees with the claimed sending domain is a strong spoofing indicator."
+  },
+  {
+    "id": "C13-004",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Return-Path and Spoofing",
+    "difficulty": "medium",
+    "stem": "An investigator notices the sender's address and the Return-Path address differ. What does this generally indicate?",
+    "options": [
+      "Email spoofing",
+      "Successful SPF validation",
+      "Normal behaviour for all mailing list traffic",
+      "That the message was MIME-encoded"
+    ],
+    "answer": 0,
+    "explanation": "The Return-Path specifies the address to which the message will be returned if it fails to reach the intended recipient. When the sender's address and the Return-Path differ, it generally indicates email spoofing. This is checked alongside Received-SPF: a failed SPF check — where the sending server was not authorised by the domain owner — helps detect spam and forged mail.",
+    "trap": "Legitimate mailing lists and forwarders also rewrite Return-Path. Treat it as an indicator to corroborate, not proof."
+  },
+  {
+    "id": "C13-005",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Sender Policy Framework",
+    "difficulty": "medium",
+    "stem": "What does the Received-SPF header tell an investigator?",
+    "options": [
+      "Whether the sending server was authorised by the domain owner to send on that domain's behalf",
+      "Whether the message body was altered in transit",
+      "Whether the recipient's mail server encrypted the message at rest",
+      "Whether the attachment was scanned for malware"
+    ],
+    "answer": 0,
+    "explanation": "Sender Policy Framework lets organisations designate which servers may send email on behalf of their domains, and the Received-SPF header records the result of that check. A failed SPF check helps detect spam and spoofed messages, because it means the message came from a server the domain owner never authorised. SPF says nothing about body integrity, encryption at rest, or malware.",
+    "trap": "SPF authorises the SENDING SERVER, not the From address a user sees. A message can pass SPF and still display a forged From."
+  },
+  {
+    "id": "C13-006",
+    "section": "Procedures and Methodology",
+    "module": 13,
+    "topic": "Email Investigation Steps",
+    "difficulty": "medium",
+    "stem": "What is the correct order of the email crime investigation steps?",
+    "options": [
+      "Seize the computer and accounts, acquire the email data, examine messages, retrieve headers, analyse headers, recover deleted messages",
+      "Retrieve headers, analyse headers, seize the computer, acquire data, examine messages, recover deleted messages",
+      "Acquire data, recover deleted messages, seize the computer, examine messages, retrieve headers, analyse headers",
+      "Examine messages, seize the computer, retrieve headers, acquire data, analyse headers, recover deleted messages"
+    ],
+    "answer": 0,
+    "explanation": "The six steps run: seizing the computer and email accounts, acquiring the email data, examining email messages, retrieving email headers, analysing email headers, and recovering deleted email messages. Header retrieval follows acquisition because headers are read from the acquired messages, and deleted-message recovery comes last because it works on unallocated space after the live mailbox has been processed.",
+    "trap": "Seizure precedes everything. Reading headers from a live account before seizure risks altering the mailbox."
+  },
+  {
+    "id": "C13-007",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Outlook PST vs OST",
+    "difficulty": "hard",
+    "stem": "Which Outlook account types store mailbox components in an .ost file rather than a .pst?",
+    "options": [
+      "Microsoft Exchange, Office 365 and IMAP accounts",
+      "Only POP3 accounts",
+      "Only accounts configured for offline archiving",
+      "All account types use .ost; .pst is used only for exports"
+    ],
+    "answer": 0,
+    "explanation": "Exchange, Office 365 and IMAP accounts keep a copy of the mailbox in an Offline Storage Table (.ost) at C:\\Users\\%USERNAME%\\AppData\\Local\\Microsoft\\Outlook. Certain POP accounts instead use a Personal Storage Table (.pst) to save mailbox information locally, by default under C:\\Users\\%USERNAME%\\Documents\\Outlook Files. The distinction matters because the two live in different directories.",
+    "trap": "OST is a CACHE of a server mailbox; PST is the primary local store. The server copy may differ from the OST."
+  },
+  {
+    "id": "C13-008",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Thunderbird Storage Format",
+    "difficulty": "hard",
+    "stem": "How does Thunderbird store the messages in each mail folder on disk?",
+    "options": [
+      "As MBOX files with no file extension, named exactly after the corresponding folder",
+      "As individual .eml files inside a folder named after the mail folder",
+      "As a single SQLite database holding every folder",
+      "As .pst files compatible with Microsoft Outlook"
+    ],
+    "answer": 0,
+    "explanation": "Thunderbird stores all messages from each mail folder as MBOX files that carry no extension, named exactly as the folder appears in the interface — the Inbox contents live in a file called INBOX. The .sbd folder holds the mail messages of the account's other folders such as Important, Sent Mail, Trash and any user-created folders.",
+    "trap": "No extension means file-type identification by signature, not by name. An MBOX will not be spotted by extension filtering."
+  },
+  {
+    "id": "C13-009",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Thunderbird Profile Location",
+    "difficulty": "medium",
+    "stem": "Where does Thunderbird create its Profiles folder by default on Windows, and how are profiles named?",
+    "options": [
+      "C:\\Users\\%USERNAME%\\AppData\\Roaming\\Thunderbird\\Profiles, named <eight random characters>.<profile_name>",
+      "C:\\Users\\%USERNAME%\\AppData\\Local\\Thunderbird\\Profiles, named by email address",
+      "C:\\Users\\%USERNAME%\\Documents\\Thunderbird Files, named by account creation date",
+      "C:\\ProgramData\\Mozilla\\Thunderbird, named sequentially Profile1, Profile2"
+    ],
+    "answer": 0,
+    "explanation": "Thunderbird creates its Profiles folder at C:\\Users\\%USERNAME%\\AppData\\Roaming\\Thunderbird\\Profiles, and multiple profiles follow the naming convention of eight random characters, a dot, then the profile name. The profile holds both a local copy of all email messages and any changes the user made, such as toolbar or account setting adjustments.",
+    "trap": "Roaming, not Local — the opposite of Outlook's OST path. Mixing the two loses the mailbox."
+  },
+  {
+    "id": "C13-010",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Deleted Email Recovery",
+    "difficulty": "hard",
+    "stem": "Emails were deleted from Outlook's Deleted Items folder. Where do they go, and what determines recoverability?",
+    "options": [
+      "To the drive's unallocated space; they are recoverable until that space is overwritten with new data",
+      "To the .ost file's reserved area, where they persist indefinitely",
+      "To the Exchange server's dumpster, which the local client cannot reach",
+      "They are securely wiped immediately and cannot be recovered by any method"
+    ],
+    "answer": 0,
+    "explanation": "In Outlook, deleted messages first move to the Deleted Items folder; when deleted from there they pass to the unallocated space of the drive and can be recovered provided that space has not yet been overwritten with new data. Thunderbird behaves differently — deleted messages sit in the trash folder until it is cleared, and messages deleted from the Trash of Local Folders can be completely recovered.",
+    "trap": "Recoverability is a race against reuse. Every minute the machine stays running reduces the chance."
+  },
+  {
+    "id": "C13-011",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Suspicious Email Examination",
+    "difficulty": "medium",
+    "stem": "Which attachment extensions are specifically called out as commonly used to deliver spyware and malware by email?",
+    "options": [
+      ".exe, .vbs, .js, .wsf and .zip",
+      ".txt, .csv, .log and .md",
+      ".png, .jpg, .gif and .bmp",
+      ".css, .html, .xml and .json"
+    ],
+    "answer": 0,
+    "explanation": "Attackers send documents, PDFs or image copies carrying extensions such as .exe, .vbs, .js, .wsf and .zip, designed to execute spyware and malware. Examination of a suspect message also covers the Subject — spam subjects typically manufacture urgency — the sender address, where a bank message arriving from a Gmail account is a giveaway, and the body, which may carry hyperlinks luring the user into disclosing sensitive details.",
+    "trap": ".zip is on the list because archives defeat extension-based filtering and hide the real payload type."
+  },
+  {
+    "id": "C13-012",
+    "section": "Regulations, Policies and Ethics",
+    "module": 13,
+    "topic": "CAN-SPAM Act Requirements",
+    "difficulty": "hard",
+    "stem": "Under the CAN-SPAM Act, within what period must a sender honour a recipient's opt-out request?",
+    "options": [
+      "10 business days",
+      "24 hours",
+      "30 calendar days",
+      "Immediately, before the next send"
+    ],
+    "answer": 0,
+    "explanation": "CAN-SPAM requires senders to honour recipients' opt-out requests within 10 business days. Its other main requirements are: no false or misleading header information, no deceptive subject lines, the commercial email must be identified as an advertisement, it must carry a valid physical postal address, and it must explain how to stop receiving future emails. Both the company whose product is promoted and any contracted emailer must comply.",
+    "trap": "Liability is SHARED. The advertiser cannot escape by outsourcing the sending to a third party."
+  },
+  {
+    "id": "C13-013",
+    "section": "Regulations, Policies and Ethics",
+    "module": 13,
+    "topic": "CAN-SPAM Criminal Penalties",
+    "difficulty": "hard",
+    "stem": "Which conduct can attract criminal penalties and imprisonment under the CAN-SPAM Act, beyond the financial penalty?",
+    "options": [
+      "Harvesting addresses or generating them by dictionary attack, and using open relays or proxies without permission",
+      "Sending a commercial email without a physical postal address in the footer",
+      "Failing to label a commercial message as an advertisement",
+      "Honouring an opt-out request on the eleventh business day"
+    ],
+    "answer": 0,
+    "explanation": "Criminal penalties and imprisonment may follow for accessing someone else's computer to send spam without permission, using false information to register multiple email accounts or domain names, relaying or retransmitting multiple spam messages to mislead others about the origin, harvesting addresses or generating them by dictionary attack, and taking advantage of open relays or open proxies without permission. The other options are violations subject to financial penalties, up to $50,120.",
+    "trap": "The criminal tier involves unauthorised ACCESS or deception about origin. Formatting failures stay civil."
+  },
+  {
+    "id": "C13-014",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Email Crime Types",
+    "difficulty": "medium",
+    "stem": "How does the courseware distinguish crimes committed BY sending emails from crimes SUPPORTED by email?",
+    "options": [
+      "Committed by: spamming, phishing, mail bombing, mail storms. Supported by: identity fraud, cyberstalking and other nefarious activities",
+      "Committed by: identity fraud and cyberstalking. Supported by: spamming and phishing",
+      "Committed by: only phishing. Supported by: every other email-related offence",
+      "The two categories are identical and the distinction is purely jurisdictional"
+    ],
+    "answer": 0,
+    "explanation": "Crimes committed by sending emails are spamming, phishing, mail bombing and mail storms — the email itself is the offence. Crimes supported by emails include identity fraud, cyberstalking and other nefarious activities, where email is the medium that enables an offence existing independently of it. The distinction shapes what the investigator must prove.",
+    "trap": "Mail bombing floods ONE mailbox; a mail storm is a self-sustaining cascade of automatic replies between systems."
+  },
+  {
+    "id": "C13-015",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Social Media Artifacts",
+    "difficulty": "medium",
+    "stem": "Which artifacts should an investigator collect from social media platforms?",
+    "options": [
+      "Images, videos, posts, location tags, shared links, direct messages, group chats, comments, profiles, friend and follower lists, plus timestamps, geolocation and device information",
+      "Only publicly visible posts, since private messages are never obtainable",
+      "Only the account registration details held by the platform operator",
+      "Only metadata, since content is protected by platform terms of service"
+    ],
+    "answer": 0,
+    "explanation": "Social media forensics collects images, videos, tweets, location tags and shared links; direct messages, group chats and comments; user profiles, friend lists and followers; and the timestamps, geolocation data and device information associated with communications. Because these artifacts are voluminous and diverse, specialised and automated extraction and analysis tools are required.",
+    "trap": "The associated metadata — timestamp, geolocation, device — is often more probative than the content itself."
+  },
+  {
+    "id": "C13-016",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Social Media Forensics Challenges",
+    "difficulty": "medium",
+    "stem": "Which challenge most directly threatens the chain of custody for social media evidence?",
+    "options": [
+      "The dynamic nature of the evidence — content is constantly edited, deleted or added",
+      "The diverse formats in which social media data is stored",
+      "The constant evolution of new platforms and features",
+      "The use of code words and obfuscation by suspects"
+    ],
+    "answer": 0,
+    "explanation": "The dynamic nature of social media evidence makes maintaining the chain of custody difficult, because the huge volume of data is continuously edited, deleted or added to — what is captured today may not exist tomorrow, and may differ from what existed yesterday. Format diversity, platform evolution, anonymity services and obfuscation are separately named challenges affecting collection and analysis rather than custody.",
+    "trap": "Capture with timestamps and hashes at the moment of collection. A later re-capture will not match, and cannot be made to."
+  },
+  {
+    "id": "C13-017",
+    "section": "Digital Forensics",
+    "module": 13,
+    "topic": "Email Protocol Ports",
+    "difficulty": "medium",
+    "stem": "Which port does IMAP over SSL (IMAPS) use, as distinct from plain IMAP?",
+    "options": [
+      "993, versus 143 for plain IMAP",
+      "143, versus 993 for plain IMAP",
+      "995, versus 110 for plain IMAP",
+      "465, versus 25 for plain IMAP"
+    ],
+    "answer": 0,
+    "explanation": "IMAP listens on port 143 by default and IMAPS, IMAP over SSL, listens on 993. For comparison, POP3 handles incoming mail on port 110 and SMTP servers generally listen on port 25. Knowing which port a captured session used tells the investigator immediately whether the traffic was protected in transit or available in plaintext.",
+    "trap": "Traffic on 143 may be readable in a capture; traffic on 993 will not be. That decides what network evidence is worth."
+  },
+  {
+    "id": "C14-001",
+    "section": "Procedures and Methodology",
+    "module": 14,
+    "topic": "Mobile Device Seizure by Power State",
+    "difficulty": "hard",
+    "stem": "A phone at a scene is found switched OFF. What should the investigator do?",
+    "options": [
+      "Leave it off — powering it on could alter the evidence",
+      "Power it on immediately to capture volatile data before the battery drains",
+      "Power it on only if it can be connected to a charger first",
+      "Power it on and immediately enable airplane mode"
+    ],
+    "answer": 0,
+    "explanation": "If the device is off it is left off, because turning it on could alter the evidence — the same principle applied to computers. If the device is on and unlocked, the investigator enables the Stay Awake setting and connects it to power so it does not lock or shut down. If it is on but locked, it is connected to a power source to prevent shutdown. Power state drives the decision.",
+    "trap": "Three states, three different actions. ON+unlocked is the only one where you change a setting on the device."
+  },
+  {
+    "id": "C14-002",
+    "section": "Procedures and Methodology",
+    "module": 14,
+    "topic": "Mobile Device Seizure by Power State",
+    "difficulty": "medium",
+    "stem": "A phone is found ON and UNLOCKED. Which action preserves the opportunity this presents?",
+    "options": [
+      "Enable Stay Awake and connect it to a power source",
+      "Lock it immediately so no one can tamper with it",
+      "Power it off to freeze its current state",
+      "Factory-reset the lock screen to guarantee future access"
+    ],
+    "answer": 0,
+    "explanation": "An unlocked device is a window that closes: enabling Stay Awake keeps it active and connecting it to power prevents shutdown, so the investigator retains access without needing to defeat the lock later. Locking or powering it off throws away access that may be impossible to regain, and resetting anything destroys evidence. If the owner is present, the passcode may be requested; if refused, a warrant is sought.",
+    "trap": "Instinct says 'secure it by locking'. Here that destroys your access — keep it awake and powered."
+  },
+  {
+    "id": "C14-003",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "iOS DFU vs Recovery Mode",
+    "difficulty": "hard",
+    "stem": "Which iOS boot mode allows an investigator to obtain device information without entering the passcode or bypassing USB restricted mode?",
+    "options": [
+      "DFU mode, which is part of bootROM",
+      "Recovery mode, which invokes the iBoot process",
+      "Safe mode, which disables third-party extensions",
+      "Airplane mode, which isolates the device from the network"
+    ],
+    "answer": 0,
+    "explanation": "Device Firmware Upgrade mode is part of bootROM and allows investigators to obtain device information without entering a passcode or bypassing USB restricted mode. Recovery mode is used to upgrade the device to a signed firmware version using iTunes, invoking the iBoot process — an upgrade path rather than an acquisition one. Investigators must decide which boot mode to use before acquiring from an iOS device.",
+    "trap": "DFU is for ACQUISITION, recovery is for RESTORING firmware. Choosing recovery on a suspect device can overwrite evidence."
+  },
+  {
+    "id": "C14-004",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "DFU Mode Boot Chain",
+    "difficulty": "hard",
+    "stem": "What is the correct order of the DFU mode boot chain on iOS?",
+    "options": [
+      "BootROM signature-checks iBSS and iBEC, iBEC checks the kernel, the kernel checks the RamDisk and loads it into RAM",
+      "iBoot checks the kernel, the kernel checks BootROM, BootROM loads the RamDisk",
+      "The kernel checks iBSS, iBSS checks iBEC, iBEC loads the RamDisk from flash",
+      "RamDisk loads first, then verifies BootROM, iBSS and iBEC in sequence"
+    ],
+    "answer": 0,
+    "explanation": "In DFU mode the BootROM performs signature checks on the second-stage bootloaders iBSS and iBEC; iBEC then checks the kernel; the kernel checks the RamDisk and loads it into RAM. Each stage verifies the next, which is why the chain is anchored in the immutable BootROM — and why a BootROM-level vulnerability is so valuable for acquisition.",
+    "trap": "The chain of trust runs downward from BootROM. Each link verifies the NEXT one, not the previous."
+  },
+  {
+    "id": "C14-005",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Jailbreaking Techniques",
+    "difficulty": "hard",
+    "stem": "Which jailbreak type leaves the device fully functional after a reboot but without a patched kernel, and can be re-patched without a computer?",
+    "options": [
+      "Semi-untethered jailbreak",
+      "Semi-tethered jailbreak",
+      "Tethered jailbreak",
+      "Untethered jailbreak"
+    ],
+    "answer": 0,
+    "explanation": "A semi-untethered jailbreak leaves the kernel unpatched after reboot, but the kernel can be re-patched without using a computer. A semi-tethered jailbreak also boots without a patched kernel and remains usable for normal functions, but needs a computer to restore the patch. A tethered jailbreak may leave the device stuck in a partially started state until re-jailbroken with a computer, and an untethered jailbreak survives reboot with the kernel patched and no computer required.",
+    "trap": "Four variants distinguished by two questions: does it boot normally, and does re-patching need a computer?"
+  },
+  {
+    "id": "C14-006",
+    "section": "Regulations, Policies and Ethics",
+    "module": 14,
+    "topic": "Jailbreaking Risks in Forensics",
+    "difficulty": "hard",
+    "stem": "Why does jailbreaking a suspect iOS device carry forensic risk beyond possible device damage?",
+    "options": [
+      "It requires Internet connectivity, exposing the device to remote wipe commands, and NIST guidance says investigator actions must not compromise evidence relied on in court",
+      "It permanently encrypts the data partition, making later acquisition impossible",
+      "It automatically uploads the device contents to iCloud before patching the kernel",
+      "It is prohibited in all jurisdictions regardless of warrant"
+    ],
+    "answer": 0,
+    "explanation": "Installing a jailbreak requires connecting the device to the Internet, which can expose it to remote connections or pending remote commands that erase valuable data. Separately, NIST guidelines for mobile phone forensics hold that any action an investigator performs should not compromise evidence subsequently relied upon in court — and jailbreaks targeting early iOS versions attempt to bypass Kernel Patch Protection, which can render the device unbootable.",
+    "trap": "The network exposure is the sharpest risk: a pending remote wipe fires the moment the device gets connectivity."
+  },
+  {
+    "id": "C14-007",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Logical Acquisition Limits",
+    "difficulty": "hard",
+    "stem": "What does a logical acquisition of a mobile device NOT capture?",
+    "options": [
+      "System files and deleted data",
+      "Directories and user-accessible files",
+      "A full device backup",
+      "Contacts, messages and media accessible to the user"
+    ],
+    "answer": 0,
+    "explanation": "Logical acquisition creates a bit-by-bit copy of the logical storage — the directories and files on the device accessible to the user — but system files and deleted data cannot be captured by it. A full device backup also counts as logical acquisition. Recovering deleted data requires physical acquisition, or techniques such as examining SQLite freelists, journal and write-ahead log files, and unallocated space.",
+    "trap": "'Bit-by-bit' in the definition misleads — it is bit-by-bit of the LOGICAL volume, not of the physical flash."
+  },
+  {
+    "id": "C14-008",
+    "section": "Tools/Systems/Programs",
+    "module": 14,
+    "topic": "JTAG Forensics",
+    "difficulty": "hard",
+    "stem": "When is JTAG forensics the appropriate acquisition technique?",
+    "options": [
+      "When no compatible tools support the device — test access ports are connected to extract data from the memory chip, and it works on pattern/PIN locked devices",
+      "When the device is unlocked and a standard logical extraction will suffice",
+      "When only cloud-stored data is required and the device is unavailable",
+      "When the flash memory must be physically removed from the board"
+    ],
+    "answer": 0,
+    "explanation": "JTAG is a physical extraction method applied when no compatible or appropriate tools support the device. Test Access Ports are connected to the device to retrieve data from its memory chip, and the technique works on pattern or PIN locked devices. The process runs: verify TAPs exist from device documentation, solder wires to the correct connector pins, extract via the JTAG box software, read the flash after selecting a device profile, then analyse.",
+    "trap": "JTAG keeps the chip ON the board. Physically removing the chip is chip-off, the more destructive next step."
+  },
+  {
+    "id": "C14-009",
+    "section": "Tools/Systems/Programs",
+    "module": 14,
+    "topic": "Chip-off Forensics",
+    "difficulty": "hard",
+    "stem": "What distinguishes chip-off forensics from JTAG, and when is it chosen?",
+    "options": [
+      "The flash memory is physically removed for imaging — used for pattern/PIN locked devices and for damaged or dismantled devices",
+      "The device is booted into recovery mode and imaged over USB, used when the passcode is known",
+      "Only the SIM card is removed and cloned, used when the handset is unavailable",
+      "The device is imaged wirelessly, used when no physical access is possible"
+    ],
+    "answer": 0,
+    "explanation": "Chip-off is a complete bit-stream imaging of a device containing embedded flash memory — NAND, NOR, eMMC or eMCP — in which the flash memory is physically removed for acquisition. It extracts data from pattern or PIN locked devices and from damaged or dismantled devices, which is its advantage over methods needing a working handset. JTAG, by contrast, reads the chip while it remains soldered in place.",
+    "trap": "Chip-off is destructive and usually irreversible. It is the last resort, after JTAG and software methods fail."
+  },
+  {
+    "id": "C14-010",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "SQLite Deleted Data Recovery",
+    "difficulty": "hard",
+    "stem": "Which SQLite structures should an investigator examine to recover deleted records from a mobile database?",
+    "options": [
+      "Freelists, journal and write-ahead log (WAL) files, and unallocated space",
+      "Only the live tables, since SQLite overwrites deleted rows immediately",
+      "The database schema and indexes, which retain full row copies",
+      "The file's MAC timestamps, which encode deleted row contents"
+    ],
+    "answer": 0,
+    "explanation": "Recovering deleted data from SQLite requires in-depth knowledge of freelists, journal and write-ahead log files, and unallocated space within the database file. A SQLite viewer navigating to the freelist shows recently deleted data. Mobile phones store contacts, SMS, emails and other sensitive information in SQLite, so these structures are frequently where the probative deleted records survive.",
+    "trap": "Deleted rows commonly persist in the freelist — SQLite marks pages reusable rather than wiping them."
+  },
+  {
+    "id": "C14-011",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Cellular Network Components",
+    "difficulty": "hard",
+    "stem": "Which component is the central repository of subscriber data and service information, held at the Mobile Switching Center?",
+    "options": [
+      "Home Location Register (HLR)",
+      "Visitor Location Register (VLR)",
+      "Base Station Controller (BSC)",
+      "Base Transceiver Station (BTS)"
+    ],
+    "answer": 0,
+    "explanation": "The Home Location Register is the database at the MSC and the central repository for subscriber data and service information. The Visitor Location Register is used alongside the HLR for phones roaming outside their service area. The BSC manages transceiver equipment and performs channel assignment, and the BTS is the radio transceiver equipment that actually communicates with handsets.",
+    "trap": "HLR = the subscriber's HOME record. VLR = a temporary record while ROAMING. A roaming suspect appears in both."
+  },
+  {
+    "id": "C14-012",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Base Station Subsystem",
+    "difficulty": "medium",
+    "stem": "Which three elements make up the Base Station Subsystem?",
+    "options": [
+      "Base Station Controller, Base Transceiver Station and Transcoder",
+      "Mobile Switching Center, Home Location Register and Visitor Location Register",
+      "Antenna, RF converter and baseband processor",
+      "SIM, handset and carrier network"
+    ],
+    "answer": 0,
+    "explanation": "The Base Station Subsystem manages the radio network and is controlled by the Mobile Switching Center. It consists of the Base Station Controller, the Base Transceiver Station and the Transcoder. The MSC, HLR and VLR belong to the switching and subscriber-database side of the network rather than the radio side.",
+    "trap": "BSS is the RADIO side; MSC with HLR and VLR is the SWITCHING side. Cell site analysis draws on both."
+  },
+  {
+    "id": "C14-013",
+    "section": "Procedures and Methodology",
+    "module": 14,
+    "topic": "Service Provider Data",
+    "difficulty": "medium",
+    "stem": "In which circumstances does service provider data become essential rather than merely corroborative?",
+    "options": [
+      "When the suspect deleted call history or messages and the deleted data cannot be recovered, or when location services were never enabled on the phone",
+      "Whenever the device is passcode-locked, regardless of what the device itself holds",
+      "Only when the device has been physically destroyed beyond chip-off recovery",
+      "Only in civil cases, since criminal matters rely solely on device data"
+    ],
+    "answer": 0,
+    "explanation": "Service provider data acts as backup evidence and becomes necessary when the attacker or owner has deleted call history or text messages to wipe out evidence, when the deleted data cannot be recovered from the device, and when location-based services were not turned on in the phone. It can yield owner location, Call Detail Records, billing information, and whether the phone was stationary or moving during a given interval.",
+    "trap": "The provider's records exist independently of the handset — deletion on the device does not touch them."
+  },
+  {
+    "id": "C14-014",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Call Detail Record Contents",
+    "difficulty": "hard",
+    "stem": "In a Call Detail Record, what do the A-party and B-party refer to?",
+    "options": [
+      "A-party is the calling number where the call originated; B-party is the number receiving the call",
+      "A-party is the billed account; B-party is the telephone exchange writing the record",
+      "A-party is the first cell tower used; B-party is the last cell tower used",
+      "A-party is the subscriber's home network; B-party is the roaming network"
+    ],
+    "answer": 0,
+    "explanation": "The A-party is the phone number of the subscriber from where the call originated — the calling party — and the B-party is the number receiving the call. A CDR also carries the start time and duration, the billing number charged, identification of the exchange writing the record, a unique sequence number, routing digits, the call disposition, the inbound and outbound routes, the call type such as voice or SMS, and any fault condition.",
+    "trap": "The BILLING number is a separate field from the A-party. They often differ on corporate and family accounts."
+  },
+  {
+    "id": "C14-015",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "SIM File System",
+    "difficulty": "hard",
+    "stem": "How is the file system on a SIM card structured?",
+    "options": [
+      "A Master File at the root, containing Dedicated Files, which contain Elementary Files",
+      "A flat set of Elementary Files with no hierarchy",
+      "A FAT32 volume with standard directories and files",
+      "A set of SQLite databases indexed by the ICCID"
+    ],
+    "answer": 0,
+    "explanation": "The SIM file system is hierarchical: the Master File is the root, Dedicated Files are the directories beneath it, and Elementary Files hold the actual data. The SIM has both volatile and non-volatile memory, and its file system resides in non-volatile memory. Its main function is authenticating the subscriber to the network so the subscribed services can be used.",
+    "trap": "MF → DF → EF. Think root, directory, file — the smart card equivalent of a directory tree."
+  },
+  {
+    "id": "C14-016",
+    "section": "Procedures and Methodology",
+    "module": 14,
+    "topic": "SIM Handling",
+    "difficulty": "medium",
+    "stem": "What should investigators do before examining a seized SIM card?",
+    "options": [
+      "Clone or duplicate it, so the original data cannot be accidentally tampered with",
+      "Insert it into a live handset to read the stored messages directly",
+      "Reset the CHV1 value so the card can be read without a PIN",
+      "Remove the non-volatile memory chip for separate imaging"
+    ],
+    "answer": 0,
+    "explanation": "Forensic investigators should clone or duplicate SIM cards for further investigation in order to avoid accidental tampering with the original SIM data. Working on a clone preserves the original as evidence. Inserting the original into a live handset risks network registration and alteration of stored values such as the last dialled numbers and location information.",
+    "trap": "A live SIM in a live handset updates LOCI and TMSI on contact with the network — altering the evidence."
+  },
+  {
+    "id": "C14-017",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "iOS Partition Separation",
+    "difficulty": "medium",
+    "stem": "How does iOS separate system and user data, and why does it matter forensically?",
+    "options": [
+      "A system partition holds the platform and built-in apps; a data partition holds user data, app data and downloaded apps — so user evidence concentrates in the data partition",
+      "Both reside on a single partition, with separation enforced only by file permissions",
+      "The system partition holds user data while the data partition holds the OS",
+      "Separation exists only on jailbroken devices"
+    ],
+    "answer": 0,
+    "explanation": "iOS keeps the platform and built-in apps on the system partition and user data, app data and downloaded apps on the data partition, maintaining separation for security and stability. This also tells the investigator where the probative material lives. Alongside this, every app runs sandboxed — isolated from other apps' data unless permission is explicitly granted — and regular users and apps have no root access to the file system.",
+    "trap": "Sandboxing means per-app containers. Evidence for one app is rarely visible from another's data."
+  },
+  {
+    "id": "C14-018",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "OWASP Mobile Top 10",
+    "difficulty": "medium",
+    "stem": "Which of these appears in the OWASP Top 10 Mobile Risks 2016?",
+    "options": [
+      "Insecure Data Storage",
+      "Server-Side Request Forgery",
+      "Broken Access Control",
+      "Security Logging and Monitoring Failures"
+    ],
+    "answer": 0,
+    "explanation": "The OWASP Top 10 Mobile Risks 2016 comprises Improper Platform Usage, Insecure Data Storage, Insecure Communication, Insecure Authentication, Insufficient Cryptography, Insecure Authorization, Client Code Quality, Code Tampering, Reverse Engineering and Extraneous Functionality. The other three options belong to the OWASP Top 10 web application risks, which is a separate list.",
+    "trap": "Two different OWASP lists. Mobile has Reverse Engineering and Code Tampering; web has SSRF and Broken Access Control."
+  },
+  {
+    "id": "C14-019",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Mobile Attack Surfaces",
+    "difficulty": "medium",
+    "stem": "Mobile attacks are grouped into which three surfaces?",
+    "options": [
+      "The device, the network, and the data center or cloud",
+      "The hardware, the firmware, and the application",
+      "The user, the carrier, and the manufacturer",
+      "The SIM, the handset, and the backup"
+    ],
+    "answer": 0,
+    "explanation": "Mobile attacks are organised by the device — jailbreaking and rooting, weak passcodes, insecure data storage, intent hijacking, baseband attacks, SMiShing; the network — rogue access points, packet sniffing, MITM, SSLStrip, fake certificates, DNS poisoning, BGP hijacking; and the data center or cloud — platform vulnerabilities, server misconfiguration, XSS, XSRF, SQL injection, privilege escalation and hypervisor attacks.",
+    "trap": "An investigation scoped only to the handset misses two thirds of the attack surface."
+  },
+  {
+    "id": "C14-020",
+    "section": "Digital Forensics",
+    "module": 14,
+    "topic": "Android Hardware Abstraction Layer",
+    "difficulty": "medium",
+    "stem": "What is the role of the Hardware Abstraction Layer in the Android stack?",
+    "options": [
+      "It exposes the device's hardware capabilities to the Java API framework above, sitting between the hardware and the software stack",
+      "It compiles Java bytecode into native machine code at install time",
+      "It manages the activity lifecycle of running applications",
+      "It provides the low-level device drivers for audio, display and Wi-Fi"
+    ],
+    "answer": 0,
+    "explanation": "The HAL exposes the device's hardware capabilities to the higher-level Java API framework, acting as an abstraction layer between the hardware and the software stack, with modules for audio, camera, Bluetooth, sensors and so on. Ahead-of-time and just-in-time compilation belong to the Android Runtime, activity lifecycle management to the Activity Manager in the Java API framework, and device drivers to the Linux kernel at the bottom of the stack.",
+    "trap": "HAL sits ABOVE the Linux kernel's drivers and BELOW the Java framework. Drivers and HAL are different layers."
+  },
+  {
     "id": "CH-101",
     "section": "Digital Evidence",
     "module": 1,

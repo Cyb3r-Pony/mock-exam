@@ -2275,5 +2275,435 @@ window.CARDS = [
     "deck": "Terms — Ch9 Malware",
     "front": "Raccoon and Vidar",
     "back": "Stealer malware used in the BlackCat chain to obtain domain administrator credentials during discovery and privilege escalation — before ExMatter exfiltrates the data."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "OWASP Top 10 (2021)",
+    "back": "1 Broken Access Control · 2 Cryptographic Failures · 3 Injection · 4 Insecure Design · 5 Security Misconfiguration · 6 Vulnerable and Outdated Components · 7 Identification and Authentication Failures · 8 Software and Data Integrity Failures · 9 Security Logging and Monitoring Failures · 10 Server-Side Request Forgery."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Watering hole attack",
+    "back": "A type of unvalidated redirect attack. The attacker compromises a site the target visits often, injects code, and waits for the victim to browse there. The compromised site is not the target."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Cross-site request forgery (CSRF)",
+    "back": "An authenticated user is made to perform tasks the attacker chooses — typically by clicking a link sent via email or chat. The user's own session supplies the authority."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Pass-the-cookie attack",
+    "back": "Attackers steal cookies from the victim's browser and inject them into their own session to bypass authentication — no credentials needed. Look for a valid session with no login event."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Clickjacking",
+    "back": "The target site is loaded in a low-opacity iframe with clickable elements positioned to match. The victim's clicks are genuine and authenticated, so input validation does not help."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Cookie poisoning vs cookie snooping",
+    "back": "Poisoning MODIFIES cookie contents to bypass authentication (an integrity attack). Snooping READS cookies to profile surfing habits (a confidentiality attack)."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Hidden field manipulation",
+    "back": "Attackers alter data in hidden form fields — commonly prices on e-commerce sites — and complete transactions at values of their choosing. Root cause: trusting client-supplied state."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "JavaScript / JSON hijacking",
+    "back": "Captures sensitive information from systems using JSON as a data carrier, exploiting flaws in the browser's same-origin policy that let one domain add code from another."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "DNS rebinding and same-site attacks",
+    "back": "DNS rebinding bypasses same-origin policy to make arbitrary requests to local domains from a malicious page. A same-site attack hosts the malicious site on a subdomain of the legitimate application."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "MarioNet attack",
+    "back": "Abuses the Service Workers API to inject and run malicious code in the victim's browser for cryptojacking, DDoS, click fraud and distributed password cracking."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "RC4 NOMORE attack",
+    "back": "Attacks the RC4 stream cipher on servers still using it, decrypting web cookies protected by HTTPS and injecting arbitrary packets. A stolen cookie then allows impersonation."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Attack obfuscation encodings",
+    "back": "The common methods are Unicode, UTF-8, Base64 and URL encoding. Signature-based IDS matches literal bytes, so decode and normalise log data before searching it."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Directory traversal encodings",
+    "back": "All decode to ../ — %2E%2E%2f (URI), %252E%252E%252F (double URI), ..%c0%af (Unicode/UTF-8). Searching logs for a literal ../ misses every variant."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "XSS obfuscation techniques",
+    "back": "Toggle case, replaced keywords, white space manipulation, hex encoding, in-line comments, char encoding. <sCRipT>, %3cscript%3e and %253cscript%253e all mean <script>."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Command injection operators",
+    "back": "&& runs next only if previous SUCCEEDS · || runs next only if previous FAILS · | pipes output onward · ; runs sequentially regardless · < input from file · > overwrite to file · >> append to file · backtick and $() execute."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "XXE attack in logs",
+    "back": "Look for XML input, plain or hex-encoded, in the query string. A DOCTYPE declaring an ENTITY with SYSTEM \"file:///...\" means the attacker made the parser read a local file."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "SQL injection log progression",
+    "back": "' or '1'='1 confirms the injection → UNION SELECT 1,2,3,4,5 counts vulnerable columns → database() retrieves the database name → information_schema.tables enumerates tables."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Apache core elements",
+    "back": "http_protocol (client data exchange and sockets) · http_main (startup, timeouts, main accept loop) · http_request (stepwise module procedure, error handling) · http_core (header file) · alloc.c (resource pools) · http_config (reads config, orders modules)."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "Indicators of a web attack",
+    "back": "Site or service unavailable · WAF/SIEM/IDS alerts · URLs redirected to wrong sites · 400-500 errors · slow network · frequent server reboots · page defacement · popups and spam in the app · search engines flagging the site · many requests for the same file."
+  },
+  {
+    "deck": "Terms — Ch10 Web",
+    "front": "DMZ",
+    "back": "A semi-trusted zone separating the untrusted Internet from the trusted internal network. Compromising a DMZ host that allows other DMZ protocols opens a path to other DMZs and internal systems."
+  },
+  {
+    "deck": "Procedures — Ch10 Web",
+    "front": "Web attack investigation steps",
+    "back": "Interview → locate and seize the servers forensically → image and duplicate → collect logs (web, application, database, WAF, system events, SIEM, IDS) and config files → protect integrity with encryption and checksums → analyse WORKING COPIES and correlate → trace the attacking IP → document everything."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Surface, deep and dark web",
+    "back": "Surface: indexed and public. Deep: not indexed — webmail, military and corporate data, legal dossiers. Dark: not indexed AND anonymised by encryption, reachable only via a special browser such as Tor."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor relay types",
+    "back": "ENTRY relay: entry point to the network — the client's IP can be read here. MIDDLE relay: second hop, passes encrypted data on. EXIT relay: sends data to the destination and appears as the traffic's origin."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor exit node and attribution",
+    "back": "The destination sees the exit relay as the origin. The exit IP identifies the network edge, not a person — the relay operator is not the author of the traffic."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor bridge nodes",
+    "back": "Proxies in the Tor network, many of them concealed rather than listed in the public directory. They let users circumvent blocking, so a relay blocklist will not reveal bridge use."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor Browser basis and hidden services",
+    "back": "Built on Mozilla Firefox and uses onion routing. Provides access to .onion sites; the hidden service protocol lets users host sites anonymously, reachable only from within the Tor network."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor ports",
+    "back": "9150 and 9151 for Tor Browser connections via Tor nodes. Detect with netstat -ano, which ties the port to the owning process ID."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor registry and state artifacts",
+    "back": "Execution path: HKEY_USERS\\<SID>\\SOFTWARE\\Mozilla\\Firefox\\Launcher. Last execution date and time: the state file at \\Tor Browser\\Browser\\TorBrowser\\Data\\Tor\\."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor places.sqlite",
+    "back": "At \\Tor Browser\\Browser\\TorBrowser\\Data\\Browser\\profile.default. Holds bookmarks, history and visited sites in tables moz_places, moz_historyvisits and moz_bookmarks."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor memory dump conditions",
+    "back": "Evidence differs by state at capture: browser OPEN (richest — emails, URLs, attachments names), browser CLOSED (reduced), browser UNINSTALLED (nothing in memory). Capture RAM first."
+  },
+  {
+    "deck": "Terms — Ch11 Dark Web",
+    "front": "Tor prefetch artifacts",
+    "back": "C:\\WINDOWS\\Prefetch, read with WinPrefetchView. Gives created and last-run timestamps, run count, execution directory, filename and size. Survives uninstallation — proves execution, not content."
+  },
+  {
+    "deck": "Procedures — Ch11 Dark Web",
+    "front": "Dark web investigation is endpoint forensics",
+    "back": "The network defeats tracing by design, so work the suspect machine: memory dump, prefetch, Launcher registry key, state file and places.sqlite. Destination logs show only the exit relay."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud as subject / object / tool",
+    "back": "SUBJECT: crime committed within the cloud (stealing cloud account identities). OBJECT: the CSP is the target (DDoS against the cloud). TOOL: the cloud is used to commit a crime (attacking other clouds, storing evidence)."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud service models",
+    "back": "IaaS (VMs, hardware) · PaaS (dev and deployment platforms) · SaaS (software on demand) · IDaaS (SSO, MFA, IGA) · SECaaS (pen testing, IDS, anti-malware, SIEM) · CaaS (containers, clusters) · FaaS (microservice functions) · XaaS (anything on demand)."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Wrapping attack",
+    "back": "Performed during SOAP message translation in the TLS layer: the attacker duplicates the message body and sends it as a legitimate user. The server validates one body and executes the other."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Man-in-the-Cloud (MITC)",
+    "back": "Abuses cloud file sync services such as Google Drive or Dropbox. Sync tokens authenticate the app but cannot tell malicious traffic from normal — a stolen token needs no password and survives password resets."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud hopper attack",
+    "back": "Triggered at managed service providers and their customers. One MSP compromise yields remote access to the IP and critical data of all its customers, with lateral movement through the cloud environment."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloudborne attack",
+    "back": "A firmware backdoor implanted in a bare-metal cloud server. If the firmware re-flash during reclamation is done improperly, the backdoor survives reallocation to a new customer. Reimaging the OS does not remove it."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "CPDoS / CDN cache poisoning",
+    "back": "Malformed or oversized HTTP requests make the origin server return error content, which the CDN caches and serves to legitimate users — a denial of service achieved with very little traffic. Caused by CDN misconfiguration."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud snooper attack",
+    "back": "Triggered at AWS security groups to compromise the target server and extract data stealthily, leveraging a weakly configured firewall or underlying vulnerabilities."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Golden SAML attack",
+    "back": "Targets cloud identity providers such as ADFS. With admin access to the IdP, attackers abuse token signing certificates to forge SAML assertions. The forged tokens are cryptographically valid — MFA and password resets do not revoke them."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Side-channel / cross-guest VM breach",
+    "back": "The attacker runs a VM on the same physical host as the target and exploits shared resources such as processor cache — timing, data remanence, acoustic cryptanalysis, power monitoring, differential fault analysis — to extract keys."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud DNS attacks",
+    "back": "DNS poisoning (divert to a spoofed site) · Cybersquatting (register a lookalike CSP domain for phishing) · Domain hijacking (steal a CSP domain) · Domain snipping (register an expired domain)."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Session riding vs XSS session hijacking",
+    "back": "Riding uses CSRF — the victim's browser sends the command and the site executes it as the authenticated user. XSS hijacking steals the cookie and replays it. Riding borrows the browser; hijacking takes the cookie."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Evaporation of logs",
+    "back": "Some cloud logs live in volatile memory on VM instances and vanish when the instance is switched off. Shutting down a suspect instance to preserve it destroys them — snapshot and capture while it runs."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Decentralization of logs",
+    "back": "Cloud log information is not held on a central log server but distributed across servers and generated at every tier (application, network, OS, database), in heterogeneous formats of varying usefulness."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Evidence segregation in multi-tenancy",
+    "back": "Isolating one tenant's evidence cannot be achieved without breaching other tenants' confidentiality. Related: cloud confiscation and resource seizure can disrupt the business continuity of uninvolved tenants."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "No single point of failure for criminals",
+    "back": "A suspect may store data with one CSP, buy compute from a second and route communications through a third — so evidence must be collected from distributed, disparate and uncooperative sources."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud metadata is unreliable",
+    "back": "Creation, last accessed and last modified dates can change when data moves into and within the cloud and during gathering. Check whether the CSP preserves metadata and what each field actually records."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Reputation fate sharing",
+    "back": "Spammers' use of CSP IP addresses gets them blacklisted; legitimate customers later assigned those addresses inherit the disruption. The harm outlives the incident and lands on innocent parties."
+  },
+  {
+    "deck": "Terms — Ch12 Cloud",
+    "front": "Cloud characteristics",
+    "back": "On-demand self-service · distributed storage · rapid elasticity · automated management · broad network access · resource pooling (multi-tenancy) · measured service (pay-per-use) · virtualization technology."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "MUA, MTA, MDA",
+    "back": "MUA = email client the user reads and writes with (Outlook, Thunderbird). MTA = mail server routing between servers (Sendmail, Exim, Postfix). MDA = delivers the message into the recipient's mailbox (Dovecot)."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Email protocol ports",
+    "back": "SMTP 25 (sending between servers) · POP3 110 (retrieval) · IMAP 143 · IMAPS (IMAP over SSL) 993. Traffic on 143 may be readable in a capture; 993 will not be."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Received headers",
+    "back": "Generated every time the message transits an MTA, each one modifying the header. They record every mail server on the route. Read them from the BOTTOM UP — the most recent sits at the top."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Message ID structure",
+    "back": "Before the @ = the timestamp associated with the message. After the @ = the fully qualified domain name. An FQDN disagreeing with the claimed sending domain is a spoofing indicator."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Return-Path",
+    "back": "The address a message returns to if delivery fails. If it differs from the sender's address, that generally indicates spoofing — though forwarders and mailing lists also rewrite it."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Received-SPF",
+    "back": "Sender Policy Framework lets a domain designate which servers may send on its behalf. A failed SPF check helps detect spam and forgery. SPF authorises the SENDING SERVER, not the visible From address."
+  },
+  {
+    "deck": "Procedures — Ch13 Email",
+    "front": "Email crime investigation steps",
+    "back": "1 Seize the computer and email accounts · 2 Acquire the email data · 3 Examine the messages · 4 Retrieve the headers · 5 Analyse the headers · 6 Recover deleted messages."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Outlook PST vs OST",
+    "back": "PST (Personal Storage Table): certain POP accounts, at C:\\Users\\%USERNAME%\\Documents\\Outlook Files. OST (Offline Storage Table): Exchange, Office 365 and IMAP accounts, at ...\\AppData\\Local\\Microsoft\\Outlook."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Thunderbird storage",
+    "back": "Profiles at ...\\AppData\\Roaming\\Thunderbird\\Profiles, named <8 random chars>.<profile_name>. Messages are MBOX files with NO extension, named exactly after the folder (Inbox → INBOX). The .sbd folder holds the other folders."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Deleted email recovery",
+    "back": "Outlook: deleted → Deleted Items → unallocated space; recoverable until overwritten. Thunderbird: deleted → trash folder until cleared; messages deleted from Local Folders Trash can be completely recovered."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Suspicious attachment extensions",
+    "back": ".exe, .vbs, .js, .wsf and .zip. Archives are on the list because they defeat extension filtering and conceal the real payload type."
+  },
+  {
+    "deck": "Regulations — Ch13 Email",
+    "front": "CAN-SPAM Act requirements",
+    "back": "No false headers · no deceptive subject lines · identify the message as an ad · include a valid physical postal address · explain how to opt out · honour opt-outs within 10 BUSINESS DAYS. Both advertiser and contracted sender are liable."
+  },
+  {
+    "deck": "Regulations — Ch13 Email",
+    "front": "CAN-SPAM penalties",
+    "back": "Financial penalties up to $50,120. Criminal penalties and imprisonment for: accessing another's computer to send spam, false registration of accounts or domains, relaying spam to disguise origin, address harvesting or dictionary attacks, abusing open relays or proxies."
+  },
+  {
+    "deck": "Terms — Ch13 Email",
+    "front": "Email crimes: committed by vs supported by",
+    "back": "Committed BY sending email: spamming, phishing, mail bombing, mail storms. Supported BY email: identity fraud, cyberstalking and other nefarious activities."
+  },
+  {
+    "deck": "Terms — Ch13 Social Media",
+    "front": "Social media artifacts",
+    "back": "Images, videos, posts, location tags, shared links · direct messages, group chats, comments · profiles, friend lists, followers · timestamps, geolocation and device information. The metadata is often more probative than the content."
+  },
+  {
+    "deck": "Terms — Ch13 Social Media",
+    "front": "Social media forensics challenges",
+    "back": "Huge, constantly edited volume · diverse formats · strict privacy laws complicating authorisation · dynamic evidence threatening chain of custody · cross-border legal issues · evolving platforms · anonymity services · code words, encryption, steganography and obfuscation."
+  },
+  {
+    "deck": "Procedures — Ch14 Mobile",
+    "front": "Seizing a phone by power state",
+    "back": "ON and UNLOCKED: enable Stay Awake and connect to power. ON and LOCKED: connect to power so it does not shut down. OFF: leave it off — powering on could alter the evidence."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "DFU vs Recovery mode",
+    "back": "DFU is part of bootROM and yields device information without the passcode or bypassing USB restricted mode — the ACQUISITION mode. Recovery invokes iBoot to restore signed firmware — a RESTORE mode that can overwrite evidence."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "DFU boot chain",
+    "back": "BootROM signature-checks iBSS and iBEC → iBEC checks the kernel → the kernel checks the RamDisk and loads it into RAM. Each stage verifies the next, anchored in the immutable BootROM."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Jailbreak types",
+    "back": "UNTETHERED: reboots fully patched, no computer needed. TETHERED: loses the patch and may hang until re-jailbroken with a computer. SEMI-TETHERED: boots usable but unpatched; needs a computer to re-patch. SEMI-UNTETHERED: boots unpatched but can be re-patched without a computer."
+  },
+  {
+    "deck": "Procedures — Ch14 Mobile",
+    "front": "Jailbreaking risk in forensics",
+    "back": "Requires Internet connectivity, exposing the device to pending remote wipe commands. Early-iOS jailbreaks bypassing Kernel Patch Protection can make the device unbootable. NIST: investigator actions must not compromise evidence relied on in court."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Logical acquisition limits",
+    "back": "Copies the logical storage — directories and user-accessible files, and full device backups. It CANNOT capture system files or deleted data; those need physical acquisition or SQLite freelist/WAL analysis."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "JTAG forensics",
+    "back": "Physical extraction via Test Access Ports soldered to the board, used when no compatible tool supports the device. Works on pattern/PIN locked devices. The chip stays ON the board."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Chip-off forensics",
+    "back": "Complete bit-stream imaging after physically REMOVING the flash memory (NAND, NOR, eMMC, eMCP). Works on locked and on damaged or dismantled devices. Destructive — the last resort after JTAG."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "SQLite deleted data structures",
+    "back": "Freelists, journal files, write-ahead log (WAL) files and unallocated space inside the database. SQLite marks pages reusable rather than wiping them, so deleted rows commonly survive in the freelist."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Cellular network components",
+    "back": "MSC: the switching system. BSC: manages transceiver equipment, assigns channels. BTS: the radio transceiver talking to handsets. HLR: subscriber database at the MSC. VLR: database for phones roaming outside their area. BSS = BSC + BTS + Transcoder."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "CDR contents",
+    "back": "A-party (calling number) · B-party (called number) · start time · duration · billing number · exchange identification · unique sequence number · extra routing digits · call disposition · inbound and outbound routes · call type (voice, SMS) · fault conditions."
+  },
+  {
+    "deck": "Procedures — Ch14 Mobile",
+    "front": "When service provider data is essential",
+    "back": "When the suspect deleted call history or messages and the deletion cannot be reversed on the device, and when location-based services were never enabled. Yields owner location, CDRs, billing data, and stationary-vs-moving state."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "SIM file system",
+    "back": "Hierarchical: MF (Master File, the root) → DF (Dedicated Files, directories) → EF (Elementary Files, the data). It resides in the SIM's non-volatile memory."
+  },
+  {
+    "deck": "Procedures — Ch14 Mobile",
+    "front": "SIM handling",
+    "back": "Clone or duplicate the SIM before examination to avoid tampering with the original. A live SIM in a live handset updates LOCI and TMSI on network contact, altering the evidence."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "iOS system vs data partition",
+    "back": "System partition: the iOS platform and built-in apps. Data partition: user data, app data and downloaded apps. Each app is additionally sandboxed, so one app cannot read another's data without permission."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "OWASP Top 10 Mobile Risks (2016)",
+    "back": "Improper Platform Usage · Insecure Data Storage · Insecure Communication · Insecure Authentication · Insufficient Cryptography · Insecure Authorization · Client Code Quality · Code Tampering · Reverse Engineering · Extraneous Functionality."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Mobile attack surfaces",
+    "back": "THE DEVICE (rooting/jailbreaking, weak passcode, insecure storage, intent hijacking, baseband, SMiShing) · THE NETWORK (rogue AP, sniffing, MITM, SSLStrip, fake certificates, DNS poisoning, BGP hijacking) · THE DATA CENTER/CLOUD (XSS, XSRF, SQLi, privilege escalation, hypervisor attacks)."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Android Hardware Abstraction Layer",
+    "back": "Exposes the device's hardware capabilities to the Java API framework above, sitting between the hardware and the software stack. Modules for audio, camera, Bluetooth, sensors. Above the kernel's drivers, below the framework."
+  },
+  {
+    "deck": "Terms — Ch14 Mobile",
+    "front": "Mobile data acquisition methods",
+    "back": "Cellular data acquisition · file system acquisition · logical acquisition · physical acquisition · cloud data acquisition. Choice depends on time constraints, what the device supports, need for live data, deleted-data recovery, third-party app data and available tools."
   }
 ];

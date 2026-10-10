@@ -1224,13 +1224,13 @@ window.QS = [
     "difficulty": "hard",
     "stem": "Within Firefox's places.sqlite, which tables hold downloads, URLs and website visits?",
     "options": [
-      "moz_annos for downloads, moz_places for URLs, moz_historyvisit for visits",
+      "moz_annos for downloads, moz_places for URLs, moz_historyvisits for visits",
       "moz_downloads for downloads, moz_history for URLs, moz_visits for visits",
       "moz_cookies for downloads, moz_places for URLs, moz_bookmarks for visits",
       "moz_places for downloads, moz_annos for URLs, moz_hosts for visits"
     ],
     "answer": 0,
-    "explanation": "places.sqlite records downloads in the moz_annos table, URLs in moz_places, and website visits in moz_historyvisit. Separately, cookies.sqlite stores its data in a moz_cookies table with columns including baseDomain, host, lastAccessed and creationTime.",
+    "explanation": "places.sqlite records downloads in the moz_annos table, URLs in moz_places, and website visits in moz_historyvisits. (The slide prints this without the trailing s; the actual Firefox table is moz_historyvisits.) Separately, cookies.sqlite stores its data in a moz_cookies table with columns including baseDomain, host, lastAccessed and creationTime.",
     "trap": "Downloads are in moz_ANNOS — an annotations table, not an obvious 'downloads' table."
   },
   {
@@ -4405,7 +4405,7 @@ window.QS = [
       "Completeness"
     ],
     "answer": 2,
-    "explanation": "Evidence should be admissible, authentic, complete, reliable, and believable/understandable. An unrepeatable process directly attacks reliability — another examiner cannot verify the result. This will in turn threaten admissibility, but the primary characteristic compromised is reliability. Authenticity concerns whether the evidence is what it purports to be; completeness concerns whether it tells the whole story.",
+    "explanation": "The rules of evidence are Understandable, Admissible, Authentic, Reliable, Complete and Materiality. An unrepeatable process directly attacks reliability — another examiner cannot verify the result. This will in turn threaten admissibility, but the primary characteristic compromised is reliability. Authenticity concerns whether the evidence is what it purports to be; completeness concerns whether it tells the whole story.",
     "trap": "Admissibility is the CONSEQUENCE; the question asks which characteristic broke first."
   },
   {
@@ -5427,9 +5427,9 @@ window.QS = [
       "With the hard drive in the suspect PC, check the date and time in the File Allocation Table",
       "With the hard drive removed from the suspect PC, check the date and time in the system's RAM"
     ],
-    "answer": 0,
-    "explanation": "CMOS/BIOS clocks drift or are deliberately altered, so the offset between CMOS time and real time must be documented at the scene as part of initial documentation — before the drive is removed — so every recovered timestamp can be corrected during timeline analysis. The File Allocation Table holds no system clock, and RAM is volatile and unrelated to a removed drive.",
-    "trap": "The sequencing matters: this is done with the drive still installed, as part of scene documentation."
+    "answer": 1,
+    "explanation": "Reading the CMOS/BIOS clock requires powering the machine on. If the suspect drive is still installed, powering on boots the operating system and alters the evidence — mount counts, journal entries, last-access times. So the drive is removed FIRST, then the machine is powered on to read the CMOS clock and record its offset from real time, so every recovered timestamp can be corrected during timeline analysis. The File Allocation Table holds no system clock, and RAM is volatile and empty on a cold boot.",
+    "trap": "The sequencing is the whole question: REMOVE THE DRIVE, then check CMOS. Powering on a suspect machine with its drive installed is exactly what you must never do."
   },
   {
     "id": "ES-608",
@@ -5446,7 +5446,7 @@ window.QS = [
       "CERT Coordination Center"
     ],
     "answer": 0,
-    "explanation": "The National Infrastructure Protection Center (NIPC) is the expected answer as the coordinating body for computer crime investigations nationally. The Internet Fraud Complaint Center — now IC3 — handles complaint intake; the Secret Service investigates specific financial and cyber crimes as one agency among several; CERT/CC at Carnegie Mellon does vulnerability research and advisories, not law enforcement coordination.",
+    "explanation": "The National Infrastructure Protection Center is the expected answer as the national coordinating body for computer crime investigations. Note for accuracy: the NIPC was established in 1998 and absorbed into the Department of Homeland Security in 2003, so it no longer exists as a standalone body — but it remains the keyed answer in this courseware. The Internet Fraud Complaint Center (now IC3) takes public complaints rather than coordinating investigations.",
     "trap": "NIPC was disbanded in 2003 and folded into DHS. Answer it anyway — the item bank predates that."
   },
   {

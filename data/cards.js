@@ -964,7 +964,7 @@ window.CARDS = [
   {
     "deck": "File Systems",
     "front": "MBR structure — the three parts and their sizes",
-    "back": "MASTER BOOT CODE / BOOT STRAP — executable code that loads the OS into memory: 446 BYTES\nPARTITION TABLE — data on all hard disk partitions: 64 BYTES (describes only FOUR primary/physical partitions; all others are logical partitions linked to a primary)\nDISK SIGNATURE — at the END of the MBR, 2 BYTES, required by BIOS during booting\n446 + 64 + 2 = 512 bytes = one sector."
+    "back": "MASTER BOOT CODE / BOOT STRAP — executable code that loads the OS into memory: 446 BYTES\nPARTITION TABLE — data on all hard disk partitions: 64 BYTES (describes only FOUR primary/physical partitions; all others are logical partitions linked to a primary)\nSIGNATURE WORD — the 0x55AA marker at the END of the MBR, 2 BYTES, which BIOS checks during booting\n446 + 64 + 2 = 512 bytes = one sector.\nDO NOT CONFUSE: the 2-byte end marker is the SIGNATURE WORD. The DISK SIGNATURE is a separate, optional 4-byte field at offset 0x1B8."
   },
   {
     "deck": "File Systems",
@@ -1564,7 +1564,7 @@ window.CARDS = [
   {
     "deck": "Terms — Ch1 Foundations",
     "front": "ACPO / NPCC",
-    "back": "The Association of Chief Police Officers' principles of digital evidence, since inherited by the NPCC. Four principles governing whether and how original data may be touched."
+    "back": "The Association of Chief Police Officers' four principles of digital evidence, inherited by the NPCC.\n1. No action should change data held on a device that may subsequently be relied upon in court.\n2. A person accessing original data must be COMPETENT to do so and able to explain and justify their actions.\n3. An audit trail of all processes applied should be created and preserved, so an independent third party can repeat them and reach the same result.\n4. The person in charge of the investigation has overall responsibility for ensuring these are followed."
   },
   {
     "deck": "Terms — Ch1 Foundations",
@@ -1699,7 +1699,7 @@ window.CARDS = [
   {
     "deck": "Terms — Ch6 Browsers",
     "front": "places.sqlite",
-    "back": "The Firefox history database. Downloads are in the moz_annos table, URLs in moz_places, website visits in moz_historyvisit."
+    "back": "The Firefox history database. Downloads are in the moz_annos table, URLs in moz_places, website visits in moz_historyvisits."
   },
   {
     "deck": "Terms — Ch6 Browsers",

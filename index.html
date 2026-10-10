@@ -32,6 +32,12 @@
     <div class="card">
       <div class="row">
         <select id="deckSel" aria-label="Deck"></select>
+        <select id="cardFilter" aria-label="Which cards to show">
+          <option value="all">All cards</option>
+          <option value="work">Needs work — unseen + didn't know</option>
+          <option value="bad">Only "didn't know"</option>
+          <option value="new">Only not yet seen</option>
+        </select>
         <button id="shuf">Shuffle</button>
         <button id="resetDeck">Reset deck</button>
         <span class="spacer"></span>

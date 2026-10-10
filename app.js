@@ -71,13 +71,34 @@ let deck=[],di=0,flipped=false;
 const decks=[...new Set(CARDS.map(c=>c.deck))];
 $('deckSel').innerHTML='<option value="">All decks ('+CARDS.length+')</option>'+
   decks.map(d=>`<option value="${esc(d)}">${esc(d)} (${CARDS.filter(c=>c.deck===d).length})</option>`).join('');
+/* The marks have to change what you are shown, or there is no reason to press
+   them. 'g' = knew it, 'b' = didn't know, undefined = never seen. */
+function cardMatches(c){
+  const m=S.cards[c.front];
+  switch($('cardFilter').value){
+    case 'work': return m!=='g';          // unseen or missed — the default drill
+    case 'bad':  return m==='b';
+    case 'new':  return m===undefined;
+    default:     return true;
+  }
+}
+const deckScope=()=>{const f=$('deckSel').value;return CARDS.filter(c=>!f||c.deck===f)};
 function buildDeck(){
-  const f=$('deckSel').value;
-  deck=shuffle(CARDS.filter(c=>!f||c.deck===f));
+  deck=shuffle(deckScope().filter(cardMatches));
+  labelFilters();
   di=0;showCard();
 }
 function showCard(){
-  if(!deck.length){$('fcQ').textContent='No cards in this deck';$('fcA').classList.add('hidden');$('fcCount').textContent='0 / 0';return}
+  if(!deck.length){
+    const fv=$('cardFilter').value;
+    $('fcQ').textContent = fv==='all' ? 'No cards in this deck'
+      : fv==='new' ? 'Nothing new left here — you have seen every card in this deck.'
+      : fv==='bad' ? 'Nothing marked "didn\'t know" in this deck.'
+      : 'Nothing left to work on — every card here is marked known.';
+    $('fcDeck').textContent='';
+    $('fcA').classList.add('hidden');$('fcHint').classList.add('hidden');
+    $('fcCount').textContent='0 / 0';$('fcBar').style.width='0%';return}
+  $('fcHint').classList.remove('hidden');
   if(di>=deck.length)di=0;
   if(di<0)di=deck.length-1;
   const c=deck[di];flipped=false;
@@ -87,8 +108,8 @@ function showCard(){
   $('fcA').classList.add('hidden');
   $('fcHint').classList.remove('hidden');
   $('fcCount').textContent=(di+1)+' / '+deck.length;
-  const known=deck.filter(x=>S.cards[x.front]==='g').length;
-  $('fcBar').style.width=(100*known/deck.length)+'%';
+  const scope=deckScope(), known=scope.filter(x=>S.cards[x.front]==='g').length;
+  $('fcBar').style.width=(scope.length?100*known/scope.length:0)+'%';
 }
 function flip(){if(flipped)return;flipped=true;$('fcA').classList.remove('hidden');$('fcHint').classList.add('hidden')}
 function nextCard(){di++;showCard()}
@@ -100,9 +121,19 @@ $('fcCard').onkeydown=e=>{
   if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();flipped?nextCard():flip()}
 };
 $('deckSel').onchange=buildDeck;
+$('cardFilter').onchange=buildDeck;
+function labelFilters(){
+  const sc=deckScope(), n=f=>sc.filter(c=>{const m=S.cards[c.front];
+    return f==='work'?m!=='g':f==='bad'?m==='b':f==='new'?m===undefined:true}).length;
+  const o=$('cardFilter').options;
+  o[0].textContent='All cards ('+sc.length+')';
+  o[1].textContent='Needs work ('+n('work')+')';
+  o[2].textContent='Only "didn\'t know" ('+n('bad')+')';
+  o[3].textContent='Only not yet seen ('+n('new')+')';
+}
 $('shuf').onclick=buildDeck;
-$('resetDeck').onclick=()=>{deck.forEach(c=>delete S.cards[c.front]);save();buildDeck()};
-function mark(v){if(!deck.length)return;S.cards[deck[di].front]=v;save();nextCard()}
+$('resetDeck').onclick=()=>{deckScope().forEach(c=>delete S.cards[c.front]);save();buildDeck()};
+function mark(v){if(!deck.length)return;S.cards[deck[di].front]=v;save();labelFilters();nextCard()}
 $('fcGood').onclick=()=>mark('g');
 $('fcBad').onclick=()=>mark('b');
 

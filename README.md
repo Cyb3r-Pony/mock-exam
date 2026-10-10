@@ -17,6 +17,10 @@ from `file://` as well as over http.
 ## Use
 
 - **Flashcards** — tap or click to reveal, swipe left/right to move, mark known / not known.
+  The marks drive the deck filter: **Needs work** serves everything you have not
+  marked known (unseen plus missed), **Only "didn't know"** re-drills your misses,
+  **Only not yet seen** serves fresh cards. Progress is per-browser `localStorage` —
+  no account, and no sync between your phone and your laptop.
 - **Exam** — 25 / 50 / 100 question sessions, or a full blueprint-weighted paper.
   Modes: blueprint-weighted, weak-area drill, long-form cases, official bank,
   short-form, single section, single module, and re-drill of what you got wrong.

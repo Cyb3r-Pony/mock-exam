@@ -27,8 +27,10 @@ from `file://` as well as over http.
 
 ## Keyboard
 
-`A`–`D` select an answer · `Enter` next · `Space` reveal a flashcard · `1` / `2` mark
-it unknown / known · `←` `→` move between cards.
+`A`–`D` select an answer · `Enter` next · `Space` reveal a flashcard, then move to
+the next one · `1` / `2` mark it unknown / known · `←` `→` move between cards.
+
+Space never marks a card — only `1` and `2` do.
 
 ## Privacy
 

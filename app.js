@@ -8,7 +8,7 @@ const WEAK = ["Tools/Systems/Programs","Digital Evidence","Procedures and Method
 const PASS_PCT = 72;
 
 const LS="mock_exam_trainer";
-const DEFAULTS={cards:{},qs:{},sessions:[],served:{},theme:null};
+const DEFAULTS={cards:{},qs:{},sessions:[],served:{},theme:null,v:2};
 let S;
 try{ S=Object.assign({},DEFAULTS,JSON.parse(localStorage.getItem(LS)||'{}')); }
 catch(e){ S=Object.assign({},DEFAULTS); }
@@ -40,7 +40,11 @@ function showTab(name){
   ['drill','exam','stats'].forEach(s=>$(s).classList.toggle('hidden',s!==name));
   if(name==='stats')renderStats();
   if(name!=='exam') endExam(false);
-  else if(!exam){ $('examRun').classList.add('hidden'); $('examSetup').classList.remove('hidden'); $('foot').classList.add('hidden'); }
+  else if(!exam){
+    $('examRun').classList.add('hidden'); $('foot').classList.add('hidden');
+    // don't bury a results screen the user hasn't dismissed yet
+    if($('examDone').classList.contains('hidden')) $('examSetup').classList.remove('hidden');
+  }
 }
 document.querySelectorAll('.tab').forEach(t=>{
   t.onclick=()=>showTab(t.dataset.t);
@@ -48,13 +52,28 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 /* ---------- flashcards ---------- */
+/* Card progress is keyed by card FRONT, not by array position. build.py
+   guarantees fronts are unique, and a front survives cards being added or
+   reordered — an index does not, so index keys silently reassigned a user's
+   progress to unrelated cards every time the deck grew. v1 state used indices;
+   migrate it once through the current array, which is correct because cards
+   have only ever been appended. */
+if(S.v!==2){
+  const old=S.cards||{},next={};
+  for(const k of Object.keys(old)){
+    const c=/^\d+$/.test(k)?CARDS[+k]:null;
+    if(c&&c.front)next[c.front]=old[k];
+    else if(!/^\d+$/.test(k))next[k]=old[k];
+  }
+  S.cards=next;S.v=2;
+}
 let deck=[],di=0,flipped=false;
 const decks=[...new Set(CARDS.map(c=>c.deck))];
 $('deckSel').innerHTML='<option value="">All decks ('+CARDS.length+')</option>'+
   decks.map(d=>`<option value="${esc(d)}">${esc(d)} (${CARDS.filter(c=>c.deck===d).length})</option>`).join('');
 function buildDeck(){
   const f=$('deckSel').value;
-  deck=shuffle(CARDS.map((c,i)=>({...c,i})).filter(c=>!f||c.deck===f));
+  deck=shuffle(CARDS.filter(c=>!f||c.deck===f));
   di=0;showCard();
 }
 function showCard(){
@@ -68,16 +87,22 @@ function showCard(){
   $('fcA').classList.add('hidden');
   $('fcHint').classList.remove('hidden');
   $('fcCount').textContent=(di+1)+' / '+deck.length;
-  const known=deck.filter(x=>S.cards[x.i]==='g').length;
+  const known=deck.filter(x=>S.cards[x.front]==='g').length;
   $('fcBar').style.width=(100*known/deck.length)+'%';
 }
 function flip(){if(flipped)return;flipped=true;$('fcA').classList.remove('hidden');$('fcHint').classList.add('hidden')}
+function nextCard(){di++;showCard()}
 $('fcCard').onclick=flip;
-$('fcCard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};
+/* stopPropagation matters: without it the keypress ALSO reached the global
+   handler below, which saw flipped===true and silently marked the card known
+   and advanced — so Space appeared to "skip" instead of revealing. */
+$('fcCard').onkeydown=e=>{
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();flipped?nextCard():flip()}
+};
 $('deckSel').onchange=buildDeck;
 $('shuf').onclick=buildDeck;
-$('resetDeck').onclick=()=>{deck.forEach(c=>delete S.cards[c.i]);save();buildDeck()};
-function mark(v){if(!deck.length)return;S.cards[deck[di].i]=v;save();di++;showCard()}
+$('resetDeck').onclick=()=>{deck.forEach(c=>delete S.cards[c.front]);save();buildDeck()};
+function mark(v){if(!deck.length)return;S.cards[deck[di].front]=v;save();nextCard()}
 $('fcGood').onclick=()=>mark('g');
 $('fcBad').onclick=()=>mark('b');
 
@@ -159,12 +184,15 @@ $('startEx').onclick=()=>{
   renderQ();
 };
 const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+// count the current question once it has been answered, so the bar reaches 100%
+const setExBar=()=>{ if(!exam)return;
+  $('exBar').style.width=(100*(exam.i+(exam.shown?1:0))/exam.qs.length)+'%' };
 function renderQ(){
   const q=exam.qs[exam.i];exam.shown=false;exam.pick=undefined;
   $('exProg').textContent='Q '+(exam.i+1)+' / '+exam.qs.length;
   $('exSec').textContent=q.section;
   $('exScore').textContent=exam.right+' correct';
-  $('exBar').style.width=(100*exam.i/exam.qs.length)+'%';
+  setExBar();
   $('exMeta').textContent=(q.source==='official'?'★ OFFICIAL · ':'')+'Module '+String(q.module).padStart(2,'0')+' · '+q.topic+' · '+q.difficulty;
   if(q.caseId&&q.caseText){
     const sib=exam.qs.filter(x=>x.caseId===q.caseId);
@@ -180,7 +208,8 @@ function renderQ(){
   $('exNext').innerHTML='Next <kbd>↵</kbd>';
   document.querySelectorAll('#exOpts .opt').forEach(el=>{
     el.onclick=()=>choose(+el.dataset.o);
-    el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(+el.dataset.o)}};
+    el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();e.stopPropagation();choose(+el.dataset.o)}};
   });
   try{window.scrollTo({top:0,behavior:'instant'})}catch(e){window.scrollTo(0,0)}
 }
@@ -209,6 +238,7 @@ function reveal(){
   $('exFb').innerHTML=`<div class="expl"><b class="${ok?'ok':'bad'}">${ok?'Correct.':'Incorrect.'}</b> ${esc(q.explanation)}</div>`+
     (q.trap?`<div class="trap"><b>Watch for:</b> ${esc(q.trap)}</div>`:'');
   $('exScore').textContent=exam.right+' correct';
+  setExBar();
   $('exNext').innerHTML=(exam.i===exam.qs.length-1?'Finish':'Next')+' <kbd>↵</kbd>';
 }
 $('exNext').onclick=()=>{
@@ -220,7 +250,11 @@ $('exNext').onclick=()=>{
   if(exam.i>=exam.qs.length-1){finish();return}
   exam.i++;renderQ();
 };
-$('exQuit').onclick=()=>{if(exam&&(exam.ans.length===0||confirm('End this session?')))finish()};
+$('exQuit').onclick=()=>{
+  if(!exam)return;
+  if(!exam.ans.length){endExam();updatePool();return}   // nothing to score
+  if(confirm('End this session?'))finish();
+};
 function endExam(showSetup){
   if(timer){clearInterval(timer);timer=null}
   exam=null;
@@ -269,7 +303,7 @@ function finish(){
 /* ---------- stats ---------- */
 function renderStats(){
   const seen=Object.keys(S.qs).length, right=Object.values(S.qs).filter(v=>v==='r').length;
-  const known=Object.values(S.cards).filter(v=>v==='g').length;
+  const known=CARDS.filter(c=>S.cards[c.front]==='g').length;
   const bySec={};
   QS.forEach(q=>{const v=S.qs[q.id];if(!v)return;bySec[q.section]=bySec[q.section]||{n:0,r:0};bySec[q.section].n++;if(v==='r')bySec[q.section].r++});
   const rows=Object.entries(bySec).sort((a,b)=>a[1].r/a[1].n-b[1].r/b[1].n).map(([s,v])=>{
@@ -319,9 +353,11 @@ document.onkeydown=e=>{
   if(e.metaKey||e.ctrlKey||e.altKey)return;
   const onDrill=!$('drill').classList.contains('hidden');
   if(onDrill){
-    if(e.code==='Space'){e.preventDefault();flipped?mark('g'):flip()}
+    /* Space reveals, then advances. It never marks — marking is 1 and 2 only,
+       as the on-screen hint and the README both say. */
+    if(e.code==='Space'){e.preventDefault();flipped?nextCard():flip()}
     else if(e.key==='1')mark('b'); else if(e.key==='2')mark('g');
-    else if(e.key==='ArrowRight'){di++;showCard()} else if(e.key==='ArrowLeft'){di--;showCard()}
+    else if(e.key==='ArrowRight')nextCard(); else if(e.key==='ArrowLeft'){di--;showCard()}
   } else if(exam){
     const k=(e.key||'').toLowerCase();
     if('abcd'.includes(k)&&k.length===1){
